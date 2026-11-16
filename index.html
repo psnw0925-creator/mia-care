@@ -6,13 +6,13 @@
 <title>Mia 陪伴・Mia Tarot 塔羅療癒</title>
 <meta name="description" content="Mia Tarot：每日一抽、塔羅牌陣與全能量檢測；療癒服務後的陪伴與總結報告。">
 <meta name="theme-color" content="#F5EEDF">
-<meta name="mia-version" content="5.0.0-測試版 1">
+<meta name="mia-version" content="5.0.0-測試版 2">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3CradialGradient id='g' cx='.35' cy='.3' r='.8'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='.45' stop-color='%23C4DAF3'/%3E%3Cstop offset='1' stop-color='%2356709F'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='16' cy='16' r='13' fill='url(%23g)'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;600&family=Cormorant+Garamond:wght@500;600&display=swap">
 <script>
-/* ===== Mia 陪伴 5.0.0-測試版 1：設定只要改這一段 ===== */
+/* ===== Mia 陪伴 5.0.0-測試版 2：設定只要改這一段 ===== */
 window.MIA_CONFIG = {
   GAS_URL: 'https://script.google.com/macros/s/AKfycbysIRy8D2qUnUsToIvLoIEew-NrcFW7TdZvHi9ZqsMSQUX-SOeNYZ0S8KTefu8HKJO2Ng/exec',   // 和網站 A 相同的 Apps Script 網址
   LINE_LOGIN_CHANNEL_ID: '2012624805',                           // 和網站 A 相同的 LINE Login Channel ID
@@ -432,6 +432,16 @@ button.tc:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-
 [hidden]{display:none !important}
 .sp-ab:not([hidden]){animation:spAb .25s ease-out}
 @keyframes spAb{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+/* 全能量：轉帳付款・抽牌前引導 */
+.tf-h{display:flex;align-items:center;gap:10px;margin-bottom:6px}.tf-h .h1{margin:0}
+.tf-amt{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px}.tf-amt span{color:var(--soft);font-size:13px}.tf-amt b{font-size:26px;color:var(--blue);font-weight:700}
+.tf-kv{display:grid;grid-template-columns:52px 1fr auto;gap:8px 10px;align-items:center;margin:0;font-size:14px}
+.tf-kv dt{color:var(--soft);font-size:13px;margin:0}.tf-kv dd{margin:0;word-break:break-all}
+.tf-kv .tlink{border:1px solid #C9D6EA;border-radius:999px;padding:4px 12px;background:#fff;font-size:12.5px;min-height:32px}
+.ref5{width:100%;box-sizing:border-box;height:52px;font-size:22px;letter-spacing:.35em;text-align:center;margin-bottom:10px}
+.fe-guide{text-align:center;background:rgba(201,163,90,.1);border-radius:14px;padding:14px 12px;margin-bottom:12px}
+.fe-guide p{margin:0;line-height:1.8}
+.fe-q{font-family:"Noto Serif TC",serif;font-size:18px;color:var(--brown);margin:4px 0 !important}
 
 </style>
 </head>
@@ -1343,7 +1353,7 @@ const Pages = {
         try {
           const c = await api.call('tarotCheckCode', { code });
           const k = CODE_KINDS[c.kind] || CODE_KINDS.paid;
-          const ok = await modal({ title: '準備好開始了嗎？', ok: '開始抽牌', cancel: '稍後再用', html: `<p>代號 <b class="num">${esc(c.code)}</b>（${esc(k.l)}）</p><ul class="ul" style="margin-top:10px"><li>共 12 格，一格一格翻開，每格 1 張大牌＋3 張小牌</li><li>開始後代號就會使用掉，抽完結果鎖定、無法重抽</li><li>${esc(k.due)}，完成後用 LINE 通知你</li></ul>` });
+          const ok = await modal({ title: '開始之前', ok: '我準備好了，開始抽牌', cancel: '稍後再用', html: `<div class="fe-guide"><p>先做一次深呼吸，<br>在心裡默想：</p><p class="fe-q">「我此刻的能量狀態是如何」</p><p class="muted">準備好了，再按「開始抽牌」。</p></div><p>代號 <b class="num">${esc(c.code)}</b>（${esc(k.l)}）</p><ul class="ul" style="margin-top:10px"><li>共 12 格，一格一格翻開，每格 1 張大牌＋3 張小牌</li><li>開始後代號就會使用掉，抽完結果鎖定、無法重抽</li><li>${esc(k.due)}，完成後用 LINE 通知你</li></ul>` });
           if (!ok) { btn.disabled = false; return; }
           const x = await api.call('tarotStart', { spread: 'full', code: c.code });
           await App.loadHome(); App.go('#/full/' + encodeURIComponent(x.reading.id));
@@ -1356,16 +1366,19 @@ const Pages = {
   fullBuy() {
     if (!Session.user()) return App.gate('', '先用 LINE 登入', '代號會綁定你的 LINE 帳號，也會傳到你的 LINE。');
     const price = (App.home || {}).codePrice || 600;
-    const METHODS = { linepay: ['LINE Pay', '用 LINE Pay 付款'], card: ['信用卡（綠界）', 'Visa・Master・JCB'], atm: ['ATM 虛擬帳號（綠界）', '24 小時內轉帳'] };
-    let m = 'linepay';
-    const label = k => k === 'linepay' ? '前往 LINE Pay 付款' : k === 'atm' ? '取得 ATM 轉帳帳號' : '前往綠界信用卡付款';
+    /* 付款方式由後端決定（預約後台「設定 › 串接」）：目前 iPASS MONEY、銀行轉帳；之後打開綠界才會多 atm、card */
+    const PM = ((App.home || {}).payMethods || []).length ? App.home.payMethods : [{ id: 'ipass', label: 'iPASS MONEY（一卡通）', sub: '用一卡通 iPASS MONEY 轉帳' }, { id: 'bank', label: '銀行轉帳', sub: '網路銀行或 ATM 轉帳' }];
+    const METHODS = {}; PM.forEach(x => METHODS[x.id] = [x.label, x.sub || '']);
+    let m = PM[0].id;
+    const isTransfer = k => k === 'ipass' || k === 'bank';
+    const label = k => isTransfer(k) ? '取得轉帳資料' : k === 'atm' ? '取得 ATM 轉帳帳號' : k === 'card' ? '前往綠界信用卡付款' : '下一步';
     App.mount(`<div class="wrap">
       <a class="back" href="#/full">${ic('left')}全能量檢測</a>
       <h1 class="h1">購買解讀</h1>
       <section class="card blk buy-amt"><p class="eyebrow">全能量檢測解讀</p><b class="num">${U.money(price)}</b></section>
       <section class="card blk"><ul class="ul"><li>一組一次性代號，抽一次完整牌陣</li><li>Mia 親自寫的文字分析解讀</li><li>解讀完成後用 LINE 通知你</li><li>抽牌後 1–3 個工作天內交付解讀</li><li>代號 30 天內有效</li></ul></section>
-      <section class="card blk"><h2 class="h2" style="margin-bottom:10px">付款方式・全額付清</h2><div class="ms" role="radiogroup">${Object.keys(METHODS).map(k => `<button type="button" role="radio" class="m ${k === m ? 'on' : ''}" data-m="${k}" aria-checked="${k === m}"><span class="rd"></span><span><b>${METHODS[k][0]}</b><small>${METHODS[k][1]}</small></span></button>`).join('')}</div>
-      <p class="note" style="margin-top:12px">${ic('lock')}<span>付款完成後立即產生代號，同時傳到你的 LINE。代號只限你的 LINE 帳號使用。</span></p></section>
+      <section class="card blk"><h2 class="h2" style="margin-bottom:10px">付款方式・轉帳到 Mia 的帳戶</h2><div class="ms" role="radiogroup">${Object.keys(METHODS).map(k => `<button type="button" role="radio" class="m ${k === m ? 'on' : ''}" data-m="${k}" aria-checked="${k === m}"><span class="rd"></span><span><b>${METHODS[k][0]}</b><small>${METHODS[k][1]}</small></span></button>`).join('')}</div>
+      <p class="note" style="margin-top:12px">${ic('lock')}<span>下一步會給你轉帳帳號。轉帳後回來填付款帳號末五碼，Mia 確認後會用 LINE 傳代號給你。代號只限你的 LINE 帳號使用。</span></p></section>
       <button class="btn pri full blk" data-pay>${label(m)}</button>
     </div>`, '', r => {
       $$('[data-m]', r).forEach(b => b.addEventListener('click', () => { m = b.dataset.m; $$('[data-m]', r).forEach(x => { const on = x === b; x.classList.toggle('on', on); x.setAttribute('aria-checked', on); }); $('[data-pay]', r).textContent = label(m); }));
@@ -1374,11 +1387,11 @@ const Pages = {
         try {
           const x = await api.call('tarotBuyCode', { method: m }); const oid = x.order.orderId;
           U.ss.set('mia.tarot.paying', oid);
-          if (x.pay.type === 'paid') return App.go('#/full/order/' + oid);
+          if (x.pay.type === 'paid' || x.pay.type === 'transfer') return App.go('#/full/order/' + oid);
           if (x.pay.type === 'redirect') { location.href = x.pay.url; return; }
           if (x.pay.type === 'form') { const fm = document.createElement('form'); fm.method = 'POST'; fm.action = x.pay.action; Object.keys(x.pay.fields).forEach(k => { const i = document.createElement('input'); i.type = 'hidden'; i.name = k; i.value = x.pay.fields[k]; fm.appendChild(i); }); document.body.appendChild(fm); fm.submit(); return; }
           if (x.pay.type === 'demo') {
-            const name = m === 'linepay' ? 'LINE Pay' : '綠界 ECPay';
+            const name = '綠界 ECPay';
             const ok = await modal({ title: '模擬付款・' + name, cancel: false, html: `<p class="muted">展示模式不會真的扣款。正式上線後，這一步會跳轉到 ${name} 的付款頁。</p><p class="code-big num">${U.money(x.pay.amount)}</p><div class="btns" style="justify-content:center"><button class="btn ghost sm" data-fail>付款失敗／取消</button><button class="btn pri sm" data-ok>${m === 'atm' ? '取得帳號' : '付款成功'}</button></div>`, onOpen: (sc, close) => sc.querySelector('[data-fail]').addEventListener('click', () => close(false)) });
             if (ok == null) { b.disabled = false; return; }
             await api.call('tarotDemoPay', { orderId: oid, ok: !!ok }); App.go('#/full/order/' + oid);
@@ -1395,6 +1408,8 @@ const Pages = {
     let body;
     if (o.status === 'PAID') {
       body = `<div class="ok-ico">${ic('check')}</div><h1 class="h1 c">付款完成</h1><p class="sub c">你的全能量檢測代號</p><p class="code-big">${esc(o.code)}</p><p class="c" style="font-size:13.5px">已綁定你的 LINE 帳號・限用一次<br>使用期限：30 天（至 <span class="num">${esc(U.md(o.codeExpiresAt))}</span>）</p><p class="note box blk">${ic('spark')}<span>代號也已傳到你的 LINE。準備好安靜的時間再開始，<b>抽牌後就無法重抽</b>。</span></p><div class="btns col blk"><a class="btn pri full" href="#/full?code=${encodeURIComponent(o.code)}">現在開始（自動帶入代號）</a><a class="btn ghost full" href="#/">稍後再用</a></div>`;
+    } else if ((o.status === 'WAIT_TRANSFER' || o.status === 'REPORTED') && o.transfer) {
+      return Pages.fullTransfer(o);
     } else if (o.status === 'WAIT_ATM' && o.atm) {
       body = `<div class="ok-ico wait">${ic('clock')}</div><h1 class="h1 c">請完成 ATM 轉帳</h1><p class="sub c">入帳後會自動產生代號，並用 LINE 通知你。</p><dl class="kv card blk"><dt>銀行代碼</dt><dd class="num">${esc(o.atm.bank)}</dd><dt>轉帳帳號</dt><dd class="num">${esc(o.atm.account)}</dd><dt>金額</dt><dd class="num">${U.money(o.amount)}</dd><dt>繳費期限</dt><dd class="num">${esc(U.ts(o.atm.until))}</dd></dl><div class="btns col blk"><button class="btn sec full" data-copyacc>${ic('copy')}複製帳號</button>${IS_DEMO ? '<button class="btn pri full" data-demoatm>模擬：已完成轉帳</button>' : ''}<a class="btn ghost full" href="#/">回到首頁</a></div>`;
     } else {
@@ -1403,6 +1418,47 @@ const Pages = {
     App.mount(`<div class="wrap top"><section class="card">${body}</section></div>`, '', r => {
       const cp = $('[data-copyacc]', r); if (cp) cp.addEventListener('click', () => copyText(o.atm.account));
       const da = $('[data-demoatm]', r); if (da) da.addEventListener('click', async () => { await api.call('tarotCheckOrder', { orderId: oid, demoAtmPaid: 1 }); Pages.fullOrder(oid); });
+    });
+  },
+
+  /* ---------- 全能量檢測：轉帳到 Mia 的帳戶＋回填末五碼（iPASS MONEY／銀行轉帳） ---------- */
+  fullTransfer(o, editing) {
+    const t = o.transfer || {}, reported = o.status === 'REPORTED' || o.payState === 'REPORTED';
+    const returned = !reported && !!o.payRef;   /* Mia 退回：訂單回到待付款，但留著上次填的末五碼 */
+    const acc = String(t.account || ''), accShow = acc.replace(/(\d{4})(?=\d)/g, '$1 ');
+    const form = `<section class="card blk tr-form"><h2 class="h2">轉帳後，填寫付款帳號末五碼</h2><p class="sub" style="margin:4px 0 10px">讓 Mia 對帳用，是「你轉出的帳號」最後五個數字。</p>
+      <label class="sr" for="ref5">付款帳號末五碼</label><input class="inp ref5" id="ref5" inputmode="numeric" maxlength="5" autocomplete="off" placeholder="例如 54321" value="${esc(editing ? o.payRef || '' : '')}">
+      <p class="err" data-err hidden></p><button class="btn pri full" data-ref>${reported ? '更新末五碼' : '送出末五碼'}</button>${reported ? '<button class="btn ghost full" data-cancel style="margin-top:8px">取消</button>' : ''}</section>`;
+    const info = `<section class="card blk"><div class="tf-amt"><span>金額</span><b class="num">${U.money(o.amount)}</b></div>
+      <dl class="tf-kv"><dt>轉入</dt><dd>${esc(t.label || '')}</dd><dd></dd>
+        ${t.bank ? `<dt>代碼</dt><dd class="num">${esc(t.bank)}</dd><dd><button class="tlink" data-cp="${esc(t.bank)}">複製</button></dd>` : ''}
+        <dt>帳號</dt><dd class="num">${esc(accShow)}</dd><dd><button class="tlink" data-cp="${esc(acc)}">複製</button></dd>
+        ${t.accountName ? `<dt>戶名</dt><dd>${esc(t.accountName)}</dd><dd></dd>` : ''}
+        ${t.until ? `<dt>期限</dt><dd class="num">${esc(U.ts(t.until))} 前</dd><dd></dd>` : ''}</dl>
+      <p class="hint">訂單 <span class="num">${esc(o.orderId)}</span></p></section>`;
+    let body;
+    if (reported && !editing) {
+      body = `<section class="card c"><div class="ok-ico wait">${ic('clock')}</div><h1 class="h2 c">已回報末五碼 <span class="num">${esc(o.payRef || '')}</span></h1><p class="sub c">等 Mia 確認，確認後會用 LINE 傳代號給你。</p>
+        <div class="btns col blk"><button class="btn sec full" data-edit>修改末五碼</button>${IS_DEMO ? '<button class="btn pri full" data-demook>展示：模擬 Mia 確認收款</button><button class="btn ghost full" data-demono>展示：模擬 Mia 查不到款項（退回）</button>' : ''}<a class="btn ghost full" href="#/">回到首頁</a></div></section>${info}`;
+    } else {
+      body = `<div class="tf-h"><h1 class="h1">請轉帳</h1><span class="chip">${reported ? '修改末五碼' : '待付款'}</span></div>
+        ${returned ? `<p class="note box blk">${ic('warn')}<span>Mia 沒有查到末五碼 <b class="num">${esc(o.payRef)}</b> 的款項，請確認轉帳是否完成、末五碼是否正確，再重新填寫。</span></p>` : ''}
+        ${info}${form}<p class="hint c">晚一點轉帳也沒關係，LINE「轉帳待付款」通知的按鈕會回到這一頁。</p>`;
+    }
+    App.mount(`<div class="wrap top">${body}</div>`, '', r => {
+      $$('[data-cp]', r).forEach(b => b.addEventListener('click', () => copyText(b.dataset.cp, '已複製')));
+      const ed = $('[data-edit]', r); if (ed) ed.addEventListener('click', () => Pages.fullTransfer(o, true));
+      const cc = $('[data-cancel]', r); if (cc) cc.addEventListener('click', () => Pages.fullTransfer(o));
+      const inp = $('#ref5', r); if (inp) inp.addEventListener('input', () => { inp.value = inp.value.replace(/\D/g, '').slice(0, 5); });
+      const send = $('[data-ref]', r); if (send) send.addEventListener('click', async () => {
+        const v = inp.value.trim(), er = $('[data-err]', r);
+        if (!/^\d{5}$/.test(v)) { er.textContent = '請填 5 位數字'; er.hidden = false; inp.focus(); return; }
+        send.disabled = true; er.hidden = true;
+        try { const x = await api.call('reportTarotPayment', { orderId: o.orderId, ref: v }); toast('已回報，等 Mia 確認', 'ok'); Pages.fullTransfer(x.order); }
+        catch (e) { er.textContent = e.message; er.hidden = false; send.disabled = false; if (e.code === 'PAY_NOT_PENDING') setTimeout(() => Pages.fullOrder(o.orderId), 1200); }
+      });
+      const dk = $('[data-demook]', r); if (dk) dk.addEventListener('click', async () => { await api.call('tarotDemoConfirm', { orderId: o.orderId, ok: true }); Pages.fullOrder(o.orderId); });
+      const dn = $('[data-demono]', r); if (dn) dn.addEventListener('click', async () => { await api.call('tarotDemoConfirm', { orderId: o.orderId, ok: false }); Pages.fullOrder(o.orderId); });
     });
   },
 
