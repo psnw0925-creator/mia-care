@@ -1,0 +1,1519 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mia 陪伴・Mia Tarot 塔羅療癒</title>
+<meta name="description" content="Mia Tarot：每日一抽、塔羅牌陣與全能量檢測；療癒服務後的陪伴與總結報告。">
+<meta name="theme-color" content="#F5EEDF">
+<meta name="mia-version" content="5.0.0-測試版 1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3CradialGradient id='g' cx='.35' cy='.3' r='.8'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='.45' stop-color='%23C4DAF3'/%3E%3Cstop offset='1' stop-color='%2356709F'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='16' cy='16' r='13' fill='url(%23g)'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;600&family=Cormorant+Garamond:wght@500;600&display=swap">
+<script>
+/* ===== Mia 陪伴 5.0.0-測試版 1：設定只要改這一段 ===== */
+window.MIA_CONFIG = {
+  GAS_URL: 'https://script.google.com/macros/s/AKfycbysIRy8D2qUnUsToIvLoIEew-NrcFW7TdZvHi9ZqsMSQUX-SOeNYZ0S8KTefu8HKJO2Ng/exec',   // 和網站 A 相同的 Apps Script 網址
+  LINE_LOGIN_CHANNEL_ID: '2012624805',                           // 和網站 A 相同的 LINE Login Channel ID
+  SITE_URL: 'https://psnw0925-creator.github.io/mia-care/',      // 這個網站（Mia 陪伴）的網址
+  MAIN_URL: 'https://psnw0925-creator.github.io/mia-booking/',   // 網站 A（Mia 預約）的網址
+  LINE_OA_ID: '@923uxnos'                                        // 官方帳號 ID
+};
+</script>
+<style>
+:root{
+  color-scheme: light;
+  --bg1:#F5EEDF; --bg2:#F1EFE9; --bg3:#DCE8F6;
+  --paper:#FBF7EE; --paper2:#F7F3EA; --line:#E2D6BF; --line2:#D8C9AC;
+  --brown:#5A4632; --brown2:#7A5A36; --ink:#33384F; --muted:#7D7466; --soft:#9C8F79;
+  --gold:#C9A35A; --gold2:#E8C99A;
+  --blue:#1F3D78; --blue2:#2C5598; --sky:#DCE8F6; --line-green:#06C755;
+  --ok:#3F7A5A; --bad:#A4473B;
+  --r:14px; --r-lg:20px; --sh:0 1px 2px rgba(90,70,50,.06),0 8px 24px -12px rgba(90,70,50,.22);
+  --serif:'Noto Serif TC',serif; --sans:'Noto Sans TC',system-ui,sans-serif; --lat:'Cormorant Garamond',serif;
+  --safe-b: env(safe-area-inset-bottom, 0px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);color:var(--ink);font-size:15px;line-height:1.7;min-height:100vh;
+  background:linear-gradient(180deg,var(--bg1) 0%,var(--bg2) 42%,var(--bg3) 100%) fixed;background-color:var(--bg2)}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.35;z-index:0;
+  background-image:radial-gradient(rgba(122,90,54,.07) 1px,transparent 1.2px);background-size:5px 5px}
+img{max-width:100%;display:block}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit}
+input,textarea{font:inherit;color:inherit}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.lat{font-family:var(--lat);letter-spacing:.02em}
+.num{font-variant-numeric:tabular-nums}
+#app{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column}
+.wrap{width:100%;max-width:560px;margin:0 auto;padding:0 16px}
+.wrap.wide{max-width:880px}
+main{flex:1;padding-bottom:40px}
+
+/* header */
+.hd{position:sticky;top:0;z-index:20;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);background:rgba(245,238,223,.78);border-bottom:1px solid rgba(216,201,172,.6)}
+.hd .wrap{display:flex;align-items:center;gap:10px;height:56px;max-width:880px}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--brown)}
+.logo b{font-family:var(--lat);font-size:23px;font-weight:600;line-height:1}
+.logo small{font-size:11px;color:var(--soft);letter-spacing:.12em;margin-top:3px}
+.pearl{width:26px;height:26px;border-radius:50%;flex:none;background:radial-gradient(circle at 34% 30%,#fff 0 14%,#C4DAF3 45%,#56709F 100%);box-shadow:0 0 12px rgba(196,218,243,.9),inset -2px -3px 6px rgba(31,61,120,.25)}
+.hd nav{margin-left:auto;display:flex;align-items:center;gap:2px}
+.hd nav a{font-size:13.5px;text-decoration:none;color:var(--brown2);padding:6px 9px;border-radius:999px}
+.hd nav a.on{background:rgba(201,163,90,.16);color:var(--brown)}
+.av{width:32px;height:32px;border-radius:50%;background:var(--paper);border:1px solid var(--line2);display:grid;place-items:center;font-family:var(--serif);color:var(--brown);font-size:14px;overflow:hidden;margin-left:4px}
+.av img{width:100%;height:100%;object-fit:cover}
+@media(max-width:420px){.hd nav a.hide-s{display:none}.logo small{display:none}}
+
+/* type */
+.eyebrow{font-size:11.5px;letter-spacing:.2em;color:var(--gold);font-weight:500}
+h1,h2,h3{font-family:var(--serif);color:var(--brown);font-weight:600;line-height:1.4}
+.h1{font-size:24px}
+.h2{font-size:18px}
+.sub{color:var(--muted);font-size:14px}
+.muted{color:var(--muted)}
+.c{text-align:center}
+.top{padding-top:22px}
+.back{display:inline-flex;align-items:center;gap:2px;font-size:14px;color:var(--brown2);text-decoration:none;margin:14px 0 4px -4px;padding:4px}
+.back svg{width:18px;height:18px}
+
+/* surfaces */
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh);padding:18px}
+.card+.card,.blk+.blk{margin-top:14px}
+.blk{margin-top:16px}
+.note{font-size:13px;color:var(--muted);display:flex;gap:8px;align-items:flex-start;line-height:1.6}
+.note svg{width:16px;height:16px;flex:none;margin-top:2px;color:var(--gold)}
+.note.box{background:rgba(251,247,238,.7);border:1px dashed var(--line2);border-radius:12px;padding:10px 12px}
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:12px;padding:2px 9px;border-radius:999px;background:rgba(201,163,90,.15);color:var(--brown2);white-space:nowrap}
+.chip.blue{background:rgba(31,61,120,.09);color:var(--blue)}
+.chip.ok{background:rgba(63,122,90,.12);color:var(--ok)}
+.chip.new{background:var(--gold);color:#fff;font-size:10.5px;letter-spacing:.06em;padding:1px 7px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:46px;padding:0 20px;border-radius:999px;font-size:15px;font-weight:500;text-decoration:none;transition:transform .15s,box-shadow .15s,opacity .15s;border:1px solid transparent;white-space:nowrap}
+.btn svg{width:18px;height:18px}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{opacity:.45;pointer-events:none}
+.btn.pri{background:linear-gradient(180deg,var(--blue2),var(--blue));color:#fff;box-shadow:0 8px 18px -10px rgba(31,61,120,.8)}
+.btn.sec{background:var(--paper);border-color:var(--line2);color:var(--brown)}
+.btn.ghost{color:var(--brown2)}
+.btn.line{background:var(--line-green);color:#fff}
+.btn.full{width:100%}
+.btn.sm{min-height:36px;padding:0 14px;font-size:13.5px}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+.btns.col{flex-direction:column}
+.tlink{color:var(--blue);font-size:14px;text-decoration:none;display:inline-flex;align-items:center;gap:2px}
+.tlink svg{width:16px;height:16px}
+
+/* tarot card */
+.tc{position:relative;aspect-ratio:480/820;perspective:900px;width:100%}
+.tc .in{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.3,.7,.2,1)}
+.tc.on .in{transform:rotateY(180deg)}
+.tc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:7%/4.2%;backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:0 1px 2px rgba(60,40,20,.15),0 8px 18px -10px rgba(60,40,20,.5);background:#efe6d3}
+.tc .fr{transform:rotateY(180deg)}
+.tc.flat .in{transition:none}
+button.tc{display:block;padding:0}
+button.tc:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:8px}
+
+/* home */
+.hero{padding:26px 0 6px;text-align:center}
+.hero h1{font-family:var(--lat);font-size:42px;font-weight:600;letter-spacing:.02em;line-height:1.1}
+.hero p{color:var(--muted);font-size:14px;margin-top:6px}
+.daily{display:grid;grid-template-columns:118px 1fr;gap:16px;align-items:center}
+.daily .tc{width:118px}
+.daily .eyebrow{letter-spacing:.08em;font-size:11px}
+.daily h2{font-size:17px;margin:4px 0 2px}
+.daily p{font-size:14px;color:var(--ink)}
+.daily .heal{font-size:13px;color:var(--brown2);margin-top:6px}
+.daily .done{font-size:12.5px;color:var(--soft);margin-top:8px}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.mi{display:flex;align-items:center;gap:10px;padding:14px;border-radius:16px;background:rgba(251,247,238,.85);border:1px solid var(--line);text-decoration:none;color:var(--brown)}
+.mi svg{width:20px;height:20px;color:var(--gold);flex:none}
+.mi b{font-weight:500;font-size:14.5px}
+.fe-cta{display:flex;align-items:center;gap:14px;text-decoration:none;background:linear-gradient(135deg,#FBF7EE 0%,#E9EEF6 100%);border:1px solid var(--line);border-radius:var(--r-lg);padding:16px;box-shadow:var(--sh);margin-top:12px}
+.fe-cta .orb{width:48px;height:48px;border-radius:50%;flex:none;background:radial-gradient(circle at 35% 30%,#fff 0 12%,#E8C99A 40%,#2C5598 100%);box-shadow:0 0 18px rgba(201,163,90,.5)}
+.fe-cta b{display:block;font-family:var(--serif);color:var(--brown);font-size:16px}
+.fe-cta small{color:var(--muted);font-size:13px;line-height:1.5;display:block}
+.fe-cta svg{width:18px;height:18px;margin-left:auto;color:var(--brown2);flex:none}
+
+/* ask */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.pick{min-height:38px;padding:0 15px;border-radius:999px;border:1px solid var(--line2);background:rgba(251,247,238,.9);font-size:14px;color:var(--brown)}
+.pick.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.lbl{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:500;color:var(--brown);margin:18px 0 8px}
+.lbl small{font-weight:400;color:var(--soft)}
+.ta{position:relative}
+.ta textarea,.inp{width:100%;border:1px solid var(--line2);background:#fff;border-radius:14px;padding:12px 14px;font-size:15px;line-height:1.6;resize:none;outline:none}
+.ta textarea:focus,.inp:focus{border-color:var(--blue2);box-shadow:0 0 0 3px rgba(44,85,152,.12)}
+.ta .cnt{position:absolute;right:12px;bottom:8px;font-size:12px;color:var(--soft)}
+.ex{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.ex button{font-size:12.5px;color:var(--brown2);background:rgba(201,163,90,.1);border-radius:999px;padding:3px 10px}
+.hint{font-size:12.5px;color:var(--soft);margin-top:6px}
+.err{font-size:13px;color:var(--bad);margin-top:6px}
+
+/* spread list */
+.ctx{font-size:13.5px;color:var(--muted);display:flex;gap:6px;align-items:baseline;flex-wrap:wrap;margin-top:4px}
+.sp-h{font-size:13px;color:var(--soft);letter-spacing:.12em;margin:20px 0 8px}
+.sp{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:14px;border-radius:16px;border:1px solid var(--line);background:rgba(251,247,238,.9);margin-bottom:8px}
+.sp .rd{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line2);flex:none;display:grid;place-items:center}
+.sp.on{border-color:var(--blue);box-shadow:0 0 0 1px var(--blue) inset}
+.sp.on .rd{border-color:var(--blue)}
+.sp.on .rd::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--blue)}
+.sp b{display:block;font-weight:500;color:var(--brown);font-size:15px}
+.sp small{color:var(--muted);font-size:12.5px}
+.sp .mini{margin-left:auto;display:flex;gap:3px;flex:none}
+.sp .mini i{width:12px;height:20px;border-radius:2px;background:linear-gradient(160deg,#E9DFC8,#D8C9AC);display:block}
+.sp.used{opacity:.62}
+.sp-ab{padding:4px 2px 12px 46px;display:grid;gap:8px}
+.sp-ab label{font-size:13px;color:var(--brown2)}
+.sp.fe{background:linear-gradient(135deg,#FBF7EE,#E9EEF6)}
+
+/* draw */
+.slots{display:flex;justify-content:center;gap:10px;margin:14px 0 6px}
+.slot{width:62px;text-align:center}
+.slot .ph{aspect-ratio:480/820;border-radius:6px;border:1.5px dashed var(--line2);background:rgba(251,247,238,.6);position:relative;overflow:hidden}
+.slot .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:drop .45s ease-out}
+.slot small{display:block;font-size:12px;color:var(--brown2);margin-top:4px;line-height:1.3}
+@keyframes drop{from{transform:translateY(-30px) scale(1.1);opacity:0}to{transform:none;opacity:1}}
+.slots.n5 .slot{width:52px}
+.stage{position:relative;height:300px;margin:6px auto 0;max-width:520px;user-select:none;-webkit-user-select:none;touch-action:none}
+.deck{position:absolute;left:50%;top:44%;width:86px;height:147px;margin:-73px 0 0 -43px;cursor:grab}
+.deck img{position:absolute;inset:0;width:100%;height:100%;border-radius:6px;object-fit:cover;box-shadow:0 2px 8px -2px rgba(60,40,20,.35);transition:transform .22s ease-out}
+.deck.mix{cursor:grabbing}
+.deck-hint{position:absolute;left:0;right:0;bottom:6px;text-align:center;font-size:13px;color:var(--muted)}
+.fan{position:absolute;left:50%;top:30px;width:0;height:0}
+.fan button{position:absolute;left:-26px;top:0;width:52px;height:89px;transform-origin:50% 260%;transition:transform .5s cubic-bezier(.3,.8,.3,1),opacity .3s}
+.fan button img{width:100%;height:100%;object-fit:cover;border-radius:5px;box-shadow:0 2px 6px -2px rgba(60,40,20,.4)}
+.fan button:hover img,.fan button:focus-visible img{outline:2px solid var(--gold);outline-offset:1px}
+.fan button.pk{opacity:0;pointer-events:none}
+@media(min-width:600px){.fan button{left:-30px;width:60px;height:103px}.stage{height:330px}}
+.draw-acts{display:flex;justify-content:center;gap:10px;margin-top:4px}
+.busy{display:flex;flex-direction:column;align-items:center;gap:10px;padding:40px 0;color:var(--muted);font-size:14px}
+.spin{width:28px;height:28px;border-radius:50%;border:2.5px solid var(--line2);border-top-color:var(--blue);animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* result */
+.res{display:grid;gap:12px;justify-content:center;margin:18px auto 6px}
+.res.n1{grid-template-columns:min(46vw,200px)}
+.res.n3{grid-template-columns:repeat(3,minmax(0,150px))}
+.res.n5{grid-template-columns:repeat(2,minmax(0,124px))}
+.res.n5 .pos:first-child{grid-column:1/-1;justify-self:center;width:calc(50% - 6px)}
+.pos{text-align:center}
+.pos .pl{font-family:var(--serif);color:var(--brown);font-size:14px;margin-bottom:6px}
+.pos .pl small{display:block;font-family:var(--sans);font-size:11.5px;color:var(--soft);line-height:1.35;min-height:2.7em}
+.res.n1 .pos .pl small,.res.n5 .pos .pl small{min-height:1.35em}
+.pos .cn{font-size:13px;color:var(--brown2);margin-top:6px;min-height:1.6em;transition:opacity .4s}
+.pos .cn b{font-weight:500}
+.pos:not(.open) .cn{opacity:0}
+.res-tip{text-align:center;font-size:12.5px;color:var(--soft)}
+.overall{background:linear-gradient(160deg,#FBF7EE 0%,#F1EFE9 60%,#E6EDF7 100%)}
+.overall h2{display:flex;align-items:center;gap:6px}
+.overall h2 svg{width:18px;height:18px;color:var(--gold)}
+.overall p{margin-top:8px;line-height:1.85}
+.overall .gen{font-size:12px;color:var(--soft);margin-top:10px}
+.rd-item{display:grid;grid-template-columns:64px 1fr;gap:14px;padding:16px 0;border-top:1px dashed var(--line2)}
+.rd-item:first-of-type{border-top:0;padding-top:4px}
+.rd-item .tc{width:64px}
+.rd-item h3{font-size:15px}
+.rd-item h3 small{font-family:var(--sans);font-weight:400;color:var(--soft);font-size:12.5px;margin-left:6px}
+.rd-item .kw{font-size:12.5px;color:var(--gold);margin-bottom:4px}
+.rd-item p{font-size:14.5px;line-height:1.8}
+.heal{display:flex;gap:6px;align-items:flex-start;font-size:13.5px;color:var(--brown2);background:rgba(232,201,154,.18);border-radius:10px;padding:7px 10px;margin-top:8px;line-height:1.6}
+.heal svg{width:15px;height:15px;flex:none;margin-top:3px;color:var(--gold)}
+.disc{font-size:12px;color:var(--soft);text-align:center;margin-top:14px;line-height:1.6}
+.cta{background:linear-gradient(170deg,#2C5598 0%,#1F3D78 70%,#1A3366 100%);color:#EAF1FB;border:0;position:relative;overflow:hidden}
+.cta::after{content:"";position:absolute;right:-30px;top:-30px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0 10%,#C4DAF3 40%,rgba(86,112,159,.0) 72%);opacity:.55}
+.cta h2{color:#fff;font-size:19px;position:relative;z-index:1}
+.cta p{font-size:14px;color:#D6E2F4;margin-top:6px;position:relative;z-index:1}
+.cta .plan{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:12px 14px;margin:14px 0;position:relative;z-index:1}
+.cta .plan b{color:#fff;font-weight:500}
+.cta .plan small{display:block;color:#C3D3EA;font-size:12.5px}
+.cta .price{display:flex;align-items:baseline;gap:8px;margin-top:4px}
+.cta .price s{color:#9FB4D6;font-size:13px}
+.cta .price strong{font-size:22px;color:#fff;font-weight:600}
+.cta .btn.wht{background:#fff;color:var(--blue);position:relative;z-index:1}
+.cta .tlink{color:#fff}
+
+/* records */
+.rec{display:flex;gap:12px;align-items:center;text-decoration:none;padding:14px;border-radius:16px;background:rgba(251,247,238,.9);border:1px solid var(--line);margin-bottom:10px}
+.rec .th{display:flex;flex:none}
+.rec .th img{width:26px;height:44px;object-fit:cover;border-radius:3px;box-shadow:0 1px 3px rgba(60,40,20,.3)}
+.rec .th img+img{margin-left:-10px}
+.rec b{display:block;color:var(--brown);font-weight:500;font-size:14.5px;line-height:1.45}
+.rec small{color:var(--muted);font-size:12.5px;display:block}
+.rec .r{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:none}
+.rec .r svg{width:16px;height:16px;color:var(--soft)}
+.empty{text-align:center;padding:36px 12px;color:var(--muted)}
+.empty .pearl{width:44px;height:44px;margin:0 auto 12px}
+
+/* encyclopedia */
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:none}
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:12px 10px;margin-top:8px}
+.cg a{text-decoration:none;text-align:center;font-size:12.5px;color:var(--brown)}
+.cg a img{width:100%;aspect-ratio:480/820;object-fit:cover;border-radius:6px;box-shadow:0 2px 8px -4px rgba(60,40,20,.45);margin-bottom:5px;background:#efe6d3}
+.cd{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:start;margin-top:10px}
+.cd .tc{width:150px}
+.cd h1{font-size:24px}
+@media(max-width:520px){.cd{grid-template-columns:1fr;justify-items:center;text-align:center}.cd .tc{width:170px}}
+.kv dt{font-size:13px;color:var(--gold);font-weight:500;margin-top:12px}
+.kv dd{font-size:14.5px;line-height:1.8}
+
+/* full energy */
+.fe-intro{position:relative;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line);box-shadow:var(--sh);margin-top:14px}
+.fe-bg{position:absolute;inset:0;display:grid;grid-template-columns:repeat(8,1fr);gap:6px;padding:10px;filter:blur(2.5px);opacity:.5}
+.fe-bg img{border-radius:4px;aspect-ratio:480/820;object-fit:cover}
+.fe-cover{position:relative;background:linear-gradient(180deg,rgba(251,247,238,.82),rgba(241,239,233,.94) 55%,rgba(220,232,246,.96));padding:28px 18px 20px;text-align:center}
+.fe-cover h1{font-size:23px;margin-top:6px}
+.fe-cover p{font-size:14px;color:var(--ink);margin-top:8px;line-height:1.75}
+.fe-tags{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin:14px 0 18px}
+.code-row{display:flex;gap:8px;max-width:360px;margin:0 auto}
+.code-row .inp{text-transform:uppercase;letter-spacing:.08em;text-align:center;font-family:var(--sans);font-variant-numeric:tabular-nums}
+.code-row .btn{flex:none}
+.ways{display:grid;gap:8px;margin-top:10px}
+.way{display:flex;gap:12px;align-items:center;padding:13px 14px;border-radius:14px;background:rgba(251,247,238,.9);border:1px solid var(--line);text-decoration:none;text-align:left;width:100%}
+.way .ico{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(201,163,90,.15);color:var(--brown2);flex:none}
+.way .ico svg{width:17px;height:17px}
+.way b{display:block;font-weight:500;color:var(--brown);font-size:14.5px}
+.way small{display:block;color:var(--muted);font-size:12.5px;line-height:1.5}
+.way>svg{width:16px;height:16px;margin-left:auto;color:var(--soft);flex:none}
+.buy-amt{text-align:center;padding:20px}
+.buy-amt b{font-size:30px;color:var(--brown);font-weight:600;display:block}
+.ul{list-style:none;display:grid;gap:6px;font-size:14px}
+.ul li{display:flex;gap:8px}
+.ul li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold);flex:none;margin-top:9px}
+.ms{display:grid;gap:8px}
+.m{display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:14px;border:1px solid var(--line);background:#fff;text-align:left;width:100%}
+.m .rd{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line2);flex:none;display:grid;place-items:center}
+.m.on{border-color:var(--blue);box-shadow:0 0 0 1px var(--blue) inset}
+.m.on .rd{border-color:var(--blue)}
+.m.on .rd::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--blue)}
+.m b{font-weight:500;font-size:14.5px;display:block}
+.m small{font-size:12.5px;color:var(--muted)}
+.code-big{font-size:26px;letter-spacing:.12em;color:var(--blue);font-weight:600;background:#fff;border:1px dashed var(--line2);border-radius:14px;padding:12px;margin:10px 0;text-align:center;font-variant-numeric:tabular-nums}
+.ok-ico{width:56px;height:56px;border-radius:50%;background:rgba(63,122,90,.12);color:var(--ok);display:grid;place-items:center;margin:4px auto 10px}
+.ok-ico svg{width:28px;height:28px}
+.ok-ico.wait{background:rgba(201,163,90,.15);color:var(--brown2)}
+.ok-ico.bad{background:rgba(164,71,59,.1);color:var(--bad)}
+.parts{display:flex;gap:6px;margin-top:12px}
+.parts button{flex:1;min-height:40px;border-radius:12px;border:1px solid var(--line);background:rgba(251,247,238,.85);font-size:13.5px;color:var(--brown2)}
+.parts button.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.parts button small{opacity:.8;margin-left:4px}
+.prog{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);margin:12px 0 8px}
+.prog .bar{flex:1;height:5px;border-radius:9px;background:rgba(216,201,172,.5);margin:0 10px;overflow:hidden}
+.prog .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--blue2));border-radius:9px;transition:width .5s}
+.cells{display:grid;gap:10px}
+.cell{display:grid;grid-template-columns:62px 1fr;gap:12px;align-items:center;padding:12px;border-radius:16px;background:rgba(251,247,238,.92);border:1px solid var(--line)}
+.cell.next{border-color:var(--blue2);box-shadow:0 0 0 1px var(--blue2) inset}
+.cell .lb{text-align:center;font-family:var(--serif);color:var(--brown);font-size:17px;line-height:1.3}
+.cell .lb small{display:block;font-family:var(--sans);font-size:11.5px;color:var(--soft)}
+.cell .cs{display:grid;grid-template-columns:1.25fr 1fr 1fr 1fr;gap:6px;align-items:end}
+.cell .cs .w{position:relative}
+.cell .cs .nm{font-size:11px;color:var(--brown2);text-align:center;margin-top:3px;line-height:1.3;min-height:1.3em}
+.cell:not(.open) .nm{visibility:hidden}
+.rep{position:absolute;top:-6px;left:-4px;z-index:2;font-size:10px;background:var(--gold);color:#fff;border-radius:999px;padding:0 6px;line-height:1.6}
+.cell .go{grid-column:1/-1}
+@media(min-width:600px){.cell{grid-template-columns:76px 1fr}}
+.steps-v{list-style:none;display:grid;gap:12px;margin-top:6px}
+.steps-v li{display:flex;gap:12px;align-items:flex-start}
+.steps-v .d{width:26px;height:26px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:13px;background:rgba(63,122,90,.12);color:var(--ok)}
+.steps-v .d svg{width:15px;height:15px}
+.steps-v .d.w{background:rgba(201,163,90,.18);color:var(--brown2)}
+.steps-v b{display:block;font-weight:500;color:var(--brown);font-size:14.5px}
+.steps-v small{color:var(--muted);font-size:12.5px}
+.mia-rd h3{font-size:15px;margin-top:14px}
+.mia-rd p{white-space:pre-wrap;font-size:14.5px;line-height:1.85;margin-top:4px}
+
+/* login gate */
+.gate{text-align:center;padding:28px 18px}
+.gate .pearl{width:50px;height:50px;margin:0 auto 12px}
+.gate p{color:var(--muted);font-size:14px;margin:6px 0 18px}
+
+/* footer */
+.ft{position:relative;z-index:1;text-align:center;font-size:12px;color:#5D6B85;padding:22px 16px calc(22px + var(--safe-b));line-height:1.7}
+.ft a{color:var(--blue);text-decoration:none}
+
+/* modal / toast */
+.scrim{position:fixed;inset:0;z-index:50;background:rgba(40,32,22,.42);display:flex;align-items:center;justify-content:center;padding:16px;animation:fi .2s}
+.modal{background:var(--paper);border-radius:var(--r-lg);width:min(420px,100%);max-height:88vh;overflow:auto;box-shadow:0 20px 50px -20px rgba(40,30,20,.6);padding:20px}
+.modal h3{font-size:17px;margin-bottom:8px}
+.modal p{font-size:14px}
+.modal .btns{margin-top:16px;justify-content:flex-end}
+@keyframes fi{from{opacity:0}}
+#toasts{position:fixed;left:50%;bottom:calc(24px + var(--safe-b));transform:translateX(-50%);z-index:60;display:grid;gap:8px;width:min(92vw,380px)}
+.toast{background:#3A3328;color:#fff;border-radius:12px;padding:10px 14px;font-size:14px;box-shadow:0 10px 24px -12px rgba(0,0,0,.5);animation:fi .2s}
+.toast.err{background:var(--bad)}
+.demo-pick{display:grid;gap:8px;margin-top:12px}
+.demo-pick button{display:flex;gap:12px;align-items:center;text-align:left;padding:12px;border-radius:14px;border:1px solid var(--line);background:#fff}
+.demo-pick .av{margin:0}
+.demo-pick small{display:block;color:var(--muted);font-size:12.5px}
+.demo-tag{font-size:11px;background:var(--blue);color:#fff;border-radius:999px;padding:1px 8px;white-space:nowrap}
+.limit{border-color:var(--gold2);background:#FBF3E4}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.cell .lb.long{font-size:14px}
+@media(max-width:420px){.logo small{display:none}}
+.heal-sum{background:linear-gradient(160deg,#FBF3E4,#FBF7EE)}
+.heal-sum h2{display:flex;align-items:center;gap:6px}
+.heal-sum h2 svg{width:18px;height:18px;color:var(--gold)}
+.heal-sum p{margin-top:8px;line-height:1.9;color:var(--brown)}
+
+/* ===== 網站 B「Mia 陪伴」 ===== */
+.hd nav a.cmp{color:#1F3D78;font-weight:700;border:1px solid #C9D6EA;background:#fff;padding:6px 12px;margin-right:4px}
+.hd nav a.cmp.on{background:#DCE8F6;border-color:#9FB4D6;color:#1F3D78}
+.hd nav a,.logo b{white-space:nowrap}
+@media(max-width:420px){.hd nav a.cmp{padding:6px 10px}.hd:has(a.cmp) .demo-tag{display:none}.hd nav a{padding:6px 7px}}
+/* 我的陪伴 */
+.tlink{color:var(--blue);font-weight:700;text-decoration:none;font-size:13.5px;white-space:nowrap}
+.cm{display:flex;flex-direction:column;gap:12px}
+.cm-h{display:flex;align-items:center;gap:12px}
+.cm-dot{width:36px;height:36px;border-radius:50%;flex:none;background:radial-gradient(circle at 35% 30%,#fff 0 15%,#C4DAF3 45%,#56709F)}
+.cm.past .cm-dot{width:28px;height:28px;opacity:.7}
+.cm-t{flex:1;display:flex;flex-direction:column;min-width:0}
+.cm-t b{font-size:16px;color:var(--brown)}
+.cm-t small{font-size:12.5px}
+.cm-ms{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.cm-ms li{display:grid;grid-template-columns:20px 1fr;gap:12px;padding:7px 0;position:relative}
+.cm-ms li:not(:last-child):before{content:"";position:absolute;left:8px;top:25px;bottom:-7px;width:2px;background:var(--line)}
+.cm-ms .dt{width:18px;height:18px;border-radius:50%;border:3px solid var(--gold);background:#fff;margin-top:3px;z-index:1}
+.cm-ms li.done .dt{background:var(--gold)}
+.cm-ms li.now .dt{border-color:var(--blue);background:var(--sky);box-shadow:0 0 0 4px rgba(44,85,152,.12)}
+.cm-ms li.off .dt{border-color:#C9C2B4;background:#EEEAE2}
+.cm-ms p{margin:0;font-size:14px;line-height:1.65}
+.cm-ms p b{color:var(--brown)}
+.cm-ms p small{color:var(--soft);font-size:12.5px;margin-left:4px}
+.cm-ms p .tlink{margin-left:8px;font-size:13px}
+.cm-ms p.muted{font-size:12.5px}
+.cm-ms li.off p b{color:var(--soft)}
+.cm-ms .btn{margin-top:10px}
+.cm-left{margin:0;text-align:right;font-size:12.5px;color:var(--soft)}
+.cm-acts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.cm-acts .btn{width:100%}
+.cm-past-h{margin:22px 0 10px;font-size:17px}
+.cm-rp{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13.5px;color:var(--ink);text-decoration:none;padding:10px 12px;border-radius:12px;background:var(--paper2);margin:0}
+/* 總結報告 */
+.rp-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.rp-h .h1{margin:0}
+.rp-msg p{margin:0;line-height:1.9}
+.rp-msg .sig{text-align:right;color:var(--soft);margin-top:6px}
+.rp-fh{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.rp-fh .h2{margin:0}
+.chip.warn{background:#F6E7C8;color:#7A5A36}
+.chip.off{background:#F9E1DA;color:#8A3A24}
+.rp-warn{margin:0 0 10px;font-size:13px;color:#8A3A24;line-height:1.7}
+.rp-fs{display:flex;flex-direction:column;gap:8px}
+.rp-f{display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px;background:#fff;border:1px solid var(--line)}
+.rp-f.off{opacity:.6}
+.rp-k{width:36px;height:42px;border-radius:6px;flex:none;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;background:#2C716B}
+.rp-k.pdf{background:#C25A44}
+.rp-fn{flex:1;min-width:0;display:flex;flex-direction:column;font-size:13.5px}
+.rp-fn b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+.rp-fn small{color:var(--soft);font-size:12px}
+.rp-txt h3{font-size:16px;color:var(--brown);margin:14px 0 6px}
+.rp-txt h3:first-child{margin-top:0}
+.rp-txt p,.rp-txt li{line-height:1.9;font-size:14.5px}
+.rp-txt ul{padding-left:20px;margin:6px 0}
+.rp-cells{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+.rp-cells span{display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px}
+.rp-cells img{width:100%;aspect-ratio:480/820;object-fit:cover;border-radius:6px;border:1px solid var(--line)}
+.rp-cells small{color:var(--soft);font-size:11px}
+.rp-cells b{font-size:12px;font-weight:600;color:var(--brown)}
+.rp-ack{display:flex;flex-direction:column;gap:10px;border-color:var(--gold)}
+.rp-ack.done{border-color:#BFE0CC;background:#F3FAF5}
+.rp-ack .h2{margin:0}
+.rp-lbl{font-size:13.5px;font-weight:700;display:flex;gap:8px;align-items:baseline}
+.rp-lbl small{font-weight:400;color:var(--soft)}
+.rp-fb{margin:0;padding:12px;border-radius:12px;background:#fff;line-height:1.8}
+.rp textarea.inp{width:100%;min-height:84px;resize:vertical;box-sizing:border-box}
+.empty .btn{margin-top:12px}
+.mia-rd:not(:has(p)){display:none}
+[hidden]{display:none !important}
+.sp-ab:not([hidden]){animation:spAb .25s ease-out}
+@keyframes spAb{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+
+</style>
+</head>
+<body>
+<div id="app"><div class="busy" style="padding-top:30vh"><span class="spin"></span>Mia Tarot</div></div>
+<script>
+/* 牌義初稿（後台「塔羅 › 牌義內容」可逐張修改，修改會覆蓋這裡的文字） */
+const TAROT_CARDS = [{"id":"m00","n":"愚者","kw":"全新的開始","core":"放下包袱，帶著好奇心踏出第一步。","love":"在感情裡，你正站在一個新的起點，心是打開的，願意不帶預設地去認識一個人或一段關係","work":"在工作上，有一個新的方向在召喚你，你願意嘗試沒做過的事，也還沒被框架限制住","money":"在金錢上，你對錢的態度比較隨性、跟著感覺走，新的收入可能性正在出現，但也容易少了規劃","people":"在人際上，你帶著真誠和天真與人相處，容易認識新朋友，也願意先相信別人","self":"在自我成長上，你正準備開始一段新的旅程，願意放下過去的身分，重新認識自己","other":"這件事正處在剛開始的階段，充滿可能性，也還有很多未知","block":"你想跳得太快，還沒看清腳下的路，或是害怕一旦踏出去就回不了頭","adv":"先別想太多，允許自己用新手的心情試試看，邊走邊調整就好","heal":"不知道答案也沒關係，好奇本身就是一種勇氣。"},
+{"id":"m01","n":"魔術師","kw":"開始創造","core":"你手上已經有需要的資源，是時候把想法變成行動。","love":"在感情裡，你有能力主動表達、創造互動，關係的走向有很大一部分掌握在你手上","work":"在工作上，你的能力、資源和時機都已經到位，適合主動提案、開始執行","money":"在金錢上，你有把想法變成收入的能力，只要願意開始，資源會被你整合起來","people":"在人際上，你很會溝通與連結，能讓身邊的人看見你的想法","self":"在自我成長上，你開始意識到自己的力量，知道很多事情可以由自己決定","other":"事情的關鍵在你的行動，條件已經足夠，只差你開始","block":"你懷疑自己不夠好、資源不夠，所以一直準備卻沒有真正開始；或是用太多技巧，少了真心","adv":"把手上已經有的東西列出來，從其中一樣開始動手","heal":"你不需要等到完美才開始，你已經足夠。"},
+{"id":"m02","n":"女祭司","kw":"內在的知道","core":"安靜下來，答案其實已經在你心裡。","love":"在感情裡，你需要更多時間觀察和感受，有些話還沒說出口，心裡其實已經有感覺","work":"在工作上，現在適合觀察、學習與沉澱，不急著表態，你的直覺會告訴你方向","money":"在金錢上，與其聽很多建議，不如回頭聽聽自己真正的需要，先不急著做大決定","people":"在人際上，你習慣把感受放在心裡，看得很清楚，但不一定說出來","self":"在自我成長上，你正在向內探索，直覺與夢境都在給你訊息","other":"這件事還有一些尚未揭露的部分，需要時間和安靜才能看清","block":"你知道答案，卻一直不願意相信自己；或是把自己關起來，不讓別人靠近","adv":"給自己一段安靜的時間，寫下心裡最先浮現的那個答案","heal":"你的感覺是真的，值得被你自己相信。"},
+{"id":"m03","n":"皇后","kw":"豐盛與滋養","core":"讓自己被照顧，豐盛會從被滋養的地方長出來。","love":"在感情裡，關係是溫暖而有安全感的，你願意付出照顧，也能享受被愛","work":"在工作上，你的成果正在慢慢長出來，適合用溫和穩定的方式經營，讓事情自然成熟","money":"在金錢上，有豐盛和穩定的能量，你懂得享受，也能讓資源慢慢累積","people":"在人際上，你是讓人感到舒服、被包容的存在，身邊的人願意靠近你","self":"在自我成長上，你正在學習好好照顧自己的身體與感受，允許自己享受","other":"這件事有機會開花結果，需要的是耐心與持續的灌溉","block":"你一直照顧別人卻忘了自己，或是用付出來換取被需要的感覺","adv":"先照顧好自己的身體和心情，好好吃一頓飯、睡一場好覺","heal":"你值得被溫柔對待，也包括被自己溫柔對待。"},
+{"id":"m04","n":"皇帝","kw":"企圖心與執行力","core":"定下規則與方向，用穩定的行動撐起想要的生活。","love":"在感情裡，你重視承諾與責任，希望關係有清楚的方向和穩定的結構","work":"在事業的發展上，是充滿企圖心、執行力的，你有能力帶領方向、建立制度","money":"在金錢上，你需要的是紀律和規劃，把收支結構建立起來，安全感就會出現","people":"在人際上，你習慣扮演做決定、照顧大家的角色，別人也信任你的判斷","self":"在自我成長上，你正在建立自己的界線和原則，學會為自己負責","other":"這件事需要明確的計畫和主導權，有人願意扛起責任，事情就會往前走","block":"你太想掌控一切，或是把自己撐得太硬，不允許自己示弱","adv":"替這件事定一個清楚的目標和期限，然後一步一步執行","heal":"堅強之外，你也可以讓自己被支持。"},
+{"id":"m05","n":"教皇","kw":"信念與傳承","core":"向值得信任的人學習，也看看哪些信念是自己真正相信的。","love":"在感情裡，你在意承諾、家人的看法和關係的正式性，希望關係被祝福","work":"在工作上，適合跟著有經驗的人學習，遵循既有的方法或體制，會走得比較穩","money":"在金錢上，保守、按部就班的方式比較適合你，可以請教專業的意見","people":"在人際上，你身邊有值得信任的長輩或老師，團體與歸屬感對你很重要","self":"在自我成長上，你正在尋找可以依循的信念或修行方法，也在學習分辨哪些是自己的聲音","other":"這件事和規範、傳統或某個體制有關，找對的人請教會比較順利","block":"你被「應該要怎樣」的觀念綁住，或是太在意別人怎麼看","adv":"找一位你信任的前輩或老師聊聊，聽聽過來人的經驗","heal":"你可以尊重傳統，也可以溫柔地保留自己的答案。"},
+{"id":"m06","n":"戀人","kw":"真心的選擇","core":"跟隨內心的價值做選擇，關係就會變得真實。","love":"在感情裡，彼此有真實的吸引和連結，這段關係需要你們都真心地選擇對方","work":"在工作上，你面臨一個需要依照價值觀做的選擇，合作關係也特別重要","money":"在金錢上，你需要在兩種方向之間做取捨，選擇和你價值觀一致的那個","people":"在人際上，有很契合的連結，你們彼此欣賞，也能坦誠相待","self":"在自我成長上，你正在學習整合內在的不同面向，做出忠於自己的選擇","other":"這件事的關鍵是一個選擇，而這個選擇要回到你真正重視的是什麼","block":"你不敢做選擇，怕選了就會失去另一個；或是心和腦在拉扯","adv":"問問自己：如果不考慮別人的期待，我會選哪一個？","heal":"忠於自己的選擇，也是一種愛自己的方式。"},
+{"id":"m07","n":"戰車","kw":"意志前行","core":"把分散的力量收回來，朝同一個方向前進。","love":"在感情裡，你有主動爭取的動力，關係正在往前推進，但也要注意雙方的步調","work":"在工作上，你有強烈的企圖心與衝勁，只要方向清楚，就能突破阻礙往前","money":"在金錢上，你正積極爭取收入或目標，需要專注在一個方向上，不要分心","people":"在人際上，你很有主見、行動力強，能帶著大家往前走","self":"在自我成長上，你正在學習掌握自己的情緒和方向，讓內在的拉扯變成前進的力量","other":"這件事正在快速推進，只要意志堅定，就會有成果","block":"你同時想往好幾個方向衝，力量互相抵消；或是太急著證明自己","adv":"選定一個目標，先把力氣集中在那裡","heal":"前進的路上，也記得停下來喝口水。"},
+{"id":"m08","n":"力量","kw":"溫柔的力量","core":"用耐心和溫柔，安撫心裡那頭不安的獅子。","love":"在感情裡，你用包容和耐心經營關係，溫柔比強硬更能打動對方","work":"在工作上，你有足夠的韌性面對壓力，用穩定和耐心處理問題，會比硬碰硬更有效","money":"在金錢上，你能克制衝動消費，用耐心慢慢累積，穩定比速度重要","people":"在人際上，你有溫柔而堅定的影響力，能安撫別人的情緒","self":"在自我成長上，你正在學習接納自己的情緒和本能，而不是壓抑它們","other":"這件事需要的是耐心和內在的力量，慢慢來反而會比較快","block":"你一直壓抑自己的情緒，假裝沒事；或是對自己太嚴苛","adv":"對自己說話溫柔一點，就像安撫一個害怕的孩子","heal":"柔軟不是軟弱，是你最深的力量。"},
+{"id":"m09","n":"隱士","kw":"向內尋找","core":"暫時退後一步，用自己的燈照亮下一步。","love":"在感情裡，你需要獨處的空間整理自己的心，暫時不急著進入或推進關係","work":"在工作上，適合沉澱、研究與深入思考，不急著擴張，先想清楚自己真正要的","money":"在金錢上，適合減少不必要的花費，回頭檢視自己的需要，簡單就好","people":"在人際上，你想要安靜一點，減少社交，跟少數真正懂你的人在一起","self":"在自我成長上，這是一段向內探索的時間，答案會在獨處和安靜裡出現","other":"這件事需要時間沉澱，先不急著行動，想清楚再走","block":"你把自己封閉起來，不讓任何人進來，獨處變成了逃避","adv":"每天留一段不被打擾的時間給自己，散步、寫字或靜坐都好","heal":"一個人的時候，你也不是孤單的。"},
+{"id":"m10","n":"命運之輪","kw":"轉機與循環","core":"事情正在轉動，順著變化走，機會就在其中。","love":"在感情裡，關係正在迎來轉變，可能是新的緣分，也可能是舊的模式需要改變","work":"在工作上，有轉機和新的機會出現，時機正在改變，適合順勢而為","money":"在金錢上，財運有起伏，好運的循環正在轉向你，但也要留意不要過度依賴運氣","people":"在人際上，有新的緣分進來，也有舊的關係自然淡出","self":"在自我成長上，你開始看見自己生命中重複的模式，有機會跳出循環","other":"這件事正在變動，很多因素不完全在你手上，但轉機已經出現","block":"你一直在同一個模式裡打轉，或是抗拒改變，想抓住已經在變的東西","adv":"留意最近的巧合與機會，願意說「好」，讓事情轉動","heal":"每一次轉動，都在帶你走向更適合的位置。"},
+{"id":"m11","n":"正義","kw":"公平與承擔","core":"誠實面對因果，做出對得起自己的決定。","love":"在感情裡，需要誠實與公平，彼此的付出要平衡，關係才走得長","work":"在工作上，事情會依照你實際的付出與結果被評價，合約、規則和公平性特別重要","money":"在金錢上，收支需要清楚、公平，該處理的帳目和責任要面對","people":"在人際上，你重視對錯和原則，也希望別人能公平地對待你","self":"在自我成長上，你正在學習為自己的選擇負責，看見行為和結果之間的關係","other":"這件事會回到因果與事實，用理性和誠實處理，結果會是合理的","block":"你太在意對錯，忽略了感受；或是逃避自己該負的那一部分責任","adv":"把事實寫下來，誠實地看看自己和對方各自的部分","heal":"對自己誠實，是最溫柔的公平。"},
+{"id":"m12","n":"倒吊人","kw":"換個角度","core":"暫停不是停滯，換個角度看，會看見新的可能。","love":"在感情裡，關係處於等待或暫停的狀態，你可能需要換個角度理解對方","work":"在工作上，事情暫時卡住，與其硬推，不如停下來重新思考方向","money":"在金錢上，現在不適合急著投入，暫停一下，換個角度檢視自己的金錢觀","people":"在人際上，你可能為別人犧牲了很多，需要看看這些付出是否心甘情願","self":"在自我成長上，你正在經歷一段放下與臣服的過程，舊的看法正在翻轉","other":"這件事需要等待，也需要你換一個角度看，答案會在停下來之後出現","block":"你卡在原地，用犧牲或等待逃避做決定","adv":"試著從完全相反的角度想一次，或問問一個跟你立場不同的人","heal":"停下來的時間，也在悄悄地帶你往前。"},
+{"id":"m13","n":"死神","kw":"結束與新生","core":"有些東西需要結束，新的生命才有空間長出來。","love":"在感情裡，舊的相處模式或關係階段正在結束，放下之後才會有新的開始","work":"在工作上，一個階段已經走到尾聲，可能是轉換跑道或結束不再適合的方向","money":"在金錢上，舊的金錢習慣需要被結束，清理掉之後，新的流動才會進來","people":"在人際上，有些關係自然地走到盡頭，這不是失敗，而是彼此的階段不同了","self":"在自我成長上，你正在告別舊的自己，經歷一場深刻的蛻變","other":"這件事的舊形式正在結束，轉變是必然的，接受它會比較輕鬆","block":"你緊抓著已經結束的東西不放，害怕放手之後什麼都沒有","adv":"寫下你準備好要放下的一件事，然後好好跟它道別","heal":"結束不是失去，是為新的自己騰出位置。"},
+{"id":"m14","n":"節制","kw":"調和與平衡","core":"慢慢調和，找到剛剛好的中間值。","love":"在感情裡，關係需要互相調整與磨合，溫和的溝通會讓彼此越來越契合","work":"在工作上，適合用平衡、協調的方式推進，整合不同的意見與資源","money":"在金錢上，收支需要平衡，不過度節省也不過度花費，找到剛好的節奏","people":"在人際上，你是很好的協調者，能在不同的人之間找到平衡點","self":"在自我成長上，你正在學習身心的平衡，讓生活慢慢回到適合自己的節奏","other":"這件事需要時間和耐心慢慢調和，急不來，但會越來越順","block":"你在兩個極端之間擺盪，一下太多一下太少，找不到自己的節奏","adv":"今天只做「剛剛好」的量，不多也不少","heal":"慢慢來，你正在找回自己的節奏。"},
+{"id":"m15","n":"惡魔","kw":"看見束縛","core":"看見讓你上癮或依賴的東西，鎖鏈其實可以鬆開。","love":"在感情裡，關係中有強烈的吸引或依賴，可能也有讓你放不下、卻不舒服的模式","work":"在工作上，你可能被薪水、責任或慾望綁住，做著不喜歡卻離不開的事","money":"在金錢上，有衝動消費、欲望或債務的牽絆，需要看見自己被什麼綁住","people":"在人際上，有某段關係讓你感到被控制或難以拒絕","self":"在自我成長上，你正在面對自己的陰影和執著，看見它就是解開的開始","other":"這件事背後有一個讓你放不下的執著，看清楚它，才有選擇的自由","block":"你知道某個習慣或關係在消耗你，卻告訴自己「沒辦法」","adv":"誠實寫下一個你想擺脫的習慣，再寫下它帶給你的好處，看看你真正需要的是什麼","heal":"看見束縛的那一刻，你就已經開始自由了。"},
+{"id":"m16","n":"高塔","kw":"突然的翻轉","core":"舊的結構倒下，是為了讓真實的東西被看見。","love":"在感情裡，可能有突然的衝突或真相浮現，打破了原本的假象","work":"在工作上，計畫可能突然改變，原本的架構被打破，但也逼你看見真正的問題","money":"在金錢上，可能有預期外的支出或變動，提醒你重新檢視財務的基礎","people":"在人際上，有些關係可能因為一件事而改變，真實的樣子被看見","self":"在自我成長上，舊的信念正在崩塌，雖然震撼，卻是覺醒的開始","other":"這件事會有突如其來的變化，原本的方式行不通，需要重新建立","block":"你用力撐著一個已經不穩的東西，害怕它倒下","adv":"先處理最緊急的一件事，其他的允許它暫時亂一下","heal":"倒下的只是不再適合你的，真正的你還在。"},
+{"id":"m17","n":"星星","kw":"希望與修復","core":"經歷過風雨之後，希望會一點一點回來。","love":"在感情裡，關係正在被修復，帶著真誠與希望，彼此慢慢找回信任","work":"在工作上，你重新找回熱情與方向，對未來有了希望，也適合發揮創意","money":"在金錢上，你對錢的安全感正在一點一點被修復，情況會慢慢好轉","people":"在人際上，你能真誠地分享自己，也會被溫柔地接住","self":"在自我成長上，這是療癒與重新相信自己的階段，內在的光正在回來","other":"這件事帶著希望，雖然還需要時間，但方向是好的","block":"你不太敢再抱希望，怕期待之後又落空","adv":"每天替自己做一件小小的、讓你覺得有希望的事","heal":"每天替自己留一點點光。"},
+{"id":"m18","n":"月亮","kw":"不安與迷霧","core":"在看不清的時候，先陪著自己的不安，不急著下結論。","love":"在感情裡，有些事情還不明朗，你可能有不安、猜疑，或彼此沒有把話說清楚","work":"在工作上，情況還在迷霧中，資訊不完整，先不要急著做大決定","money":"在金錢上，有些狀況看不清楚，要留意不實的資訊，也照顧好自己的焦慮","people":"在人際上，你可能感受到誤會或不安，需要確認事實，而不是被想像牽著走","self":"在自我成長上，潛意識的恐懼和舊傷正在浮現，它們需要被看見和安撫","other":"這件事還有很多未知，你的直覺有幫助，但也要分辨哪些是恐懼","block":"你的不安和想像把事情放大了，讓你看不清真實的狀況","adv":"把擔心寫下來，旁邊標註「這是事實」還是「這是我的猜想」","heal":"害怕的時候，先把手放在胸口，告訴自己：我在這裡。"},
+{"id":"m19","n":"太陽","kw":"光與坦然","core":"把自己放到光裡，坦白、分享、被看見。","love":"在感情裡，關係是溫暖而坦率的，彼此可以真誠地相處，帶來快樂","work":"在工作上，你的能力被看見，事情順利、成果明顯，適合展現自己","money":"在金錢上，運勢明朗，有好的收穫，你也能大方地享受成果","people":"在人際上，你散發溫暖的能量，容易受到歡迎，相處輕鬆愉快","self":"在自我成長上，你重新找回單純的快樂和自信，像孩子一樣自在","other":"這件事有很好的發展，事情會越來越清楚、順利","block":"你不敢讓自己被看見，或是用表面的開朗蓋住真實的感受","adv":"今天主動分享一件讓你開心的事，或大方接受別人的稱讚","heal":"你本來就值得在光裡，不用先證明什麼。"},
+{"id":"m20","n":"審判","kw":"覺醒與召喚","core":"聽見內在的召喚，回應那個一直在等你的自己。","love":"在感情裡，有舊的議題需要重新面對，你也可能更清楚自己在關係裡真正要的是什麼","work":"在工作上，你聽見了真正想做的事，是時候回應內在的召喚，做出重要的決定","money":"在金錢上，過去的決定正在帶來結果，也是重新檢視、做出新選擇的時機","people":"在人際上，有舊的關係可能重新連結，或有機會和解","self":"在自我成長上，你正在覺醒，看見自己真正的使命，準備好重新出發","other":"這件事到了一個關鍵時刻，需要你清醒地做決定，回應真正重要的東西","block":"你聽見了內在的聲音，卻因為害怕改變而假裝沒聽見","adv":"問自己：如果現在不做，一年後的我會後悔嗎？","heal":"每一個醒來的時刻，都是重新開始的機會。"},
+{"id":"m21","n":"世界","kw":"圓滿與完成","core":"一個階段完整地走完了，你可以好好地慶祝。","love":"在感情裡，關係走到圓滿穩定的階段，彼此契合，也能一起迎向下一步","work":"在工作上，一個階段的目標達成，努力有了完整的成果，也準備好迎接更大的舞台","money":"在金錢上，有完整的收穫，財務狀況達到一個穩定、圓滿的階段","people":"在人際上，你和身邊的人相處融洽，感受到歸屬與連結","self":"在自我成長上，你完成了一段重要的旅程，整合了過去的經驗，變得更完整","other":"這件事會有圓滿的結果，一個循環完成，新的旅程即將開始","block":"你一直覺得「還不夠」，所以沒辦法讓一件事真正結束、真正慶祝","adv":"為最近完成的一件事好好慶祝，然後告訴自己：我做到了","heal":"你已經走了好長一段路，值得被好好肯定。"},
+{"id":"w01","n":"權杖 1","kw":"點燃熱情","core":"一股新的熱情被點燃，想做的事情正在發芽。","love":"在感情裡，有新的火花出現，你對某個人或這段關係重新感到心動","work":"在工作上，有新的靈感或機會出現，你很想開始，行動力正在升起","money":"在金錢上，一個新的收入點子或機會出現了，值得試著開始","people":"在人際上，你帶著熱情去認識人，容易開啟新的連結","self":"在自我成長上，你找到一件讓你眼睛發亮的事，生命力正在回來","other":"這件事有一個充滿能量的開始，適合把握這股衝勁","block":"你有很多想法，卻一直停在「想」，沒有讓火真的燒起來","adv":"趁熱情還在，今天就為這件事做一個小小的開始","heal":"讓你心動的事，就是你的方向。"},
+{"id":"w02","n":"權杖 2","kw":"規劃未來","core":"站在自己的城牆上，看著遠方，計畫下一步。","love":"在感情裡，你在考慮這段關係的未來，想知道彼此是否往同一個方向走","work":"在工作上，你正在規劃更大的目標，評估要留在原地還是往外發展","money":"在金錢上，適合做長期的財務規劃，想清楚下一步要往哪裡投入","people":"在人際上，你在思考要不要走出熟悉的圈子，認識不同的人","self":"在自我成長上，你看見了更大的世界，開始想像不一樣的自己","other":"這件事在規劃階段，你手上有選擇，需要決定往哪個方向走","block":"你一直在計畫，卻遲遲不敢離開舒適圈","adv":"把你想去的方向寫下來，列出第一個可以跨出去的步驟","heal":"看得見遠方，是因為你已經站得夠穩。"},
+{"id":"w03","n":"權杖 3","kw":"等待成果","core":"你已經出發，現在是看著船隻歸來的時候。","love":"在感情裡，關係正在往前發展，你對未來抱有期待，也願意給對方時間","work":"在工作上，你之前的努力開始有回應，合作或拓展的機會正在靠近","money":"在金錢上，投入的資源正在慢慢回收，再耐心一點會看見成果","people":"在人際上，有遠方或不同領域的人帶來新的連結","self":"在自我成長上，你的視野正在擴展，開始看見更長遠的自己","other":"這件事已經啟動，正在等待成果，方向是對的","block":"你等得有點焦急，忍不住懷疑自己的選擇","adv":"把目光放遠一點，同時準備好迎接接下來的機會","heal":"你種下的，正在路上。"},
+{"id":"w04","n":"權杖 4","kw":"安穩與慶祝","core":"一個值得慶祝的穩定階段，讓自己感受歸屬。","love":"在感情裡，關係穩定而喜悅，可能有值得慶祝的進展，例如見家人或更深的承諾","work":"在工作上，階段性的目標完成了，團隊氣氛好，適合好好慶祝","money":"在金錢上，狀況穩定，有餘裕享受和分享","people":"在人際上，你和身邊的人有溫暖的歸屬感，聚會與團聚特別有意義","self":"在自我成長上，你為自己建立了一個安心的基地，可以在這裡休息","other":"這件事有好的進展，值得停下來慶祝一下","block":"你忙到忘了慶祝，或覺得自己還不配享受成果","adv":"邀請重要的人一起慶祝一件小事","heal":"你值得擁有一個可以安心回來的地方。"},
+{"id":"w05","n":"權杖 5","kw":"意見衝突","core":"不同的聲音在碰撞，其實也在激發新的可能。","love":"在感情裡，彼此有些小摩擦或意見不合，需要學習好好吵架、好好溝通","work":"在工作上，有競爭或意見衝突，大家都想表達，事情顯得有點混亂","money":"在金錢上，有競爭壓力，或對資源怎麼分配有不同意見","people":"在人際上，團體裡有些角力和爭執，各說各話","self":"在自我成長上，你內在有不同的想法在拉扯，需要整理出自己的立場","other":"這件事有些混亂和競爭，需要找到共同的目標","block":"你把每一件事都當成要贏的比賽，消耗了很多力氣","adv":"先聽完別人的想法，再說出你的，找出大家都同意的那一點","heal":"意見不同，不代表你不被喜歡。"},
+{"id":"w06","n":"權杖 6","kw":"被肯定","core":"你的努力被看見了，可以大方接受掌聲。","love":"在感情裡，關係被身邊的人看好，你在這段關係裡感到被肯定","work":"在工作上，你的表現被認可，有好的成果、升遷或獲得讚賞","money":"在金錢上，努力帶來實際的回報，收入或成果有明顯的進展","people":"在人際上，你受到大家的支持，是被信任和欣賞的人","self":"在自我成長上，你找回自信，也學會肯定自己的努力","other":"這件事會有好的結果，你的付出會被看見","block":"你太在意別人的評價，沒有掌聲就懷疑自己","adv":"把最近完成的事告訴別人，允許自己被稱讚","heal":"你可以為自己感到驕傲。"},
+{"id":"w07","n":"權杖 7","kw":"堅守立場","core":"站穩腳步，守護你認為重要的東西。","love":"在感情裡，你需要捍衛這段關係或自己的需求，不輕易退讓","work":"在工作上，你面對競爭或質疑，需要堅持自己的專業和立場","money":"在金錢上，需要守住自己的資源和界線，不被別人的要求拖著走","people":"在人際上，你可能要面對不同的聲音，練習溫和而堅定地表達","self":"在自我成長上，你正在學習為自己站出來，守住自己的界線","other":"這件事需要你堅持立場，不要輕易放棄已經得到的","block":"你一直處在防衛狀態，把每個人都當成要對抗的對象","adv":"說出你的界線，只要清楚，不需要大聲","heal":"守護自己，不需要感到抱歉。"},
+{"id":"w08","n":"權杖 8","kw":"快速推進","core":"事情加速前進，消息和機會很快就會到來。","love":"在感情裡，關係發展得很快，可能有密集的聯絡或突然的進展","work":"在工作上，事情快速推進，訊息、回覆和機會接連到來","money":"在金錢上，錢的流動變快，有入帳，也要留意快速的支出","people":"在人際上，聯絡變多，有好消息或邀約傳來","self":"在自我成長上，你的成長正在加速，很多事情一下子就想通了","other":"這件事會很快有消息，進展比預期迅速","block":"事情太快，你來不及消化，或因為急著回應而做了倉促的決定","adv":"把待辦事項排出優先順序，一件一件快速處理","heal":"跟上節奏的同時，也別忘了呼吸。"},
+{"id":"w09","n":"權杖 9","kw":"疲憊中的堅持","core":"你已經撐了很久，再一點點就會到。","love":"在感情裡，你經歷過一些傷，現在變得比較防備，但仍然願意守著這段關係","work":"在工作上，你很累了，但已經接近終點，需要再撐一下","money":"在金錢上，你一直很小心地守著，雖然辛苦，但基礎是穩的","people":"在人際上，你因為過去的經驗而有些戒心，不太敢再完全信任","self":"在自我成長上，你學到了很多，也累積了韌性，只是需要好好休息","other":"這件事已經接近尾聲，堅持下去會看見結果","block":"你太累了，卻不敢停下來，怕一停就前功盡棄","adv":"承認自己累了，找一個可以讓你喘口氣的支持","heal":"撐了這麼久的你，真的很不容易。"},
+{"id":"w10","n":"權杖 10","kw":"負擔太重","core":"你扛了太多，是時候放下一些了。","love":"在感情裡，你承擔了太多責任，關係變得沉重，需要讓對方一起分擔","work":"在工作上，工作量太大，什麼都自己扛，已經快要喘不過氣","money":"在金錢上，經濟壓力很重，責任和支出讓你感到吃力","people":"在人際上，你總是幫大家扛事情，卻很少開口求助","self":"在自我成長上，你需要學會分辨哪些是你的責任、哪些不是","other":"這件事讓你負擔過重，需要減量或請人幫忙","block":"你覺得只有自己做才放心，所以什麼都不肯放手","adv":"列出手上的責任，挑一件交給別人或乾脆放下","heal":"你不需要一個人扛起全部。"},
+{"id":"w11","n":"權杖侍從","kw":"好奇與探索","core":"帶著好奇心去嘗試，新消息正在路上。","love":"在感情裡，有新鮮、帶點孩子氣的互動，或有人對你表達興趣","work":"在工作上，有新的學習或嘗試機會，適合帶著熱情去探索","money":"在金錢上，有新的想法或小機會，可以先試試看","people":"在人際上，你帶著熱情認識新朋友，可能收到邀約或消息","self":"在自我成長上，你對新的事物充滿好奇，願意像初學者一樣學習","other":"這件事有好消息或新的開始，值得帶著好奇心嘗試","block":"你三分鐘熱度，開始很多事卻沒有一件持續","adv":"挑一件讓你好奇的事，這週給它三次嘗試的機會","heal":"保持好奇，是讓生命一直新鮮的方法。"},
+{"id":"w12","n":"權杖騎士","kw":"衝勁十足","core":"充滿行動力，想到就出發。","love":"在感情裡，有熱烈、主動的追求，但也要留意熱度是否能持續","work":"在工作上，你衝勁十足，想快速推進，適合開拓新局","money":"在金錢上，你想要快速行動，但要小心衝動的決定","people":"在人際上，你充滿魅力和活力，很能帶動氣氛","self":"在自我成長上，你勇於冒險，願意跳出去試試看","other":"這件事會快速發展，充滿變化與冒險感","block":"你太急，沒想清楚就衝出去，容易虎頭蛇尾","adv":"出發前花十分鐘想清楚目的地，然後勇敢前進","heal":"你的熱情很珍貴，也值得被好好安放。"},
+{"id":"w13","n":"權杖王后","kw":"自信與魅力","core":"相信自己的光，溫暖而有自信地做自己。","love":"在感情裡，你自信而有魅力，能大方表達自己，也吸引對方靠近","work":"在工作上，你能幹又有感染力，能同時照顧很多事，也帶動他人","money":"在金錢上，你對自己有信心，也懂得讓資源為你所用","people":"在人際上，你溫暖又有主見，是大家喜歡靠近的人","self":"在自我成長上，你越來越清楚自己是誰，也敢讓自己發光","other":"這件事需要你拿出自信，用你自己的方式去做","block":"你太在意自己的形象，或用忙碌和強勢掩蓋內心的不安","adv":"穿上讓你有自信的衣服，帶著笑容去做那件事","heal":"你的光不會因為別人而變暗。"},
+{"id":"w14","n":"權杖國王","kw":"有遠見的領導","core":"用遠見和熱情帶領方向，做自己生命的主人。","love":"在感情裡，你有主導力，對關係有清楚的願景，也願意承擔","work":"在工作上，你有領導力和遠見，適合主導計畫、創業或帶團隊","money":"在金錢上，你有長遠的眼光，敢投資在自己相信的方向","people":"在人際上，你是能鼓舞別人的人，大家願意跟隨你","self":"在自我成長上，你正在成為自己人生的領導者，敢做決定也敢負責","other":"這件事需要有人帶頭，用遠見和決心推動","block":"你太急著要結果，或對別人缺乏耐心","adv":"說出你的願景，讓身邊的人知道你要帶大家去哪裡","heal":"你可以帶領別人，也可以被好好支持。"},
+{"id":"c01","n":"聖杯 1","kw":"情感的開端","core":"心被打開了，新的愛與感動正在流進來。","love":"在感情裡，有新的情感萌芽，你的心是柔軟而開放的，適合真心地表達","work":"在工作上，你對這件事有真正的熱愛，做起來有感覺，也能感動別人","money":"在金錢上，錢的流動和你的心情有關，當你做喜歡的事，豐盛也會跟著來","people":"在人際上，有溫暖的新連結，彼此能真誠地交流感受","self":"在自我成長上，你的心正在被療癒，重新感受到愛與喜悅","other":"這件事帶著情感上的祝福，是一個溫柔的開始","block":"你的心被保護得太緊，不太敢讓新的感情進來","adv":"今天對一個人說出你真心的感謝或喜歡","heal":"讓自己被愛，是一種勇敢。"},
+{"id":"c02","n":"聖杯 2","kw":"彼此的連結","core":"兩顆心互相看見，關係建立在平等與真誠上。","love":"在感情裡，彼此有很好的互動與吸引，關係是互相、平等的","work":"在工作上，適合合作、結盟，找到志同道合的夥伴","money":"在金錢上，合作或互惠的方式能帶來收穫，也適合和伴侶一起規劃","people":"在人際上，有一段很契合的關係，你們能真誠地互相支持","self":"在自我成長上，你正在學習和自己和好，接納內在不同的部分","other":"這件事的關鍵是合作與連結，兩方能夠互相成全","block":"你在關係裡付出不對等，或太想討好而失去自己","adv":"主動約那個重要的人，好好聊一次心裡的話","heal":"真正的連結，會讓你更像你自己。"},
+{"id":"c03","n":"聖杯 3","kw":"分享與慶祝","core":"和喜歡的人在一起，快樂會加倍。","love":"在感情裡，關係帶來快樂，也適合和朋友一起分享你們的喜悅","work":"在工作上，團隊合作愉快，有值得一起慶祝的成果","money":"在金錢上，有小小的收穫可以分享，也要留意聚會花費","people":"在人際上，朋友是你的支持，聚會、姊妹淘或同好讓你充滿能量","self":"在自我成長上，你在群體裡找到歸屬，被理解和陪伴讓你更有力量","other":"這件事帶來喜悅，適合和身邊的人一起分享","block":"你在熱鬧的聚會裡，卻覺得自己沒有真的被懂","adv":"約幾個讓你放鬆的朋友，好好吃頓飯、笑一笑","heal":"你值得被一群人好好地愛著。"},
+{"id":"c04","n":"聖杯 4","kw":"提不起勁","core":"對眼前的一切有點倦怠，可能錯過了正在遞過來的東西。","love":"在感情裡，你對關係有些冷淡或倦怠，可能沒注意到對方的心意","work":"在工作上，你提不起勁，對現在的工作感到無聊，但也可能忽略了新的機會","money":"在金錢上，你對現狀不滿足，卻也沒有動力去改變","people":"在人際上，你想退回自己的世界，對別人的邀約興趣缺缺","self":"在自我成長上，你正在沉澱，需要問問自己真正想要的是什麼","other":"這件事讓你感到停滯，但其實新的機會就在身邊","block":"你沉在不滿足裡，看不見已經擁有的和正在來的","adv":"寫下三件今天其實還不錯的小事，再看看有什麼機會被你忽略了","heal":"倦怠是在提醒你，該為自己重新找回意義了。"},
+{"id":"c05","n":"聖杯 5","kw":"失落與惋惜","core":"允許自己難過，然後慢慢轉身，看見還留著的。","love":"在感情裡，你正為失去或遺憾而難過，眼睛還停在倒下的杯子上","work":"在工作上，有失望或挫折，你可能還在為錯過的機會感到可惜","money":"在金錢上，有損失或後悔的花費，讓你感到沮喪","people":"在人際上，有關係讓你失望，你需要時間消化這份失落","self":"在自我成長上，你正在經歷哀傷，這是療癒必經的過程","other":"這件事帶來一些失落，但並沒有全部失去，身後還有兩個杯子","block":"你一直看著失去的，忘了自己還擁有的","adv":"好好哭一場，然後列出你身邊還在的人和事","heal":"難過是因為你在乎，你的感受很重要。"},
+{"id":"c06","n":"聖杯 6","kw":"回憶與純真","core":"溫暖的回憶回來了，帶著單純的善意。","love":"在感情裡，可能有舊情人或熟悉的人出現，也或是關係帶著單純、甜蜜的感覺","work":"在工作上，過去的經驗或老朋友帶來幫助，也適合做讓你有童心的事","money":"在金錢上，有家人或舊識的幫忙，或你想念以前比較簡單的生活","people":"在人際上，老朋友重新聯絡，互相付出不求回報","self":"在自我成長上，你回頭擁抱內在的小孩，找回單純的快樂","other":"這件事和過去有關，溫暖的回憶能給你力量","block":"你太懷念過去，用回憶逃避現在","adv":"聯絡一位很久沒見的老朋友，或做一件小時候喜歡的事","heal":"那個小時候的你，一直都在，也值得被你抱抱。"},
+{"id":"c07","n":"聖杯 7","kw":"選擇太多，看不清","core":"眼前的選項很多，停下來分辨哪個是真正需要的。","love":"在感情裡，你的想像比現實還多，或同時有好幾個選擇，還沒看清自己要什麼","work":"在工作上，眼前的選擇很多，想法也很多，卻還沒有看清哪個才是真正可行的","money":"在金錢上，眼前的選擇很多，卻還沒有看清哪個才是真正需要的，容易被誘惑分心","people":"在人際上，你可能把某些人想得太美，或被表象吸引","self":"在自我成長上，你有很多夢想，需要分辨哪些是真正的渴望、哪些只是逃避","other":"這件事有很多可能，但也有幻想的成分，需要回到現實檢視","block":"你一直在想像各種可能，卻沒有真正選一個開始","adv":"把選項寫下來，刪掉那些只是「看起來很好」的，留下一個去做","heal":"先選一件最重要的事就好。"},
+{"id":"c08","n":"聖杯 8","kw":"轉身離開","core":"放下不再滋養你的，去找真正想要的。","love":"在感情裡，你感覺這段關係少了什麼，可能準備離開或尋找更深的連結","work":"在工作上，你對現在的工作已經沒有熱情，想離開去尋找更有意義的方向","money":"在金錢上，你願意放下一些安穩，去追求更符合內心的生活","people":"在人際上，有些關係已經不再滋養你，你準備好轉身了","self":"在自我成長上，你正在尋找更深的意義，願意走一段孤獨的路","other":"這件事已經無法滿足你，是時候往前走了","block":"你知道該走了，卻因為捨不得已經投入的而留在原地","adv":"誠實問自己：留下來，是因為想要，還是因為害怕？","heal":"離開不是失敗，是你終於選擇了自己。"},
+{"id":"c09","n":"聖杯 9","kw":"心願達成","core":"願望正在實現，好好享受你得到的滿足。","love":"在感情裡，你感到滿足和幸福，願望有機會成真","work":"在工作上，你達成了想要的目標，對成果感到滿意","money":"在金錢上，物質上有滿足感，你可以好好享受努力的成果","people":"在人際上，你過得開心，也願意分享自己的快樂","self":"在自我成長上，你對自己感到滿意，懂得享受生活的美好","other":"這件事會有讓你滿意的結果，是許願成真的牌","block":"你得到了想要的，卻仍覺得少了什麼，或只是表面上的滿足","adv":"許一個具體的願望，並為它做一件事","heal":"你可以理直氣壯地享受你的幸福。"},
+{"id":"c10","n":"聖杯 10","kw":"幸福圓滿","core":"心裡的家被填滿，愛在身邊流動。","love":"在感情裡，關係和諧幸福，有走向長久、組成家庭的可能","work":"在工作上，工作和生活達到平衡，團隊像家人一樣互相支持","money":"在金錢上，經濟狀況讓你感到安心，可以照顧到家人","people":"在人際上，你被愛包圍，家人與朋友的關係溫暖和睦","self":"在自我成長上，你找到了內心的平靜與歸屬感","other":"這件事會有圓滿幸福的結果，情感上很滿足","block":"你太想維持完美的表象，把真實的感受藏起來","adv":"花時間陪伴你愛的人，好好感受當下的幸福","heal":"幸福不用很大，此刻的溫暖就是。"},
+{"id":"c11","n":"聖杯侍從","kw":"溫柔的訊息","core":"一份溫柔的心意或靈感正在出現。","love":"在感情裡，可能有人表達好感，或你收到一份溫柔的心意","work":"在工作上，有創意和靈感出現，適合從事需要感受力的事","money":"在金錢上，可能有小小的驚喜，也適合用感覺去做小嘗試","people":"在人際上，你真誠又柔軟，容易和人建立溫暖的關係","self":"在自我成長上，你重新接觸自己的感受，也對直覺更敏銳","other":"這件事帶來溫柔的好消息或靈感","block":"你太敏感，容易被小事影響情緒","adv":"記下今天讓你有感覺的一件事，那可能是靈感","heal":"你的柔軟，是很珍貴的天賦。"},
+{"id":"c12","n":"聖杯騎士","kw":"浪漫的邀請","core":"跟著心走，帶著真心去靠近。","love":"在感情裡，有浪漫的邀請或告白，對方帶著真心靠近","work":"在工作上，你帶著理想去做事，適合創意、藝術或助人的方向","money":"在金錢上，你可能被感覺牽動做決定，要留意理想和現實的平衡","people":"在人際上，你溫柔又體貼，容易讓人感到被理解","self":"在自我成長上，你在追尋心中的理想，願意跟著感覺走","other":"這件事帶著浪漫和理想，適合真心投入","block":"你太理想化，容易被表面的浪漫吸引，或只是說說卻沒有行動","adv":"把你心裡的感受，用一個具體的行動表達出來","heal":"跟著心走的路，不會讓你迷失。"},
+{"id":"c13","n":"聖杯王后","kw":"溫柔的同理","core":"用溫柔接住自己，也接住別人的情緒。","love":"在感情裡，你很懂得體貼與包容，也需要記得照顧自己的感受","work":"在工作上，你的同理心是優勢，適合需要溝通、照顧或陪伴的工作","money":"在金錢上，用直覺判斷，同時也要留意不要因為心軟而吃虧","people":"在人際上，你是大家傾訴的對象，能給人安全感","self":"在自我成長上，你的直覺和感受力很強，正在學習溫柔地對待自己","other":"這件事需要用同理和直覺去感受，而不只是用道理","block":"你吸收了太多別人的情緒，忘了分辨哪些是你的","adv":"今天給自己一段時間，只照顧自己的心情","heal":"你接住了很多人，你也值得被接住。"},
+{"id":"c14","n":"聖杯國王","kw":"情緒的穩定","core":"在情緒的海浪中，依然能穩穩地坐著。","love":"在感情裡，你成熟而穩重，能包容對方，也能穩定地經營關係","work":"在工作上，你能在壓力中保持冷靜，用溫和的方式處理人和事","money":"在金錢上，你不因情緒做決定，能穩定地管理資源","people":"在人際上，你是可靠的支持者，讓人感到被理解又安心","self":"在自我成長上，你學會和情緒共處，不壓抑也不被淹沒","other":"這件事需要冷靜和情緒上的成熟，穩住就能處理好","block":"你把情緒壓得太深，表面平靜，心裡其實很累","adv":"找一個安全的人，說說你一直沒說的感受","heal":"穩定不是沒有感覺，是你懂得好好陪伴它。"},
+{"id":"s01","n":"寶劍 1","kw":"清晰的真相","core":"一個清楚的想法出現，劃開迷霧，看見真相。","love":"在感情裡，需要把話說清楚，真相或真實的想法會讓關係更明朗","work":"在工作上，有清晰的新想法或決定，適合把計畫說清楚、做出判斷","money":"在金錢上，需要用理性看清楚狀況，做出明確的財務決定","people":"在人際上，坦白溝通會帶來突破，真話雖然直接，卻能解開誤會","self":"在自我成長上，你突然想通了一件事，思緒變得清楚","other":"這件事會變得明朗，關鍵在於說清楚、想清楚","block":"你的話太尖銳，傷了人也傷了自己；或是看得清卻不敢說","adv":"把你真正的想法寫成一句話，清楚地說出來","heal":"說出真話，也可以很溫柔。"},
+{"id":"s02","n":"寶劍 2","kw":"猶豫與僵持","core":"暫時不想選，但遲遲不面對也是一種選擇。","love":"在感情裡，你在兩難之間不想做決定，或彼此都在迴避真正的問題","work":"在工作上，事情陷入僵局，你在兩個選項間猶豫，資訊還不夠","money":"在金錢上，你遲遲不敢做決定，怕選錯而乾脆不動","people":"在人際上，你夾在中間，想保持中立，卻也因此很累","self":"在自我成長上，你把心關起來，用理性壓住感受","other":"這件事陷入僵持，需要更多資訊或面對真實的感受才能前進","block":"你蒙著眼睛不去看，以為不選就不會受傷","adv":"摘下眼罩：列出兩個選項各自最壞的結果，你會發現其實可以承受","heal":"不知道怎麼選的時候，先聽聽自己的心跳。"},
+{"id":"s03","n":"寶劍 3","kw":"心痛","core":"心被刺痛了，允許自己感受痛，傷口才會癒合。","love":"在感情裡，有讓你心痛的事，可能是分離、背叛或說出口的傷人話","work":"在工作上，有讓你受傷的批評或失望，心裡很難受","money":"在金錢上，有損失或失望帶來的痛，需要時間接受","people":"在人際上，有人說的話傷了你，或你感到被背叛","self":"在自我成長上，舊的傷口被碰到了，這是療癒的機會","other":"這件事帶來心痛，但痛會過去，你會從中更了解自己","block":"你一直重播傷心的畫面，讓傷口無法癒合","adv":"寫一封不寄出的信，把心裡的痛說完","heal":"心會痛，代表它很努力在愛。"},
+{"id":"s04","n":"寶劍 4","kw":"休息與修復","core":"放下武器，好好休息，修復是為了走更遠的路。","love":"在感情裡，關係需要暫停與冷靜，給彼此一點空間修復","work":"在工作上，你需要休息，暫時停下來充電，不要硬撐","money":"在金錢上，先暫停大的決定，等心情平穩再處理","people":"在人際上，你需要獨處，暫時減少社交","self":"在自我成長上，這是休養生息的階段，身心都需要被好好照顧","other":"這件事需要暫停一下，休息之後會看得更清楚","block":"你不允許自己休息，覺得停下來就是偷懶","adv":"排一段完全不做事的時間，關掉手機，好好睡一覺","heal":"休息不是落後，是在照顧你的未來。"},
+{"id":"s05","n":"寶劍 5","kw":"贏了卻失去","core":"爭贏了道理，卻可能輸掉了關係。","love":"在感情裡，爭吵中有人想贏，結果彼此都受傷","work":"在工作上，有不愉快的競爭或衝突，就算贏了也讓人不舒服","money":"在金錢上，可能有利益上的爭執，或為了小利失去更重要的東西","people":"在人際上，有衝突或冷戰，有人覺得被欺負或被比下去","self":"在自我成長上，你需要看見自己什麼時候太想證明自己是對的","other":"這件事有衝突和輸贏，要想清楚什麼才是真正重要的","block":"你一直想爭一口氣，卻讓自己越來越孤單","adv":"問自己：我想要的是贏，還是被理解？","heal":"放下輸贏，你會感到輕鬆很多。"},
+{"id":"s06","n":"寶劍 6","kw":"過渡與離開","core":"慢慢離開困境，往比較平靜的地方前進。","love":"在感情裡，你們正在走出低潮，或你正在從一段傷心中慢慢離開","work":"在工作上，有轉換或過渡，事情正在往比較好的方向移動","money":"在金錢上，困難正在過去，情況會慢慢穩定","people":"在人際上，你和某些人的關係正在轉變，往比較平和的狀態前進","self":"在自我成長上，你正從舊傷走出來，雖然慢，但方向是對的","other":"這件事正在過渡期，最難的部分已經過去","block":"你人已經離開，心卻還留在原地","adv":"為自己設定一個小小的新開始，例如換個環境或新的作息","heal":"每往前划一下，平靜就靠近一點。"},
+{"id":"s07","n":"寶劍 7","kw":"迴避與保留","core":"有些事沒有說清楚，也需要看看自己在迴避什麼。","love":"在感情裡，有隱瞞或沒說出口的事，需要坦誠面對","work":"在工作上，要留意資訊不透明，也可能你想用取巧的方式避開問題","money":"在金錢上，要留意不實的資訊或被佔便宜，也不要心存僥倖","people":"在人際上，有人可能沒有完全說實話，或你自己在保留","self":"在自我成長上，你需要看見自己在逃避什麼，誠實會讓你更自由","other":"這件事有隱藏的部分，需要更謹慎、更誠實","block":"你想一個人偷偷解決，不讓任何人知道","adv":"把那件一直沒說出口的事，挑一個信任的人說說看","heal":"誠實不是要你完美，是讓你不用再一個人扛。"},
+{"id":"s08","n":"寶劍 8","kw":"自我設限","core":"綁住你的，常常是腦中的想法，其實可以走出來。","love":"在感情裡，你覺得自己被困住，沒有選擇，但其實是害怕讓你不敢動","work":"在工作上，你覺得無路可走，被限制住，其實是想法把自己綁起來了","money":"在金錢上，「我做不到」「我沒辦法」的想法，讓你看不見其他可能","people":"在人際上，你擔心別人的眼光，不敢做真正的自己","self":"在自我成長上，你正在看見自己的限制性信念","other":"這件事看起來沒有出路，但限制大多來自想法，不是現實","block":"你一直告訴自己「沒辦法」，所以連試都不敢試","adv":"把「我不能」改成「我可以先試一小步」，然後真的去做","heal":"眼罩一拿下，你會發現路一直都在。"},
+{"id":"s09","n":"寶劍 9","kw":"焦慮失眠","core":"半夜醒來的擔心，往往比現實更可怕。","love":"在感情裡，你很焦慮、想很多，擔心最壞的情況發生","work":"在工作上，壓力讓你睡不好，擔心犯錯或失敗","money":"在金錢上，對錢的焦慮讓你失眠，一直想著不夠怎麼辦","people":"在人際上，你反覆想著別人怎麼看你，心裡很不安","self":"在自我成長上，焦慮正在提醒你，需要被照顧的是你的心","other":"這件事讓你非常擔心，但很多害怕是想像出來的","block":"你的焦慮已經大到影響生活，卻還一個人承受","adv":"睡前把擔心寫下來，告訴自己：明天再處理","heal":"你不用一個人熬過每一個夜晚。"},
+{"id":"s10","n":"寶劍 10","kw":"谷底與結束","core":"最痛的已經發生，接下來只會慢慢往上。","love":"在感情裡，關係走到最痛的地方，可能是結束，也是你終於可以放下的時候","work":"在工作上，事情走到谷底，最壞的情況已經發生，接下來只能往上","money":"在金錢上，經歷重大的損失或壓力，但也觸底了，可以重新開始","people":"在人際上，有關係徹底結束，雖然痛，卻也讓你看清楚","self":"在自我成長上，舊的自己走到盡頭，天邊已經有光","other":"這件事已經到了最低點，結束之後就是新的開始","block":"你一直覺得自己是受害者，不願意起身","adv":"接受「這件事結束了」，今天先讓自己好好休息","heal":"天會亮的，你會站起來的。"},
+{"id":"s11","n":"寶劍侍從","kw":"好奇與觀察","core":"保持警覺與好奇，多問、多看、多學。","love":"在感情裡，你在觀察對方，想了解更多，也可能有試探","work":"在工作上，適合學習、蒐集資訊，對新知保持好奇","money":"在金錢上，多做功課、多比較，再做決定","people":"在人際上，你很敏銳，能察覺細節，但也要留意別太多疑","self":"在自我成長上，你對很多事都想弄清楚，思考正在變得更敏銳","other":"這件事需要多觀察、多了解，資訊會越來越清楚","block":"你想太多、問太多，反而讓自己更焦慮","adv":"把你最想知道的問題，直接去問對的人","heal":"好奇心會帶你找到答案。"},
+{"id":"s12","n":"寶劍騎士","kw":"直接衝刺","core":"想法很快、行動很快，記得也照顧別人的感受。","love":"在感情裡，你很直接、急著要答案，可能說話太快傷到對方","work":"在工作上，你反應快、執行力強，適合快速推動，但要注意細節","money":"在金錢上，你想快速做決定，要小心衝動","people":"在人際上，你說話直接，有說服力，但要留意語氣","self":"在自我成長上，你的思緒很快，需要學習讓行動和感受同步","other":"這件事會快速發展，需要清楚的判斷和果斷的行動","block":"你太急著說服別人，忘了先聽","adv":"說話前先深呼吸，想想對方聽到會是什麼感覺","heal":"速度很好，溫度也很重要。"},
+{"id":"s13","n":"寶劍王后","kw":"清醒的界線","core":"用清楚的頭腦和溫柔的心，說出真實的界線。","love":"在感情裡，你很清楚自己要什麼、不要什麼，能夠清醒地看待這段關係","work":"在工作上，你判斷力強、說話清楚，能公正地處理事情","money":"在金錢上，你理性又獨立，能清楚地管理自己的財務","people":"在人際上，你直接但公正，懂得設立界線","self":"在自我成長上，你從過去的經驗中學到智慧，變得更獨立","other":"這件事需要清楚的判斷和界線，不被情緒帶著走","block":"你用理性保護自己，讓人覺得很難靠近","adv":"把你的界線用一句溫和但清楚的話說出來","heal":"清醒的你，也可以是柔軟的你。"},
+{"id":"s14","n":"寶劍國王","kw":"理性的決斷","core":"用理性和經驗做判斷，公正地做出決定。","love":"在感情裡，你理性成熟，重視溝通和原則，但也要記得表達感情","work":"在工作上，你有專業和判斷力，適合做決策、制定策略","money":"在金錢上，你用理性和專業管理財務，適合請教專家或做長期規劃","people":"在人際上，你是公正、值得信任的人，別人會請你給意見","self":"在自我成長上，你正在建立自己的思考體系，用智慧做決定","other":"這件事需要理性、專業和清楚的決斷","block":"你太講道理，忽略了感受，讓人覺得冷","adv":"做決定前列出事實和依據，再加一句：我的感覺是什麼？","heal":"有智慧的人，也懂得溫柔。"},
+{"id":"p01","n":"錢幣 1","kw":"新的機會","core":"一個實際的新機會出現，像種子一樣可以慢慢長大。","love":"在感情裡，關係有穩定的新開始，對方是踏實、可以一起生活的人","work":"在工作上，有實際的新機會，例如新工作、新案子或收入來源","money":"在金錢上，有新的收入或資源進來，是累積財富的好開始","people":"在人際上，有實在、可靠的新關係出現","self":"在自我成長上，你開始照顧自己的身體和生活，打下穩定的基礎","other":"這件事有實際的好開始，值得好好經營","block":"機會來了，你卻因為不確定而沒有伸手接住","adv":"把這個機會具體化：寫下第一步需要的時間和金錢","heal":"穩穩地開始，就是最好的開始。"},
+{"id":"p02","n":"錢幣 2","kw":"平衡與調度","core":"在變動中靈活地平衡，同時照顧好幾件事。","love":"在感情裡，你在工作和感情之間努力取得平衡，需要彈性","work":"在工作上，同時處理很多事，需要靈活安排時間","money":"在金錢上，收支在調度中，需要靈活運用，留意現金流","people":"在人際上，你在不同的人和角色之間切換，忙碌但還能應付","self":"在自我成長上，你正在學習在變動中保持彈性","other":"這件事需要靈活調整，在變化中找平衡","block":"你想同時顧好每一件事，結果樣樣都累","adv":"這週只選兩件最重要的事，其他的先放一放","heal":"不用把每一顆球都接住，也沒關係。"},
+{"id":"p03","n":"錢幣 3","kw":"合作與專業","core":"用專業和合作，一起把事情做好。","love":"在感情裡，你們一起努力經營關係，像夥伴一樣互相配合","work":"在工作上，團隊合作順利，你的專業被肯定，適合和專業的人一起做事","money":"在金錢上，靠專業和合作帶來收入，努力會被看見","people":"在人際上，你和人一起完成事情，彼此尊重各自的專長","self":"在自我成長上，你在學習精進技能，也懂得向別人學習","other":"這件事需要合作和專業，按部就班就會做好","block":"你想一個人做完所有事，不肯接受別人的意見","adv":"找一個專業的人請教，或和夥伴一起分工","heal":"一起做，會走得更遠。"},
+{"id":"p04","n":"錢幣 4","kw":"緊緊抓住","core":"想要安全感，所以把東西抓得很緊。","love":"在感情裡，你很想抓住這段關係，有佔有欲，或不太敢敞開心","work":"在工作上，你想守住現有的位置，不太願意冒險或改變","money":"在金錢上，你很節省、很保守，想把錢守住，但也可能因此錯過流動","people":"在人際上，你不太敢付出或分享，怕失去","self":"在自我成長上，你需要看見自己對「失去」的害怕","other":"這件事讓你想緊抓不放，但適度放鬆才會有新的流動","block":"你抓得太緊，反而讓自己沒辦法放鬆享受","adv":"試著把手鬆開一點點，例如請朋友喝一杯咖啡","heal":"你本身就是安全感的來源。"},
+{"id":"p05","n":"錢幣 5","kw":"害怕不夠用","core":"在困難的時候，記得窗裡的光一直都在。","love":"在感情裡，你覺得被冷落或孤單，或兩個人一起經歷困難的時期","work":"在工作上，你感到不被支持，或面對資源不足、不穩定的狀況","money":"你面對錢的時候，心裡常有「不夠用、會失去」的擔心，安全感很低","people":"在人際上，你覺得被排除在外，不好意思開口求助","self":"在自我成長上，你正在面對匱乏感，看見自己不相信「我值得」的部分","other":"這件事讓你感到匱乏或困難，但其實幫助就在附近","block":"你覺得自己必須一個人撐過去，沒看見身邊可以求助的地方","adv":"開口求助，問問身邊的人或資源，你不用自己承擔","heal":"你值得被照顧，也包括被自己照顧。"},
+{"id":"p06","n":"錢幣 6","kw":"給予與接受","core":"在給予和接受之間，找到平衡的流動。","love":"在感情裡，彼此在付出和接受上需要平衡，不要只是一方給","work":"在工作上，可能有貴人幫忙或你幫助別人，資源有流動","money":"在金錢上，有收入、回報或幫助，也是你分享的時候","people":"在人際上，互相幫助讓關係更溫暖，但也要留意不平等的付出","self":"在自我成長上，你在學習大方給予，也坦然接受","other":"這件事有資源流動，給予與接受會帶來好的循環","block":"你只習慣給，不習慣收；或總覺得欠別人人情","adv":"今天練習接受一份好意，只要說「謝謝」就好","heal":"接受，也是一種給予。"},
+{"id":"p07","n":"錢幣 7","kw":"耐心等待收成","core":"你種下的正在長，需要耐心，也需要評估。","love":"在感情裡，關係需要時間經營，你在評估這段關係值不值得繼續投入","work":"在工作上，努力還沒看到明顯的成果，需要耐心，也適合檢視方向","money":"在金錢上，投資或儲蓄需要時間，不要急著看報酬","people":"在人際上，關係需要慢慢培養，信任急不來","self":"在自我成長上，你在檢視自己的努力，想知道值不值得","other":"這件事需要時間，成果會慢慢出現","block":"你很急著看到成果，一直懷疑是不是白費力氣","adv":"回頭看看你已經做了多少，再決定下一步要繼續還是調整","heal":"慢慢長大的，往往最扎實。"},
+{"id":"p08","n":"錢幣 8","kw":"專注累積","core":"一次一次地練習，專注把事情做好。","love":"在感情裡，你們願意用心經營，一點一點累積信任","work":"在工作上，你專注於磨練技能，認真做好每一件事","money":"在金錢上，靠努力和專業慢慢累積，穩紮穩打","people":"在人際上，你用實際的行動來證明自己的心意","self":"在自我成長上，你在養成好習慣，持續練習會帶來改變","other":"這件事需要專注和持續的努力，熟能生巧","block":"你太專注在工作上，忘了生活和休息","adv":"每天固定花 20 分鐘，練習一件你想做好的事","heal":"你每一次的努力，都在悄悄累積。"},
+{"id":"p09","n":"錢幣 9","kw":"自在與獨立","core":"你靠自己建立了一片花園，可以好好享受。","love":"在感情裡，你很獨立自在，享受自己，也吸引欣賞你的人","work":"在工作上，你的努力讓你有成就感，能夠獨立自主","money":"在金錢上，你經濟獨立，有能力享受生活，也有一定的安全感","people":"在人際上，你不依賴別人，也能自在地相處","self":"在自我成長上，你對自己很滿意，懂得享受獨處和生活的美好","other":"這件事會帶來自在和成就感","block":"你太獨立，不習慣依靠別人，也有一點孤單","adv":"好好犒賞自己，買一樣你一直想要的小東西","heal":"你親手打造的生活，很美。"},
+{"id":"p10","n":"錢幣 10","kw":"穩定傳承","core":"長久的穩定與家族的支持，讓你安心。","love":"在感情裡，關係穩定長久，有走向家庭或得到家人支持的可能","work":"在工作上，有長期穩定的發展，可能與家族事業或長遠規劃有關","money":"在金錢上，財務穩定，有長期的累積，也可能和家人或房產有關","people":"在人際上，家人和長輩是你的支持","self":"在自我成長上，你在思考想留下什麼，建立長遠的根基","other":"這件事有長期穩定的發展，基礎很穩","block":"你被家族的期待或傳統綁住，忘了自己想要什麼","adv":"和家人聊聊你的計畫，也聽聽他們的經驗","heal":"你可以接住家人的愛，也走出自己的路。"},
+{"id":"p11","n":"錢幣侍從","kw":"踏實學習","core":"認真學習，把一個想法慢慢落地。","love":"在感情裡，關係單純踏實，彼此都在認真了解對方","work":"在工作上，適合學習新技能、進修，從基礎打起","money":"在金錢上，適合學習理財，開始存錢或做小額規劃","people":"在人際上，你認真可靠，給人踏實的感覺","self":"在自我成長上，你對學習充滿熱忱，一步一步打基礎","other":"這件事需要踏實地學習和準備，會有好的成果","block":"你一直在學習和準備，卻遲遲沒有開始實作","adv":"報名一堂課，或今天就開始存第一筆錢","heal":"每一個小小的開始，都算數。"},
+{"id":"p12","n":"錢幣騎士","kw":"穩定前進","core":"慢慢來，但一直在前進。","love":"在感情裡，關係進展慢，但對方踏實可靠，願意長期經營","work":"在工作上，你按部就班、負責可靠，事情雖慢但會完成","money":"在金錢上，穩健的累積比冒險更適合你","people":"在人際上，你是值得信賴、說到做到的人","self":"在自我成長上，你用規律和耐心，慢慢改變自己","other":"這件事進展緩慢，但很穩，最後會完成","block":"你太求穩，變得保守，錯過了需要冒險的時機","adv":"為這件事定一個每週固定的進度，持續做下去","heal":"慢，不代表沒有在前進。"},
+{"id":"p13","n":"錢幣王后","kw":"踏實的照顧","core":"把生活照顧好，豐盛就在日常裡。","love":"在感情裡，你溫暖又實際，用照顧生活的方式表達愛","work":"在工作上，你能幹又務實，能把事情和人都照顧好","money":"在金錢上，你懂得持家理財，讓資源發揮最大效用","people":"在人際上，你讓身邊的人感到安心和被照顧","self":"在自我成長上，你在學習照顧身體、經營生活，讓自己過得舒服","other":"這件事需要實際的照顧和用心經營","block":"你忙著照顧一切，忘了自己也需要休息","adv":"為自己準備一頓好好的飯，整理一個讓你舒服的角落","heal":"好好生活，就是在好好愛自己。"},
+{"id":"p14","n":"錢幣國王","kw":"穩健的豐盛","core":"用經驗和穩重，建立長久的豐盛。","love":"在感情裡，你成熟可靠，能給對方實際的安全感","work":"在工作上，你有實力和成就，適合經營事業、管理資源","money":"在金錢上，財務狀況穩健，你懂得累積和運用財富","people":"在人際上，你是可靠的依靠，大家信任你的判斷","self":"在自我成長上，你對自己的能力有信心，也願意承擔更大的責任","other":"這件事會有穩定、實際的成果","block":"你太看重物質和成就，忽略了其他的需要","adv":"檢視你的財務或資源，為長遠的目標做一個穩健的計畫","heal":"你建立的穩定，也可以讓自己好好休息。"}];
+/* ===== Mia Tarot：主題、身分、牌陣、抽牌規則、解讀組合（前台與 Code.gs 共用同一套規則） ===== */
+const TOPICS = [
+  { k: 'love', l: '感情', ex: ['他現在對我的感覺是什麼？', '這段關係接下來會怎麼發展？', '我要怎麼做，才能遇到適合的人？'] },
+  { k: 'work', l: '工作', ex: ['我適合現在換工作嗎？', '我在工作上卡住的原因是什麼？', '這個計畫要怎麼推進比較順利？'] },
+  { k: 'money', l: '金錢', ex: ['為什麼我的錢總是留不住？', '我和金錢的關係，需要調整什麼？', '我要怎麼讓收入更穩定？'] },
+  { k: 'people', l: '人際關係', ex: ['我和他之間的誤會要怎麼化解？', '我要怎麼和家人好好溝通？', '為什麼我在團體裡總覺得格格不入？'] },
+  { k: 'self', l: '自我成長', ex: ['我現在最需要看見的課題是什麼？', '我要怎麼找回自己的節奏？', '是什麼在阻礙我更愛自己？'] },
+  { k: 'other', l: '其他', ex: ['這件事接下來會怎麼發展？', '我該怎麼面對眼前的狀況？', '現在的我需要知道什麼？'] }
+];
+const TOPIC = {}; TOPICS.forEach(t => TOPIC[t.k] = t);
+/* 身分：s 是放進解讀句子裡的說法（依 Mia 的例句「因為你目前的工作是屬於老闆」） */
+const IDENTITIES = [
+  { k: 'boss', l: '老闆／創業', s: '你目前的工作是屬於老闆' },
+  { k: 'staff', l: '上班族', s: '你目前是上班族' },
+  { k: 'free', l: '自由工作者', s: '你目前是自由工作者' },
+  { k: 'student', l: '學生', s: '你目前是學生' },
+  { k: 'other', l: '其他', s: '' }
+];
+const IDENTITY = {}; IDENTITIES.forEach(t => IDENTITY[t.k] = t);
+
+/* 牌陣・位置（mode：read 依主題讀・block 阻礙・adv 建議・guide 指引；d 是位置意義） */
+const SPREADS = {
+  guide: { n: '今日指引', cnt: 1, sub: '1 張・給你一個方向', pos: [{ l: '指引', mode: 'guide', d: '此刻最需要聽見的訊息' }] },
+  mpf: { n: '心態・現況・未來', cnt: 3, sub: '3 張・看見心態如何帶出走向', pos: [
+    { l: '心態', mode: 'read', d: '你面對這件事時，內在的想法與感受' },
+    { l: '現況', mode: 'read', d: '目前實際的狀況' },
+    { l: '未來', mode: 'read', pre: '接下來，', d: '順著現在的能量，可能的走向' }] },
+  sob: { n: '現況・阻礙・建議', cnt: 3, sub: '3 張・找出卡住的地方', pos: [
+    { l: '現況', mode: 'read', d: '目前實際的狀況' },
+    { l: '阻礙', mode: 'block', d: '卡住你、讓事情停滯的原因' },
+    { l: '建議', mode: 'adv', d: '牌給你的方向與可以做的事' }] },
+  ab: { n: '二選一', cnt: 5, sub: '5 張・比較兩個選擇的發展', pos: [
+    { l: '現況', mode: 'read', d: '你現在站的位置' },
+    { l: 'A 的發展', mode: 'read', opt: 'A', d: '選 A 之後的過程' },
+    { l: 'B 的發展', mode: 'read', opt: 'B', d: '選 B 之後的過程' },
+    { l: 'A 的結果', mode: 'read', opt: 'A', res: 1, d: '選 A 最後的結果' },
+    { l: 'B 的結果', mode: 'read', opt: 'B', res: 1, d: '選 B 最後的結果' }] }
+};
+const SPREAD_ORDER = ['guide', 'mpf', 'sob', 'ab'];
+const FULL = {
+  n: '全能量檢測', cnt: 48,
+  parts: [
+    { n: '身・心・靈・修・業', s: '第一部分', cells: [['身', '身體'], ['心', '心靈'], ['靈', '靈魂'], ['修', '修行'], ['業', '業力']] },
+    { n: '七大脈輪', s: '第二部分', cells: [['海底輪', '安全感・生存'], ['臍輪', '情感・創造'], ['太陽神經叢', '自信・意志'], ['心輪', '愛・連結'], ['喉輪', '表達・溝通'], ['眉心輪', '直覺・洞察'], ['頂輪', '靈性・信任']] }
+  ]
+};
+const FULL_CELLS = FULL.parts[0].cells.length + FULL.parts[1].cells.length;   // 12
+const CODE_KINDS = {
+  paid: { l: '付費', valid: '30 天', due: '抽牌後 1–3 個工作天內交付解讀' },
+  event: { l: '活動彩蛋', valid: '7 天', due: '抽牌後 3–7 個工作天內交付解讀' },
+  post: { l: '療癒服務後', valid: '48 小時', due: '解讀會整理進你的總結報告' },
+  gift: { l: '回訪禮物', valid: '7 天', due: '抽牌後 3–7 個工作天內交付解讀' }
+};
+
+/* ---- 牌 ---- */
+const MAJOR_IDS = []; for (let i = 0; i < 22; i++) MAJOR_IDS.push('m' + (i < 10 ? '0' : '') + i);
+const MINOR_IDS = []; ['w', 'c', 's', 'p'].forEach(s => { for (let i = 1; i <= 14; i++) MINOR_IDS.push(s + (i < 10 ? '0' : '') + i); });
+const ALL_IDS = MAJOR_IDS.concat(MINOR_IDS);
+const SUITS = { m: { l: '大牌' }, w: { l: '權杖', el: '火', th: '行動與熱情' }, c: { l: '聖杯', el: '水', th: '情感與感受' }, s: { l: '寶劍', el: '風', th: '思緒與溝通' }, p: { l: '錢幣', el: '土', th: '現實與物質' } };
+
+function tarotShuffle(arr, rnd) { const a = arr.slice(); rnd = rnd || Math.random; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); const t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+/* 一般牌陣：78 張不重複抽 n 張 */
+function tarotDrawSimple(n, rnd) { return tarotShuffle(ALL_IDS, rnd).slice(0, n); }
+/* 全能量檢測：每格 1 大 3 小。大牌抽完放回（可重複）；小牌兩部分各用一副 56 張，同一部分不重複。回傳 12 格 × [大, 小, 小, 小] 攤平成 48 個 id */
+function tarotDrawFull(rnd) {
+  rnd = rnd || Math.random; const out = [];
+  FULL.parts.forEach(p => {
+    const deck = tarotShuffle(MINOR_IDS, rnd); let k = 0;
+    p.cells.forEach(() => { out.push(MAJOR_IDS[Math.floor(rnd() * 22)], deck[k++], deck[k++], deck[k++]); });
+  });
+  return out;
+}
+
+/* ---- 解讀組合 ---- */
+function tarotPosLabel(pos, ctx) { if (!pos.opt) return pos.l; const o = pos.opt === 'A' ? ctx.optA : ctx.optB; return pos.l + (o ? `（${o}）` : ''); }
+function tarotName(card) { return /[0-9]$/.test(card.n) ? card.n + ' ' : card.n; }
+function tarotLine(card, pos, ctx) {
+  const head = `${tarotName(card)}在${pos.l.replace(/ /g, '')}的位置來說，`;
+  if (pos.mode === 'guide') return `${card.n}給你的指引是：${card.core}建議你：${card.adv}。`;
+  if (pos.mode === 'block') return head + `表示卡住你的，可能是${card.block}。`;
+  if (pos.mode === 'adv') return head + `建議你：${card.adv}。`;
+  const id = IDENTITY[ctx.identity], tp = TOPIC[ctx.topic] || TOPIC.other;
+  let pre = pos.pre || '';
+  if (pos.opt) { const o = (pos.opt === 'A' ? ctx.optA : ctx.optB) || ('選擇 ' + pos.opt); pre = pos.res ? `選擇「${o}」最後的結果，` : `如果選擇「${o}」，`; }
+  return head + (id && id.s ? `因為${id.s}，` : '') + `問的是${tp.l}，表示${pre}${card[tp.k] || card.other}。`;
+}
+/* 整體訊息：依大牌比例、主要元素、牌陣的位置流動組合 */
+function tarotOverall(cards, spreadKey, ctx) {
+  const sp = SPREADS[spreadKey]; if (!sp || !cards.length) return '';
+  const kw = c => `「${c.kw}」`;
+  const parts = [];
+  if (spreadKey === 'guide') {
+    const c = cards[0];
+    parts.push(`今天的你，抽到了${c.n}，關鍵是${kw(c)}。${c.core}`);
+  } else if (spreadKey === 'mpf') {
+    parts.push(`你帶著${kw(cards[0])}的心態，走到${kw(cards[1])}的現況；順著這股能量，接下來會走向${kw(cards[2])}。`);
+    parts.push(cards[2].id[0] === 'm' ? '未來的位置出現大牌，這段變化會比你想像的更深，值得好好準備。' : '未來不是固定的，當你調整心態，走向也會跟著改變。');
+  } else if (spreadKey === 'sob') {
+    parts.push(`目前的狀態是${kw(cards[0])}，真正卡住你的，是${kw(cards[1])}。`);
+    parts.push(`牌給你的方向是：${cards[2].adv}。`);
+  } else if (spreadKey === 'ab') {
+    const a = ctx.optA || '選擇 A', b = ctx.optB || '選擇 B';
+    parts.push(`從${kw(cards[0])}出發：選擇「${a}」，會經歷${kw(cards[1])}，最後走向${kw(cards[3])}；選擇「${b}」，會經歷${kw(cards[2])}，最後走向${kw(cards[4])}。`);
+    const ma = [cards[1], cards[3]].filter(c => c.id[0] === 'm').length, mb = [cards[2], cards[4]].filter(c => c.id[0] === 'm').length;
+    if (ma !== mb) parts.push(`「${ma > mb ? a : b}」這條路出現較多大牌，代表它會帶來更深的轉變與課題。`);
+    parts.push('兩條路沒有絕對的對錯，看看哪一個結果，是你心裡更想靠近的。');
+  }
+  if (cards.length >= 3) {
+    const majors = cards.filter(c => c.id[0] === 'm').length;
+    if (majors / cards.length >= 0.5) parts.push('這次出現了較多大牌，表示這件事和你人生較大的課題有關，不只是眼前的狀況。');
+    const cnt = {}; cards.forEach(c => { if (c.id[0] !== 'm') cnt[c.id[0]] = (cnt[c.id[0]] || 0) + 1; });
+    const top = Object.keys(cnt).sort((x, y) => cnt[y] - cnt[x])[0];
+    if (top && cnt[top] >= 2 && Object.keys(cnt).filter(k => cnt[k] === cnt[top]).length === 1) parts.push(`小牌以${SUITS[top].l}居多，提醒你這件事的關鍵在於${SUITS[top].th}。`);
+  }
+  return parts.join('');
+}
+/* 療癒小總結：一個牌陣一段，取關鍵位置的療癒提醒串成一段話 */
+const HEAL_PICK = { guide: [0], mpf: [0, 2], sob: [1, 2], ab: [0, 3, 4] };
+function tarotHealSummary(cards, spreadKey) {
+  const seen = {}, picks = (HEAL_PICK[spreadKey] || [cards.length - 1]).map(i => cards[i]).filter(c => c && !seen[c.heal] && (seen[c.heal] = 1));
+  const open = { guide: '今天，給自己一句溫柔的話：', mpf: '這次的牌想陪你記得：', sob: '卡住的時候，先別急著責怪自己。', ab: '在做選擇之前，先照顧好現在的自己。' }[spreadKey] || '';
+  const close = { guide: '', mpf: '心態慢慢調整，路也會跟著打開。', sob: '一次只做一小步就好。', ab: '不管選哪一條路，你都值得被溫柔對待。' }[spreadKey] || '';
+  return open + picks.map(c => c.heal).join('') + close;
+}
+/* 複製給 AI 的提示 */
+function tarotAiPrompt(r, cards) {
+  const sp = SPREADS[r.spread], id = IDENTITY[r.identity], tp = TOPIC[r.topic];
+  const lines = [
+    '請用溫暖、療癒的語氣，以繁體中文為我解讀這次的塔羅占卜。',
+    '（使用偉特塔羅。本次占卜不使用逆位，所有牌都以正位解讀。）', '',
+    `主題：${tp ? tp.l : ''}`, `問題：${r.question || ''}`];
+  if (id && id.k !== 'other') lines.push(`我目前的身分：${id.l}`);
+  if (r.spread === 'ab') lines.push(`選擇 A：${r.optA || ''}`, `選擇 B：${r.optB || ''}`);
+  lines.push(`牌陣：${sp.n}`, '');
+  sp.pos.forEach((p, i) => lines.push(`${i + 1}. ${tarotPosLabel(p, r)}（${p.d}）：${cards[i].n}（關鍵字：${cards[i].kw}）`));
+  lines.push('', '請依每個位置說明這張牌對我的意義，再綜合成整體訊息，最後給我一個今天就能做的小行動。');
+  return lines.join('\n');
+}
+/* 工作天：加 n 個工作天（週六日不算） */
+function tarotAddWorkdays(d, n) { const x = new Date(d.getTime()); let k = 0; while (k < n) { x.setDate(x.getDate() + 1); const w = x.getDay(); if (w !== 0 && w !== 6) k++; } return x; }
+/* 每天占卜次數（全能量檢測與每日一抽不算在內；Mia 2026.11.16：所有牌陣合計 5 次，不再限制同主題同牌陣） */
+const TAROT_DAILY_MAX = 5;
+
+/* ===== 共用小工具（正式版與展示版都需要） ===== */
+const TZ = 'Asia/Taipei', WD = '日一二三四五六';
+const U = {
+  esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); },
+  pad(n) { return String(n).padStart(2, '0'); },
+  nowParts(d) {
+    d = d || new Date();
+    const p = new Intl.DateTimeFormat('en-CA', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23' }).formatToParts(d);
+    const o = {}; p.forEach(x => o[x.type] = x.value);
+    return { date: `${o.year}-${o.month}-${o.day}`, time: `${o.hour}:${o.minute}`, sec: o.second };
+  },
+  today() { return U.nowParts().date; },
+  iso(d) { const p = U.nowParts(d); return `${p.date}T${p.time}:${p.sec}+08:00`; },
+  addDays(ds, n) { const [y, m, d] = ds.split('-').map(Number); return new Date(Date.UTC(y, m - 1, d + n)).toISOString().slice(0, 10); },
+  dow(ds) { const [y, m, d] = ds.split('-').map(Number); return new Date(Date.UTC(y, m - 1, d)).getUTCDay(); },
+  md(ds) { return ds ? ds.slice(5, 10).replace('-', '.') : ''; },
+  dateLabel(ds) { return ds ? `${U.md(ds)}（${WD[U.dow(ds.slice(0, 10))]}）` : ''; },
+  ts(iso) { return iso ? U.md(iso) + ' ' + iso.slice(11, 16) : ''; },
+  money(n) { return 'NT$' + Number(n || 0).toLocaleString('en-US'); },
+  rid(n) { const a = new Uint8Array(n || 12); (window.crypto || {}).getRandomValues ? crypto.getRandomValues(a) : a.forEach((_, i) => a[i] = Math.random() * 256 | 0); return Array.from(a, b => b.toString(16).padStart(2, '0')).join(''); },
+  ls: { get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (e) { } }, del(k) { try { localStorage.removeItem(k); } catch (e) { } } },
+  ss: { _m: {}, get(k) { try { return sessionStorage.getItem(k); } catch (e) { return U.ss._m[k] || null; } }, set(k, v) { try { sessionStorage.setItem(k, v); } catch (e) { U.ss._m[k] = v; } }, del(k) { try { sessionStorage.removeItem(k); } catch (e) { delete U.ss._m[k]; } } }
+};
+class ApiError extends Error { constructor(code, message, data) { super(message || code); this.code = code; this.data = data || null; } }
+const CODE_ALPHA = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+function tarotNewCode(prefix) { const r = () => { let s = ''; for (let i = 0; i < 4; i++) s += CODE_ALPHA[Math.floor(Math.random() * CODE_ALPHA.length)]; return s; }; return (prefix || 'FE') + '-' + r() + '-' + r(); }
+
+
+/* ===================== 網站 B：我的陪伴・總結報告（只給完成療癒服務的客人） ===================== */
+/* 陪伴流程（Mia 2026.11.16）：服務完成 → 24 小時・72 小時・第 7 天 Mia 親自關心 → 第 7 天 20:00 全能量代碼（48 小時內抽完）
+   → 第 10 天總結報告（含全能量解牌）；報告檔案從第一次發送算到第 30 天 23:59 */
+const CARE_REPORT_DAY = 10, CARE_CODE_DAY = 7, CARE_DL_DAYS = 30;
+const careOA = x => { const id = (x && x.line && x.line.oaId) || CFG.LINE_OA_ID; return id ? 'https://line.me/R/ti/p/' + encodeURIComponent(id) : ''; };
+const careBook = x => CFG.MAIN_URL || (x && x.bookUrl) || MAIN;
+const careDM = ds => ds ? U.md(ds.slice(0, 10)) : '';
+const careHM = iso => iso ? iso.slice(11, 16) : '';
+/* 報告檔案可下載到：後端有給 downloadUntil 就用；沒有（後端還沒更新）時，用第一次發送日（沒有就用發送日）+30 天 23:59 */
+function careUntil(r) {
+  if (!r) return '';
+  if (r.downloadUntil) return r.downloadUntil;
+  const s = r.firstSentAt || r.sentAt; return s ? U.addDays(s.slice(0, 10), CARE_DL_DAYS) + 'T23:59:59+08:00' : '';
+}
+const careExpired = r => { const u = careUntil(r); return !!u && u < U.iso(); };
+
+/* 檔案：由後端取回後在瀏覽器裡開啟（Google 雲端的檔案不公開） */
+const FileView = {
+  cache: {},
+  async blob(fileId) {
+    if (this.cache[fileId]) return this.cache[fileId];
+    const x = await api.call('getFile', { fileId });
+    if (!x.data) throw new ApiError('NOT_FOUND', IS_DEMO ? '展示模式沒有保存檔案內容，正式版會開啟真正的檔案' : '無法開啟檔案');
+    const bin = atob(x.data.replace(/^data:[^,]*,/, '')), arr = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+    const url = URL.createObjectURL(new Blob([arr], { type: x.file.type }));
+    return (this.cache[fileId] = { url, file: x.file });
+  },
+  async open(fileId) { const w = window.open('', '_blank'); try { const b = await this.blob(fileId); if (w) w.location.href = b.url; else location.href = b.url; } catch (e) { if (w) w.close(); errToast(e); } },
+  async download(fileId) { try { const b = await this.blob(fileId); const a = document.createElement('a'); a.href = b.url; a.download = b.file.name; document.body.appendChild(a); a.click(); a.remove(); } catch (e) { errToast(e); } },
+  size(n) { n = +n || 0; return n >= 1048576 ? (n / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(n / 1024)) + ' KB'; },
+  kind(t) { return t === 'application/pdf' ? 'PDF' : t === 'image/png' ? 'PNG' : 'JPG'; }
+};
+/* 文字報告：# 標題、- 清單、空行分段 */
+function reportTextHTML(t) {
+  const out = []; let list = null;
+  String(t || '').split('\n').forEach(line => {
+    const l = line.trim();
+    if (/^[-・•]\s*/.test(l) && l.length > 1) { if (!list) list = []; list.push(`<li>${esc(l.replace(/^[-・•]\s*/, ''))}</li>`); return; }
+    if (list) { out.push(`<ul>${list.join('')}</ul>`); list = null; }
+    if (!l) return;
+    if (/^#{1,3}\s/.test(l)) out.push(`<h3>${esc(l.replace(/^#+\s*/, ''))}</h3>`); else out.push(`<p>${esc(l)}</p>`);
+  });
+  if (list) out.push(`<ul>${list.join('')}</ul>`);
+  return out.join('');
+}
+
+/* 預約療癒（塔羅療癒專屬方案，預約在網站 A）：一般占卜、全能量檢測解讀完成後都可以用 */
+function careBookCta(readingId, title, body) {
+  const plan = App.home && App.home.plan;
+  return `<section class="card cta blk"><h2>${esc(title)}</h2><p>${esc(body)}</p>
+    ${plan ? `<div class="plan"><b>${esc(plan.name)}</b><small>${esc(plan.sub || '')}</small><div class="price">${plan.orig ? `<s class="num">${U.money(plan.orig)}</s>` : ''}<strong class="num">${U.money(plan.price)}</strong></div><small>預約時先付訂金 <span class="num">${U.money(plan.deposit)}</span>・這次的全能量檢測會自動帶入</small></div>` : '<div style="height:12px"></div>'}
+    <a class="btn wht full" href="${bookUrl(readingId)}">預約療癒${ic('right')}</a></section>`;
+}
+
+const Care = {
+  need(title, sub) {
+    if (Session.user()) return true;
+    App.gate('companion', title || '先用 LINE 登入', sub || '登入後就能看到你的陪伴進度與總結報告。');
+    return false;
+  },
+
+  /* ---------- 我的陪伴 ---------- */
+  async companion() {
+    if (!this.need()) return;
+    App.busy('companion');
+    let x; try { x = await api.call('getMyCompanion', {}); App.care = x; } catch (e) { errToast(e); x = { items: [], features: {} }; }
+    const items = x.items || [], act = items.filter(i => i.active), past = items.filter(i => !i.active);
+    const oa = careOA(x);
+    const acts = `<div class="btns cm-acts">${oa ? `<a class="btn line" href="${oa}" target="_blank" rel="noopener">${ic('line')}留言給 Mia</a>` : ''}<a class="btn sec" href="${esc(careBook(x))}">再預約</a></div>`;
+    const body = !items.length
+      ? `<section class="card empty"><span class="pearl"></span><h2 class="h2">還沒有陪伴紀錄</h2><p class="muted">完成療癒服務後，陪伴期的進度與總結報告會出現在這裡。</p><a class="btn pri" href="${esc(careBook(x))}">預約療癒</a></section>`
+      : act.map(i => this.activeCard(i, x.features || {})).join('') + (act.length ? acts : '')
+        + (past.length ? `<h2 class="h2 cm-past-h">之前的陪伴</h2>${past.map(i => this.pastCard(i, x.features || {})).join('')}` : '')
+        + (act.length ? '' : acts);
+    App.mount(`<div class="wrap">
+      <a class="back" href="#/">${ic('left')}首頁</a>
+      <h1 class="h1">我的陪伴</h1><p class="sub">療癒服務後，Mia 陪你走的這段路</p>
+      <div class="blk">${body}</div></div>`, 'companion');
+  },
+  steps(i, f) {
+    const T = U.today(), d = i.date, s = [];
+    const st = (done, now) => done ? 'done' : now ? 'now' : '';
+    s.push({ k: 'done', t: '服務完成', d: careDM(d) });
+    const c1 = U.addDays(d, 1), c3 = U.addDays(d, 3), c7 = U.addDays(d, CARE_CODE_DAY);
+    s.push({ k: st(T > c7, T >= c1), t: 'Mia 的關心', d: [c1, c3, c7].map(careDM).join('・'), sub: 'Mia 會在 LINE 問候你，有任何感受都可以直接回覆' });
+    if (f.tarot) {
+      const pc = i.postCode;
+      if (!pc) s.push({ k: '', t: '全能量檢測', d: `預計 ${careDM(c7)} 20:00`, sub: '用 LINE 傳給你，48 小時內抽完，Mia 的解牌會寫進總結報告' });
+      else if (pc.state === '未使用') s.push({ k: 'now', t: '全能量檢測', d: '送給你的代碼', sub: `48 小時內抽完（至 ${careDM(pc.expiresAt)} ${careHM(pc.expiresAt)}），Mia 的解牌會寫進你的總結報告`, btn: `<a class="btn pri full" href="#/full?code=${encodeURIComponent(pc.code)}">${ic('spark')}立即使用・${esc(pc.code)}</a>` });
+      else if (pc.readingId) s.push({ k: 'done', t: '全能量檢測', d: '已使用', sub: 'Mia 的解牌會寫進你的總結報告', link: `<a class="tlink" href="#/full/${encodeURIComponent(pc.readingId)}">看牌面 ›</a>` });
+      else s.push({ k: 'off', t: '全能量檢測', d: pc.state === '作廢' ? '已停用' : '代碼已過期', sub: '這次的總結報告不含全能量檢測' });
+    }
+    if (i.report) s.push({ k: i.report.ackAt ? 'done' : 'now', t: '總結報告', d: careDM(i.report.sentAt) + ' 提供', sub: i.report.ackAt ? careDM(i.report.ackAt) + ' 已確認收到' : '請打開報告，看完按「我已收到」', link: `<a class="tlink" href="#/report/${encodeURIComponent(i.bookingId)}">查看報告 ›</a>` });
+    else s.push({ k: '', t: '總結報告', d: f.report ? `預計 ${careDM(U.addDays(d, CARE_REPORT_DAY))}` : '準備中', sub: '報告準備中，完成後會用 LINE 通知你' });
+    return s;
+  },
+  activeCard(i, f) {
+    const left = i.daysLeft > 0 ? `陪伴期至 ${careDM(i.companionEndDate)}・還有 ${i.daysLeft} 天` : `今天是陪伴期最後一天`;
+    return `<section class="card cm">
+      <div class="cm-h"><span class="cm-dot"></span><span class="cm-t"><b>${esc(i.planName)}</b><small class="muted">${U.dateLabel(i.date)} 的療癒服務</small></span><span class="chip ok">陪伴中</span></div>
+      <ol class="cm-ms">${this.steps(i, f).map(s => `<li class="${s.k}"><span class="dt"></span><div><p><b>${esc(s.t)}</b> <small>${esc(s.d)}</small>${s.link || ''}</p>${s.sub ? `<p class="muted">${esc(s.sub)}</p>` : ''}${s.btn || ''}</div></li>`).join('')}</ol>
+      <p class="cm-left">${esc(left)}</p></section>`;
+  },
+  pastCard(i, f) {
+    const r = i.report;
+    const row = r ? `<a class="cm-rp" href="#/report/${encodeURIComponent(i.bookingId)}"><span>總結報告・${r.ackAt ? careDM(r.ackAt) + ' 已確認收到' : careDM(r.sentAt) + ' 提供'}</span><span class="tlink">查看 ›</span></a>`
+      : f.report ? `<p class="muted cm-rp">總結報告準備中</p>` : '';
+    return `<section class="card cm past"><div class="cm-h"><span class="cm-dot"></span><span class="cm-t"><b>${esc(i.planName)}</b><small class="muted">${U.dateLabel(i.date)}</small></span><span class="chip">陪伴期已結束</span></div>${row}</section>`;
+  },
+
+  /* ---------- 總結報告 ---------- */
+  async report(id) {
+    if (!this.need('先用 LINE 登入', '總結報告只有你本人用 LINE 登入才能開啟。')) return;
+    App.busy('companion');
+    let x;
+    try { x = await api.call('getMyReport', { bookingId: id }); }
+    catch (e) {
+      const off = e.code === 'FEATURE_OFF';
+      return App.mount(`<div class="wrap top"><section class="card gate"><span class="pearl"></span><h1 class="h2">${off ? '總結報告即將開放' : '找不到這份報告'}</h1><p>${off ? '報告完成後，Mia 會用 LINE 通知你。' : esc(e.code === 'NOT_FOUND' ? '這份報告可能還沒發送，或不是用你的 LINE 帳號預約的。' : e.message)}</p><div class="btns col"><a class="btn pri full" href="#/companion">我的陪伴</a></div></section></div>`, 'companion');
+    }
+    this.renderReport(id, x);
+  },
+  renderReport(id, x) {
+    const b = x.booking, r = x.report, until = careUntil(r), exp = careExpired(r);
+    const files = (x.files || []).map(f => `<div class="rp-f ${exp ? 'off' : ''}"><span class="rp-k ${f.type === 'application/pdf' ? 'pdf' : 'img'}">${FileView.kind(f.type)}</span><span class="rp-fn"><b>${esc(f.name)}</b><small>${FileView.size(f.size)}</small></span>${exp ? '' : `<button class="btn ghost sm" data-fopen="${esc(f.fileId)}">開啟</button><button class="btn ghost sm" data-fdl="${esc(f.fileId)}">下載</button>`}</div>`).join('');
+    const fileSec = files ? `<section class="card blk"><div class="rp-fh"><h2 class="h2">報告檔案</h2>${until ? `<span class="chip ${exp ? 'off' : 'warn'}">${exp ? '下載期限已過' : `可下載至 ${careDM(until)} ${careHM(until)}`}</span>` : ''}</div>
+      ${exp ? `<p class="rp-warn">檔案已於 ${careDM(until)} ${careHM(until)} 失效。需要的話請留言給 Mia。</p>` : `<p class="rp-warn">一個月後檔案失效，請謹慎保管（下載到自己的手機或電腦）。</p>`}
+      <div class="rp-fs">${files}</div></section>` : '';
+    const rd = x.reading ? `<section class="card blk"><h2 class="h2">服務後的全能量檢測</h2><p class="muted">這次抽到的牌面，Mia 的解牌已整理在報告裡。</p>
+      <div class="rp-cells">${[0, 1].map(k => FULL.parts[k].cells.map((c, j) => { const i = (k ? FULL.parts[0].cells.length : 0) + j, cid = x.reading.cards[i * 4]; return `<span><img src="${img(cid)}" alt="" loading="lazy"><small>${esc(c[0])}</small><b>${esc((card(cid) || {}).n || '')}</b></span>`; }).join('')).join('')}</div>
+      <a class="tlink" href="#/full/${encodeURIComponent(x.reading.id)}">看完整牌面 ›</a></section>` : '';
+    const cta = x.reading && r.sentAt ? careBookCta(x.reading.id, '想針對這次看見的課題，和 Mia 一起處理嗎？', '帶著全能量檢測的牌面與解牌，預約一次塔羅療癒，把看見的課題轉成你能走出的下一步。') : '';
+    const ack = r.ackAt
+      ? `<h2 class="h2">謝謝你，Mia 已收到你的確認</h2><p class="muted">${careDM(r.ackAt)} ${careHM(r.ackAt)} 確認收到${b.companionEndDate ? `・陪伴期到 ${careDM(b.companionEndDate)}` : ''}</p>${r.feedback ? `<p class="rp-fb">「${esc(r.feedback)}」</p>` : ''}`
+      : `<h2 class="h2">確認收到</h2><label class="rp-lbl" for="rp-fb">想對 Mia 說的話<small>選填</small></label><textarea class="inp" id="rp-fb" rows="3" maxlength="500" data-fb placeholder="看完報告的感受，或想再聊聊的地方"></textarea><button class="btn pri full" data-ack>${ic('check')}我已收到報告</button><p class="hint">按下後 Mia 會收到紀錄；在 LINE 卡片上按「✓ 我已收到」也一樣。</p>`;
+    App.mount(`<div class="wrap rp">
+      <a class="back" href="#/companion">${ic('left')}我的陪伴</a>
+      <div class="rp-h"><h1 class="h1">總結報告</h1>${r.ackAt ? `<span class="chip ok">已確認收到</span>` : `<span class="chip">尚未確認收到</span>`}</div>
+      <p class="sub">${esc(b.planName)}・${U.dateLabel(b.date)}・${esc(b.bookingId)}</p>
+      ${r.message ? `<section class="card blk rp-msg"><p>${esc(r.message)}</p><p class="sig">— Mia</p></section>` : ''}
+      ${fileSec}
+      ${r.text ? `<section class="card blk rp-txt">${reportTextHTML(r.text)}</section>` : ''}
+      ${rd}
+      <section class="card blk rp-ack ${r.ackAt ? 'done' : ''}">${ack}</section>
+      ${cta}</div>`, 'companion', rt => {
+      rt.querySelectorAll('[data-fopen]').forEach(el => el.addEventListener('click', () => FileView.open(el.dataset.fopen)));
+      rt.querySelectorAll('[data-fdl]').forEach(el => el.addEventListener('click', () => FileView.download(el.dataset.fdl)));
+      const ak = rt.querySelector('[data-ack]');
+      if (ak) ak.addEventListener('click', async () => {
+        ak.disabled = true;
+        try {
+          await api.call('ackReport', { bookingId: id, feedback: rt.querySelector('[data-fb]').value.trim() });
+          toast('謝謝你，Mia 收到了', 'ok');
+          const y = await api.call('getMyReport', { bookingId: id, peek: true }); this.renderReport(id, y); App.loadCare();
+        } catch (e) { errToast(e); ak.disabled = false; }
+      });
+    });
+  }
+};
+
+/* ===== Mia Tarot 前台 ===== */
+const CFG = window.MIA_CONFIG || {};
+const IS_DEMO = !!(CFG.FORCE_DEMO || !CFG.GAS_URL);
+const MOCK = IS_DEMO ? new BMock() : null;
+const MAIN = CFG.MAIN_URL || '../';
+const IMG = CFG.CARD_BASE || 'cards/';
+const esc = U.esc;
+const $ = (s, r) => (r || document).querySelector(s);
+const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+
+/* 牌義：內建初稿＋後台「牌義內容」的修改 */
+const CARD_MAP = {};
+function applyCards(over) { TAROT_CARDS.forEach(c => { CARD_MAP[c.id] = Object.assign({}, c, (over || {})[c.id] || {}); }); }
+applyCards({});
+const card = id => CARD_MAP[id];
+const img = id => IMG + id + '.jpg';
+/* 每天占卜次數：所有一般牌陣合計（後端 tarotHome 有給 dailyMax 就用） */
+const dailyMax = () => (App.home && +App.home.dailyMax) || TAROT_DAILY_MAX;
+const leftToday = () => Math.max(0, dailyMax() - (((App.home || {}).used || []).length));
+const limitCard = () => `<div class="card limit blk"><p style="font-size:14px">今天的 ${dailyMax()} 次占卜都用完了。牌面的訊息需要一點時間沉澱，明天再來吧。</p><a class="tlink" href="#/records" style="margin-top:6px">看今天的占卜紀錄${ic('right')}</a></div>`;
+const leftHint = () => `<p class="hint">今天還可以占卜 <b class="num">${leftToday()}</b> 次（每天 ${dailyMax()} 次，全能量檢測不算在內）</p>`;
+/* 登入的人名與頭像：網站 A 登入的資料用 displayName／pictureUrl */
+const uName = u => (u && (u.name || u.displayName)) || '';
+const uPic = u => (u && (u.pic || u.pictureUrl)) || '';
+
+/* ---- 登入狀態：正式版和主平台共用同一個 LINE 登入（同網域的 mia.session） ---- */
+const Session = {
+  key: IS_DEMO ? 'mia.care.demo.session' : 'mia.session',   /* 正式版和網站 A 共用同一個登入 */
+  get() { let s = null; try { s = JSON.parse(U.ls.get(this.key) || 'null'); } catch (e) { } if (s && s.expiresAt && s.expiresAt < U.iso()) { this.clear(); return null; } return s; },
+  set(s) { U.ls.set(this.key, JSON.stringify(s)); },
+  clear() { U.ls.del(this.key); },
+  token() { const s = this.get(); return s ? s.token : ''; },
+  user() { const s = this.get(); return s ? s.user : null; }
+};
+const api = {
+  async call(action, data) {
+    const token = Session.token();
+    try {
+      if (IS_DEMO) return await MOCK.call(action, data, token);
+      const res = await fetch(CFG.GAS_URL, { method: 'POST', redirect: 'follow', body: JSON.stringify({ action, token, data: data || {} }) });
+      const j = await res.json();
+      if (!j.ok) throw new ApiError(j.error && j.error.code || 'INTERNAL', j.error && j.error.message, j.error && j.error.data);
+      return j.data;
+    } catch (e) {
+      if (!(e instanceof ApiError)) e = new ApiError('INTERNAL', '無法連線，請稍後再試');
+      if (['AUTH_EXPIRED', 'AUTH_INVALID', 'AUTH_REQUIRED'].includes(e.code)) { Session.clear(); }
+      throw e;
+    }
+  }
+};
+
+/* ---- 小工具 ---- */
+const ICONS = {
+  left: '<path d="M15 5l-7 7 7 7"/>', right: '<path d="M9 5l7 7-7 7"/>', check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+  copy: '<rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>',
+  share: '<path d="M12 15V4M8 8l4-4 4 4"/><path d="M5 12v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/>',
+  refresh: '<path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 5v6h-6"/>', book: '<path d="M5 4.5h9a3 3 0 0 1 3 3V20H8a3 3 0 0 1-3-3z"/><path d="M17 7.5h2V20"/>',
+  list: '<path d="M8 6h12M8 12h12M8 18h12"/><circle cx="4" cy="6" r=".8"/><circle cx="4" cy="12" r=".8"/><circle cx="4" cy="18" r=".8"/>',
+  clock: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>', lock: '<rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/>',
+  spark: '<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M18.5 16l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/>',
+  heart: '<path d="M12 19.5s-7.5-4.4-7.5-10A4.2 4.2 0 0 1 12 7a4.2 4.2 0 0 1 7.5 2.5c0 5.6-7.5 10-7.5 10z"/>',
+  star: '<path d="M12 4l2.4 5 5.4.6-4 3.7 1.1 5.4L12 16l-4.9 2.7 1.1-5.4-4-3.7 5.4-.6z"/>', coin: '<circle cx="12" cy="12" r="8.5"/><path d="M14.5 9.2c-.5-.8-1.4-1.2-2.5-1.2-1.4 0-2.5.7-2.5 1.9 0 2.6 5 1.4 5 4.1 0 1.2-1.1 2-2.5 2-1.2 0-2.2-.5-2.6-1.4M12 6.5V8M12 16v1.5"/>',
+  gift: '<rect x="4" y="9" width="16" height="11" rx="1.5"/><path d="M12 9v11M4 13h16M12 9c-1.5-3-5-3.5-5-1.2C7 9 9.5 9 12 9zm0 0c1.5-3 5-3.5 5-1.2C17 9 14.5 9 12 9z"/>',
+  warn: '<path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17v.5"/>', user: '<circle cx="12" cy="8.5" r="3.5"/><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/>',
+  line: '<path d="M12 4.5c-4.7 0-8.5 3-8.5 6.8 0 3.4 3 6.2 7.1 6.7.3.1.6.2.7.5.1.2 0 .6 0 .8l-.1.7c0 .2-.2.8.7.4.9-.4 4.9-2.9 6.7-4.9 1.2-1.3 1.9-2.7 1.9-4.2 0-3.8-3.8-6.8-8.5-6.8z" fill="currentColor" stroke="none"/>'
+};
+const ic = n => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n] || ''}</svg>`;
+function toast(msg, kind) {
+  let h = $('#toasts'); if (!h) { h = document.createElement('div'); h.id = 'toasts'; document.body.appendChild(h); }
+  const t = document.createElement('div'); t.className = 'toast ' + (kind || ''); t.setAttribute('role', 'status'); t.textContent = msg;
+  h.appendChild(t); setTimeout(() => t.remove(), kind === 'err' ? 4200 : 2600);
+}
+const errToast = e => toast(e && e.message || '發生錯誤', 'err');
+function modal(o) {
+  return new Promise(res => {
+    const sc = document.createElement('div'); sc.className = 'scrim';
+    sc.innerHTML = `<div class="modal" role="dialog" aria-modal="true" aria-label="${esc(o.title || '')}"><h3>${esc(o.title || '')}</h3><div>${o.html || ''}</div>${o.ok || o.cancel !== false ? `<div class="btns">${o.cancel === false ? '' : `<button class="btn ghost sm" data-x>${esc(o.cancel || '返回')}</button>`}${o.ok ? `<button class="btn pri sm" data-ok>${esc(o.ok)}</button>` : ''}</div>` : ''}</div>`;
+    document.body.appendChild(sc);
+    const close = v => { sc.remove(); document.removeEventListener('keydown', kd); res(v); };
+    const kd = e => { if (e.key === 'Escape') close(null); };
+    document.addEventListener('keydown', kd);
+    sc.addEventListener('click', e => { if (e.target === sc || e.target.closest('[data-x]')) close(null); else if (e.target.closest('[data-ok]')) close(true); });
+    if (o.onOpen) o.onOpen(sc, close);
+  });
+}
+function copyText(t, msg) {
+  const done = () => toast(msg || '已複製', 'ok');
+  const fb = () => { const ta = document.createElement('textarea'); ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); done(); } catch (e) { toast('無法複製，請手動選取文字', 'err'); } ta.remove(); };
+  try { navigator.clipboard.writeText(t).then(done, fb); } catch (e) { fb(); }
+}
+const tc = (id, open, cls) => `<div class="tc ${open ? 'on' : ''} ${cls || ''}"><div class="in"><img class="bk" src="${IMG}back.jpg" alt="" draggable="false"><img class="fr" src="${id ? img(id) : IMG + 'back.jpg'}" alt="${id && open ? esc(card(id).n) : '牌背'}" loading="lazy" draggable="false"></div></div>`;
+const lineOA = () => CFG.LINE_OA_ID ? 'https://line.me/R/ti/p/' + encodeURIComponent(CFG.LINE_OA_ID) : '';
+/* 預約療癒：主平台的塔羅專屬入口（後台「入口與來源」的 tarot），r = 這次的占卜編號 */
+const bookUrl = id => MAIN + '?src=tarot#/go/tarot' + (id ? '?r=' + encodeURIComponent(id) : '');
+
+/* ---- LINE 登入 ---- */
+const LineAuth = {
+  redirectUri() { return CFG.SITE_URL || (location.origin + location.pathname); },
+  start(returnHash) {
+    const state = U.rid(12), nonce = U.rid(12);
+    U.ss.set('mia.tarot.oauth', JSON.stringify({ state, nonce, returnHash: returnHash || location.hash || '#/' }));
+    const p = new URLSearchParams({ response_type: 'code', client_id: CFG.LINE_LOGIN_CHANNEL_ID, redirect_uri: this.redirectUri(), state, scope: 'openid profile', nonce, bot_prompt: 'aggressive' });
+    location.href = 'https://access.line.me/oauth2/v2.1/authorize?' + p.toString();
+  },
+  async handleReturn() {
+    const qs = new URLSearchParams(location.search);
+    if (!qs.get('code') && !qs.get('error')) return false;
+    let st = {}; try { st = JSON.parse(U.ss.get('mia.tarot.oauth') || '{}'); } catch (e) { }
+    U.ss.del('mia.tarot.oauth');
+    const clean = () => history.replaceState(null, '', location.pathname + (st.returnHash || '#/'));
+    if (qs.get('error') || qs.get('state') !== st.state) { clean(); toast('LINE 登入未完成，請再試一次', 'err'); return true; }
+    try {
+      const r = await api.call('authLineExchange', { code: qs.get('code'), redirectUri: this.redirectUri(), nonce: st.nonce, area: 'front', from: 'tarot' });
+      Session.set({ token: r.token, user: r.user, expiresAt: r.expiresAt });
+    } catch (e) { errToast(e); }
+    clean(); return true;
+  }
+};
+function login(returnHash) {
+  if (IS_DEMO) {
+    return modal({
+      title: '展示登入', cancel: '取消',
+      html: `<p class="muted">展示模式不會連線 LINE，選一個身分就能體驗完整流程。</p><div class="demo-pick"><button data-uid="Udemo-customer"><span class="av">映</span><span><b>陳映彤</b><small>做過療癒服務的客人（有我的陪伴）</small></span></button><button data-uid="Udemo-friend"><span class="av">小</span><span><b>林小晴</b><small>只加好友的一般好友（只用塔羅）</small></span></button>${Session.user() ? '<button data-out><span class="av">✕</span><span><b>登出</b><small>回到未登入的樣子</small></span></button>' : ''}</div>`,
+      onOpen(sc, close) {
+        sc.querySelectorAll('[data-uid]').forEach(b => b.addEventListener('click', async () => { try { const r = await MOCK.call('demoLogin', { lineUserId: b.dataset.uid }); Session.set({ token: r.token, user: r.user, expiresAt: r.expiresAt }); close(true); await App.loadHome(); App.route(); } catch (e) { errToast(e); } }));
+        const o = sc.querySelector('[data-out]'); if (o) o.addEventListener('click', async () => { Session.clear(); close(true); await App.loadHome(); App.route(); });
+      }
+    });
+  }
+  if (!CFG.LINE_LOGIN_CHANNEL_ID) return toast('尚未設定 LINE 登入', 'err');
+  LineAuth.start(returnHash);
+}
+const loginBtn = (label) => `<button class="btn line full" data-login>${ic('line')}${esc(label || '用 LINE 登入，開始今天的占卜')}</button>`;
+
+/* ---- 流程暫存（主題、問題、身分、牌陣） ---- */
+const Flow = {
+  get() { try { return JSON.parse(U.ss.get('mia.tarot.flow') || '{}'); } catch (e) { return {}; } },
+  set(o) { U.ss.set('mia.tarot.flow', JSON.stringify(Object.assign(this.get(), o))); },
+  clear() { U.ss.del('mia.tarot.flow'); }
+};
+
+/* ===================== App ===================== */
+const App = {
+  home: null,
+  go(h) { if (location.hash === h) this.route(); else location.hash = h; },
+  care: null,   /* 網站 B：我的陪伴（只有完成療癒服務的客人才有資料） */
+  hasCare() { return !!(Session.user() && this.care && this.care.items && this.care.items.length); },
+  async loadCare() {
+    if (!Session.token()) { this.care = null; return; }
+    try { this.care = await api.call('getMyCompanion', {}); } catch (e) { if (!Session.token()) this.care = null; }
+  },
+  async loadHome() {
+    const h = api.call('tarotHome', {}).then(x => { this.home = x; applyCards(x.overrides); }).catch(() => { this.home = this.home || { plan: null, used: [] }; });
+    await Promise.all([h, this.loadCare()]);
+  },
+  header(on) {
+    const u = Session.user();
+    const a = (h, l, k, c) => `<a href="${h}" class="${on === k ? 'on' : ''} ${c || ''}">${l}</a>`;
+    return `<header class="hd"><div class="wrap"><a class="logo" href="#/" aria-label="Mia Tarot 首頁"><span class="pearl"></span><span><b>Mia Tarot</b></span><small>塔羅療癒</small></a>${IS_DEMO ? '<span class="demo-tag">展示模式</span>' : ''}
+      <nav>${App.hasCare() ? a('#/companion', '我的陪伴', 'companion', 'cmp') : ''}${a('#/cards', '牌義圖鑑', 'cards', 'hide-s')}${a('#/records', '我的紀錄', 'records')}${u ? `<span class="av" title="${esc(uName(u))}"${IS_DEMO ? ' data-login role="button" tabindex="0" style="cursor:pointer"' : ''}>${uPic(u) ? `<img src="${esc(uPic(u))}" alt="">` : esc((uName(u) || '我').slice(0, 1))}</span>` : `<a href="#" data-login>登入</a>`}</nav></div></header>`;
+  },
+  footer() {
+    return `<footer class="ft">本站占卜不使用逆位，所有牌都以正位解讀。<br>占卜內容僅供自我探索參考，不取代醫療、法律或財務等專業建議。<br>你的問題與占卜結果會保存在 Mia 的預約系統，只用於提供服務，1 個月後自動封存。<br><a href="${MAIN}">回到 Mia 客製化療癒服務</a>${lineOA() ? `・<a href="${lineOA()}" target="_blank" rel="noopener">加入 Mia 官方 LINE</a>` : ''}</footer>`;
+  },
+  mount(inner, on, bind) {
+    const app = $('#app');
+    app.innerHTML = this.header(on) + `<main>${inner}</main>` + this.footer();
+    $$('[data-login]', app).forEach(b => b.addEventListener('click', e => { e.preventDefault(); login(); }));
+    if (bind) bind(app);
+  },
+  gate(on, title, sub) {
+    this.mount(`<div class="wrap top"><div class="card gate"><span class="pearl"></span><h1 class="h2">${esc(title || '先用 LINE 登入')}</h1><p>${esc(sub || '登入後才能占卜、保存紀錄，預約療癒時也會自動帶入。')}</p>${loginBtn('用 LINE 登入')}</div></div>`, on);
+  },
+  busy(on, txt) { this.mount(`<div class="wrap"><div class="busy"><span class="spin"></span>${esc(txt || '載入中…')}</div></div>`, on); },
+  async route() {
+    const raw = location.hash.replace(/^#/, '') || '/';
+    const [path, q] = raw.split('?'); const qs = new URLSearchParams(q || '');
+    const seg = path.split('/').filter(Boolean);
+    window.scrollTo(0, 0);
+    try {
+      if (seg[0] === 'companion') return Care.companion();   /* 我的陪伴、總結報告不受塔羅開關影響 */
+      if (seg[0] === 'report') return Care.report(decodeURIComponent(seg[1] || ''));
+      if (App.home && App.home.open === false) return Pages.soon();   /* 後台還沒開放塔羅網站 */
+      if (!seg.length) return Pages.home();
+      switch (seg[0]) {
+        case 'ask': return Pages.ask();
+        case 'spread': return Pages.spread();
+        case 'draw': return Pages.draw();
+        case 'r': return Pages.result(decodeURIComponent(seg[1] || ''));
+        case 'records': return Pages.records();
+        case 'cards': return seg[1] ? Pages.cardDetail(seg[1]) : Pages.cards(qs.get('s'));
+        case 'full':
+          if (seg[1] === 'buy') return Pages.fullBuy();
+          if (seg[1] === 'order') return Pages.fullOrder(decodeURIComponent(seg[2] || ''));
+          if (seg[1]) return Pages.full(decodeURIComponent(seg[1]));
+          return Pages.fullEntry(qs.get('code') || '');
+      }
+      Pages.home();
+    } catch (e) { console.error(e); errToast(e); }
+  }
+};
+
+/* ===================== Pages ===================== */
+const Pages = {
+  soon() {
+    App.mount(`<div class="wrap"><section class="hero"><h1>Mia Tarot</h1><p>讓牌陪你，看見此刻的自己</p></section>
+      <section class="card gate"><span class="pearl"></span><h2 class="h2">塔羅網站即將開放</h2><p>每日一抽、塔羅牌陣與全能量檢測正在準備中，開放後會在這裡和你見面。</p>
+      <div class="btns col">${App.hasCare() ? '<a class="btn pri full" href="#/companion">我的陪伴</a>' : ''}<a class="btn ${App.hasCare() ? 'sec' : 'pri'} full" href="${MAIN}">前往 Mia 客製化療癒服務</a>${lineOA() ? `<a class="btn sec full" href="${lineOA()}" target="_blank" rel="noopener">加入 Mia 官方 LINE，開放時通知你</a>` : ''}</div></section></div>`, '');
+    $$('.hd nav', document).forEach(n => n.innerHTML = App.hasCare() ? '<a href="#/companion" class="cmp">我的陪伴</a>' : '');
+  },
+  /* ---------- 首頁：每日一抽 ---------- */
+  home() {
+    const u = Session.user(), h = App.home || {}, d = h.daily;
+    const c = d && card(d.card);
+    const daily = !u
+      ? `<div class="daily"><div>${tc(null, false)}</div><div><p class="eyebrow">DAILY CARD・每日一抽</p><h2>今天，牌想對你說什麼？</h2><p class="muted" style="font-size:13.5px">每天一張，給今天的自己一個提醒。</p></div></div><div class="blk">${loginBtn()}</div>`
+      : c ? `<div class="daily"><div>${tc(d.card, true, 'flat')}</div><div><p class="eyebrow">DAILY CARD・每日一抽</p><h2>今天的牌：${esc(c.n)}</h2><p>${esc(c.core)}</p><p class="heal">療癒提醒：${esc(c.heal)}</p><p class="done">今天已抽過，明天再來看看新的訊息</p></div></div>`
+        : `<div class="daily"><button class="tc" data-daily aria-label="抽今天的牌"><div class="in"><img class="bk" src="${IMG}back.jpg" alt=""><img class="fr" src="${IMG}back.jpg" alt=""></div></button><div><p class="eyebrow">DAILY CARD・每日一抽</p><h2>今天，牌想對你說什麼？</h2><p class="muted" style="font-size:13.5px">深呼吸一次，點牌翻開今天的訊息。</p><button class="btn sec sm" data-daily style="margin-top:10px">${ic('spark')}抽今天的牌</button></div></div>`;
+    App.mount(`<div class="wrap">
+      <section class="hero"><h1>Mia Tarot</h1><p>讓牌陪你，看見此刻的自己</p></section>
+      <section class="card" id="daily">${daily}</section>
+      <a class="btn pri full blk" href="#/ask">${ic('spark')}開始占卜</a>
+      <a class="fe-cta" href="#/full"><span class="orb"></span><span><b>全能量檢測 <span class="chip new">NEW</span></b><small>看見此刻完整的你・由 Mia 親自解讀</small></span>${ic('right')}</a>
+      <div class="menu-grid"><a class="mi" href="#/cards">${ic('book')}<b>牌義圖鑑</b></a><a class="mi" href="#/records">${ic('list')}<b>我的占卜紀錄</b></a></div>
+      ${h.fullOpen ? `<a class="note box blk" href="#/full/${esc(h.fullOpen)}" style="text-decoration:none">${ic('clock')}<span>你的全能量檢測還沒抽完，<b class="tlink">繼續抽牌 ›</b></span></a>` : ''}
+    </div>`, 'home', r => {
+      $$('[data-daily]', r).forEach(b => b.addEventListener('click', async () => {
+        $$('[data-daily]', r).forEach(x => x.disabled = true);
+        try {
+          const dl = await api.call('tarotDaily', {}); App.home.daily = dl;
+          const t = $('button.tc[data-daily]', r); $('.fr', t).src = img(dl.card);
+          await new Promise(ok => { const im = $('.fr', t); if (im.complete) ok(); else { im.onload = ok; im.onerror = ok; } });
+          t.classList.add('on'); setTimeout(() => Pages.home(), 900);
+        } catch (e) { errToast(e); $$('[data-daily]', r).forEach(x => x.disabled = false); if (e.code === 'AUTH_REQUIRED') Pages.home(); }
+      }));
+    });
+  },
+
+  /* ---------- 主題・問題・身分 ---------- */
+  ask() {
+    if (!Session.user()) return App.gate('', '先用 LINE 登入，開始今天的占卜', '登入後會保存你的占卜紀錄，每天可以占卜 5 次。');
+    const f = Flow.get(); let topic = f.topic || '', identity = f.identity || '';
+    const exHtml = t => (TOPIC[t] ? TOPIC[t].ex : []).map(x => `<button type="button" data-ex>${esc(x)}</button>`).join('');
+    App.mount(`<div class="wrap">
+      <a class="back" href="#/">${ic('left')}首頁</a>
+      <h1 class="h1">此刻，你想問什麼？</h1><p class="sub">靜下心，在心裡默念你的問題三次。</p>${leftToday() ? leftHint() : limitCard()}
+      <p class="lbl">主題</p><div class="chips" data-topics>${TOPICS.map(t => `<button type="button" class="pick ${t.k === topic ? 'on' : ''}" data-t="${t.k}" aria-pressed="${t.k === topic}">${t.l}</button>`).join('')}</div>
+      <p class="lbl"><label for="q">寫下你的問題</label></p>
+      <div class="ta"><textarea id="q" rows="3" maxlength="200" placeholder="${esc(TOPIC[topic] ? TOPIC[topic].ex[0] : '例如：為什麼我的錢總是留不住？')}">${esc(f.question || '')}</textarea><span class="cnt num"><span data-n>0</span>／200</span></div>
+      <div class="ex" data-exs>${topic ? '<span class="hint" style="margin:3px 4px 0 0">試試這樣問：</span>' + exHtml(topic) : ''}</div>
+      <p class="lbl">你目前的身分 <small>選填</small></p>
+      <div class="chips" data-ids>${IDENTITIES.map(t => `<button type="button" class="pick ${t.k === identity ? 'on' : ''}" data-i="${t.k}" aria-pressed="${t.k === identity}">${t.l}</button>`).join('')}</div>
+      <p class="hint">解讀會依你的身分調整說法，例如老闆問事業，和上班族問工作，讀法不同。</p>
+      <p class="err" data-err hidden></p>
+      <button class="btn pri full blk" data-next ${leftToday() ? '' : 'disabled'}>下一步：選擇牌陣</button>
+    </div>`, '', r => {
+      const ta = $('#q', r), n = $('[data-n]', r), err = $('[data-err]', r);
+      const cnt = () => n.textContent = ta.value.length; cnt(); ta.addEventListener('input', cnt);
+      const bindEx = () => $$('[data-ex]', r).forEach(b => b.addEventListener('click', () => { ta.value = b.textContent; cnt(); ta.focus(); }));
+      bindEx();
+      $$('[data-t]', r).forEach(b => b.addEventListener('click', () => {
+        topic = b.dataset.t; $$('[data-t]', r).forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', x === b); });
+        ta.placeholder = TOPIC[topic].ex[0]; $('[data-exs]', r).innerHTML = '<span class="hint" style="margin:3px 4px 0 0">試試這樣問：</span>' + exHtml(topic); bindEx();
+      }));
+      $$('[data-i]', r).forEach(b => b.addEventListener('click', () => {
+        identity = identity === b.dataset.i ? '' : b.dataset.i;
+        $$('[data-i]', r).forEach(x => { const on = x.dataset.i === identity; x.classList.toggle('on', on); x.setAttribute('aria-pressed', on); });
+      }));
+      $('[data-next]', r).addEventListener('click', () => {
+        const q = ta.value.trim();
+        if (!topic) { err.textContent = '請先選擇一個主題'; err.hidden = false; return; }
+        if (q.length < 2) { err.textContent = '寫下你的問題，牌才知道要回答什麼'; err.hidden = false; ta.focus(); return; }
+        Flow.set({ topic, question: q, identity }); App.go('#/spread');
+      });
+    });
+  },
+
+  /* ---------- 選擇牌陣 ---------- */
+  spread() {
+    if (!Session.user()) return App.gate();
+    const f = Flow.get(); if (!f.topic || !f.question) return App.go('#/ask');
+    let sel = f.spread && SPREADS[f.spread] ? f.spread : 'mpf';
+    const used = k => false;   /* 已取消「同主題＋同牌陣每天 1 次」，改成每天合計次數 */
+    App.mount(`<div class="wrap">
+      <a class="back" href="#/ask">${ic('left')}修改問題</a>
+      <h1 class="h1">選擇牌陣</h1>
+      <p class="ctx"><span class="chip">${esc(TOPIC[f.topic].l)}</span><span>${esc(f.question)}</span></p>
+      <p class="sp-h">基本牌陣</p>
+      <div role="radiogroup" aria-label="牌陣">${SPREAD_ORDER.map(k => { const s = SPREADS[k], u = used(k); return `<button type="button" role="radio" class="sp ${k === sel ? 'on' : ''} ${u ? 'used' : ''}" data-sp="${k}" aria-checked="${k === sel}"><span class="rd"></span><span><b>${s.n}</b><small>${u ? '這個主題今天已占過這個牌陣' : s.sub}</small></span><span class="mini">${'<i></i>'.repeat(Math.min(s.cnt, 5))}</span></button>${k === 'ab' ? `<div class="sp-ab" data-ab ${sel === 'ab' ? '' : 'hidden'}><label for="oa">選擇 A</label><input class="inp" id="oa" maxlength="30" placeholder="例如：留在現在的公司" value="${esc(f.optA || '')}"><label for="ob">選擇 B</label><input class="inp" id="ob" maxlength="30" placeholder="例如：接受新的工作" value="${esc(f.optB || '')}"></div>` : ''}`; }).join('')}</div>
+      <p class="sp-h">進階牌陣</p>
+      <a class="sp fe" href="#/full" style="text-decoration:none"><span class="rd" style="border-style:dashed">${''}</span><span><b>全能量檢測 <span class="chip new">NEW</span></b><small>看見此刻完整的你・輸入代號使用</small></span><span class="mini" style="color:var(--soft)">${ic('lock').replace('<svg', '<svg width="18" height="18"')}</span></a>
+      <div data-limit></div>
+      <p class="note blk">${ic('spark')}<span>本站占卜不使用逆位，所有牌都以正位解讀。</span></p>
+      <button class="btn pri full blk" data-go>開始洗牌</button>
+    </div>`, '', r => {
+      const lim = $('[data-limit]', r);
+      const showLimit = () => { const u = !leftToday(); lim.innerHTML = u ? limitCard() : leftHint(); $('[data-go]', r).disabled = u; return; lim.innerHTML = u ? `<div class="card limit blk"><p style="font-size:14px">這個問題今天已經占卜過了。牌面的訊息需要一點時間沉澱，明天再來問吧。</p><a class="tlink" href="#/r/${esc(u.id)}" style="margin-top:6px">查看今天的結果${ic('right')}</a></div>` : ''; $('[data-go]', r).disabled = !!u; };
+      showLimit();
+      $$('[data-sp]', r).forEach(b => b.addEventListener('click', () => {
+        sel = b.dataset.sp; $$('[data-sp]', r).forEach(x => { const on = x === b; x.classList.toggle('on', on); x.setAttribute('aria-checked', on); });
+        const ab = $('[data-ab]', r), was = !ab.hidden; ab.hidden = sel !== 'ab'; if (sel === 'ab' && !was) setTimeout(() => $('#oa', r).focus(), 50); showLimit();
+      }));
+      $('[data-go]', r).addEventListener('click', () => {
+        const o = { spread: sel };
+        if (sel === 'ab') { o.optA = $('#oa', r).value.trim(); o.optB = $('#ob', r).value.trim(); if (!o.optA || !o.optB) { toast('請填寫兩個選擇', 'err'); (o.optA ? $('#ob', r) : $('#oa', r)).focus(); return; } }
+        Flow.set(o); App.go('#/draw');
+      });
+    });
+  },
+
+  /* ---------- 洗牌・扇形抽牌 ---------- */
+  draw() {
+    if (!Session.user()) return App.gate();
+    const f = Flow.get(); const sp = SPREADS[f.spread]; if (!sp || !f.topic) return App.go('#/ask');
+    const N = sp.cnt, FAN = 22; let picked = 0, phase = 'shuffle', sending = false;
+    App.mount(`<div class="wrap">
+      <a class="back" href="#/spread">${ic('left')}選擇牌陣</a>
+      <h1 class="h1" data-title>先洗牌，把問題放進牌裡</h1>
+      <p class="ctx"><span class="chip">${esc(TOPIC[f.topic].l)}</span><span>${esc(sp.n)}</span></p>
+      <div class="slots n${N}">${sp.pos.map(p => `<div class="slot"><div class="ph"></div><small>${esc(p.l)}</small></div>`).join('')}</div>
+      <div class="stage" data-stage>
+        <div class="deck" data-deck aria-label="牌堆，按住洗牌">${Array.from({ length: 10 }, (_, i) => `<img src="${IMG}back.jpg" alt="" draggable="false" style="transform:translate(${i * .6}px,${-i * .6}px)">`).join('')}</div>
+        <p class="deck-hint" data-hint>按住牌堆洗牌，心裡想著你的問題</p>
+      </div>
+      <div class="draw-acts" data-acts><button class="btn pri" data-spread>洗好了，展開牌</button></div>
+    </div>`, '', r => {
+      const stage = $('[data-stage]', r), deck = $('[data-deck]', r), hint = $('[data-hint]', r), acts = $('[data-acts]', r);
+      let timer = null, mixed = 0;
+      const mix = () => { $$('img', deck).forEach(im => { im.style.transform = `translate(${(Math.random() - .5) * 140}px,${(Math.random() - .5) * 70}px) rotate(${(Math.random() - .5) * 50}deg)`; }); mixed++; };
+      const gather = () => { $$('img', deck).forEach((im, i) => { im.style.transform = `translate(${i * .6}px,${-i * .6}px)`; }); };
+      const startMix = e => { e.preventDefault(); if (phase !== 'shuffle') return; deck.classList.add('mix'); mix(); clearInterval(timer); timer = setInterval(mix, 230); hint.textContent = '洗牌中…放開就會收牌'; };
+      const stopMix = () => { if (!timer) return; clearInterval(timer); timer = null; deck.classList.remove('mix'); gather(); hint.textContent = mixed ? '可以繼續洗，或展開牌開始抽' : '按住牌堆洗牌，心裡想著你的問題'; };
+      deck.addEventListener('pointerdown', startMix); ['pointerup', 'pointerleave', 'pointercancel'].forEach(ev => deck.addEventListener(ev, stopMix));
+      deck.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') { mix(); setTimeout(gather, 260); } }); deck.tabIndex = 0;
+
+      const spreadFan = () => {
+        phase = 'pick'; stopMix();
+        $('[data-title]', r).textContent = `憑直覺，依序抽出 ${N} 張牌`;
+        hint.textContent = ''; deck.remove();
+        const fan = document.createElement('div'); fan.className = 'fan';
+        for (let i = 0; i < FAN; i++) {
+          const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', `第 ${i + 1} 張牌`);
+          b.innerHTML = `<img src="${IMG}back.jpg" alt="" draggable="false">`;
+          b.style.transform = 'rotate(0deg)'; fan.appendChild(b);
+          b.addEventListener('click', () => pick(b));
+        }
+        stage.appendChild(fan);
+        stage.style.height = (stage.clientWidth < 420 ? 210 : 250) + 'px';
+        const bw = $('button', fan).offsetWidth || 52, R = (bw * 820 / 480) * 2.6, half = Math.min(stage.clientWidth / 2 - bw / 2 - 4, R * .9);
+        const amax = Math.asin(Math.max(.2, half / R)) * 180 / Math.PI;
+        requestAnimationFrame(() => requestAnimationFrame(() => $$('button', fan).forEach((b, i) => { b.style.transform = `rotate(${-amax + i * (2 * amax / (FAN - 1))}deg)`; })));
+        acts.innerHTML = `<button class="btn sec sm" data-auto>${ic('spark')}自動選牌</button><button class="btn ghost sm" data-re>${ic('refresh')}重新洗牌</button>`;
+        $('[data-auto]', acts).addEventListener('click', () => { const left = $$('.fan button:not(.pk)', r); tarotShuffle(left).slice(0, N - picked).forEach((b, i) => setTimeout(() => pick(b), i * 260)); });
+        $('[data-re]', acts).addEventListener('click', () => Pages.draw());
+        hint.textContent = `還要抽 ${N} 張`;
+      };
+      const pick = b => {
+        if (phase !== 'pick' || b.classList.contains('pk') || picked >= N) return;
+        b.classList.add('pk'); const slot = $$('.slot .ph', r)[picked]; slot.innerHTML = `<img src="${IMG}back.jpg" alt="">`; picked++;
+        hint.textContent = picked < N ? `已抽 ${picked} 張・再抽 ${N - picked} 張` : '';
+        if (picked >= N) finish();
+      };
+      const finish = async () => {
+        if (sending) return; sending = true; phase = 'done';
+        acts.innerHTML = '<div class="busy" style="padding:10px 0"><span class="spin"></span>正在為你整理牌面…</div>';
+        try {
+          const x = await api.call('tarotStart', { spread: f.spread, topic: f.topic, question: f.question, identity: f.identity, optA: f.optA, optB: f.optB });
+          await App.loadHome();
+          setTimeout(() => App.go('#/r/' + encodeURIComponent(x.reading.id)), 400);
+        } catch (e) {
+          errToast(e); sending = false;
+          if (e.code === 'DAILY_LIMIT') { await App.loadHome(); return App.go('#/spread'); }
+          acts.innerHTML = '<button class="btn pri" data-retry>再試一次</button>'; $('[data-retry]', acts).addEventListener('click', finish);
+        }
+      };
+      $('[data-spread]', r).addEventListener('click', spreadFan);
+    });
+  },
+
+  /* ---------- 結果：翻牌・整體訊息・完整解讀・預約療癒 ---------- */
+  async result(id) {
+    if (!Session.user()) return App.gate();
+    App.busy('');
+    let rd; try { rd = (await api.call('tarotGetReading', { readingId: id })).reading; } catch (e) { errToast(e); return App.go('#/records'); }
+    if (rd.spread === 'full') return App.go('#/full/' + encodeURIComponent(rd.id));
+    const sp = SPREADS[rd.spread], cs = rd.cards.map(card), N = cs.length;
+    const opened = new Set(rd.revealed ? cs.map((_, i) => i) : []);
+    const plan = (App.home || {}).plan;
+    const done = () => opened.size >= N;
+    const detail = () => `<section class="card overall blk"><h2 class="h2">${ic('spark')}整體訊息</h2><p>${esc(tarotOverall(cs, rd.spread, rd))}</p><p class="gen">依這次 ${N} 張牌的組合產生</p></section>
+      <section class="card blk"><h2 class="h2" style="margin-bottom:6px">完整解讀</h2>${sp.pos.map((p, i) => `<div class="rd-item">${tc(rd.cards[i], true, 'flat')}<div><h3>${esc(tarotPosLabel(p, rd))}・${esc(cs[i].n)}</h3><p class="kw">${esc(cs[i].kw)}</p><p>${esc(tarotLine(cs[i], p, rd))}</p></div></div>`).join('')}</section>
+      <section class="card blk heal-sum"><h2 class="h2">${ic('heart')}療癒小總結</h2><p>${esc(tarotHealSummary(cs, rd.spread))}</p></section>
+      <div class="btns blk"><button class="btn sec" data-ai style="flex:1">${ic('copy')}複製給 AI 深入解讀</button><button class="btn sec" data-share style="flex:1">${ic('share')}分享圖片</button></div>
+      <p class="disc">本站占卜不使用逆位・占卜內容僅供自我探索參考，不取代醫療、法律或財務等專業建議。</p>
+      <section class="card cta blk"><h2>想更深入看見卡住你的原因嗎？</h2><p>帶著這次的占卜，和 Mia 用一次引導冥想，把牌面的訊息轉成你能走出的下一步。</p>
+        ${plan ? `<div class="plan"><b>${esc(plan.name)}</b><small>${esc(plan.sub || '')}</small><div class="price">${plan.orig ? `<s class="num">${U.money(plan.orig)}</s>` : ''}<strong class="num">${U.money(plan.price)}</strong></div><small>預約時先付訂金 <span class="num">${U.money(plan.deposit)}</span>・占卜結果會自動帶入</small></div>` : '<div style="height:12px"></div>'}
+        <a class="btn wht full" href="${bookUrl(rd.id)}">預約療癒${ic('right')}</a>
+        <div class="btns" style="justify-content:center;margin-top:12px;position:relative;z-index:1">${lineOA() ? `<a class="tlink" href="${lineOA()}" target="_blank" rel="noopener">加入 Mia 官方 LINE</a>` : ''}<a class="tlink" href="#/records">我的占卜紀錄</a><a class="tlink" href="#/ask">再占一次</a></div></section>`;
+    App.mount(`<div class="wrap">
+      <a class="back" href="#/records">${ic('left')}占卜紀錄</a>
+      <h1 class="h1">你的牌・${esc(sp.n)}</h1>
+      <p class="ctx"><span class="chip">${esc((TOPIC[rd.topic] || {}).l || '')}</span><span>${esc(rd.question)}</span><span class="num" style="font-size:12px">・${esc(U.ts(rd.createdAt))}</span></p>
+      ${rd.spread === 'ab' ? `<p class="ctx" style="font-size:12.5px">A：${esc(rd.optA)}　B：${esc(rd.optB)}</p>` : ''}
+      <div class="res n${N}">${sp.pos.map((p, i) => `<div class="pos ${opened.has(i) ? 'open' : ''}"><p class="pl">${esc(p.l)}<small>${p.opt ? esc((p.opt === 'A' ? rd.optA : rd.optB) || '') : esc(p.d)}</small></p><button class="tc ${opened.has(i) ? 'on' : ''}" data-i="${i}" aria-label="${opened.has(i) ? esc(cs[i].n) : '翻開' + esc(p.l) + '的牌'}"><div class="in"><img class="bk" src="${IMG}back.jpg" alt=""><img class="fr" src="${img(rd.cards[i])}" alt="${esc(cs[i].n)}"></div></button><p class="cn"><b>${esc(cs[i].n)}</b></p></div>`).join('')}</div>
+      <p class="res-tip" data-tip>${done() ? '' : '點牌逐張翻開・本站不使用逆位'}</p>
+      ${done() ? '' : '<div class="c blk" data-allw><button class="btn sec sm" data-all>全部翻開</button></div>'}
+      <div data-detail>${done() ? detail() : ''}</div>
+    </div>`, 'records', r => {
+      const bindDetail = () => {
+        const ai = $('[data-ai]', r); if (ai) ai.addEventListener('click', () => copyText(tarotAiPrompt(rd, cs), '已複製，貼到你常用的 AI 就能深入解讀'));
+        const sh = $('[data-share]', r); if (sh) sh.addEventListener('click', () => shareImage(rd, cs));
+      };
+      const flip = i => {
+        if (opened.has(i)) return; opened.add(i);
+        const b = $(`[data-i="${i}"]`, r); b.classList.add('on'); b.closest('.pos').classList.add('open'); b.setAttribute('aria-label', cs[i].n);
+        if (done()) {
+          $('[data-tip]', r).textContent = ''; const aw = $('[data-allw]', r); if (aw) aw.remove();
+          api.call('tarotReveal', { readingId: rd.id, revealed: 1 }).catch(() => { });
+          setTimeout(() => { $('[data-detail]', r).innerHTML = detail(); bindDetail(); $('[data-detail]', r).scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 800);
+        }
+      };
+      $$('[data-i]', r).forEach(b => b.addEventListener('click', () => flip(+b.dataset.i)));
+      const all = $('[data-all]', r); if (all) all.addEventListener('click', () => cs.forEach((_, i) => setTimeout(() => flip(i), i * 220)));
+      bindDetail();
+    });
+  },
+
+  /* ---------- 我的占卜紀錄 ---------- */
+  async records() {
+    if (!Session.user()) return App.gate('records', '登入後查看你的占卜紀錄');
+    App.busy('records');
+    let list = []; try { list = (await api.call('tarotMyReadings', {})).readings; } catch (e) { errToast(e); }
+    const st = r => r.spread !== 'full' ? '' : r.status === '已解讀' ? '<span class="chip ok">解讀完成</span>' : r.status === '待解讀' ? '<span class="chip">Mia 解讀中</span>' : '<span class="chip blue">還沒抽完</span>';
+    App.mount(`<div class="wrap">
+      <a class="back" href="#/">${ic('left')}首頁</a>
+      <h1 class="h1">我的占卜紀錄</h1><p class="sub">紀錄保存 1 個月；全能量檢測在 Mia 交付解讀後再保存 1 個月。</p>
+      <div class="blk">${list.length ? list.map(r => {
+        const full = r.spread === 'full';
+        const th = (full ? [0, 4, 8] : r.cards.map((_, i) => i)).slice(0, 3).map(i => `<img src="${(!full || r.revealed * 4 > i) ? img(r.cards[i]) : IMG + 'back.jpg'}" alt="">`).join('');
+        return `<a class="rec" href="#/${full ? 'full' : 'r'}/${encodeURIComponent(r.id)}"><span class="th">${th}</span><span style="min-width:0"><b>${full ? '全能量檢測' : esc(r.question)}</b><small>${full ? `代號 ${esc(r.code)}` : esc((TOPIC[r.topic] || {}).l || '') + '・' + esc(SPREADS[r.spread].n)}</small><small class="num">${esc(U.ts(r.createdAt))}</small></span><span class="r">${st(r)}${ic('right')}</span></a>`;
+      }).join('') : `<div class="empty card"><span class="pearl"></span><b>還沒有占卜紀錄</b><p style="font-size:13.5px;margin-top:4px">從一個你真正想知道的問題開始。</p><a class="btn pri sm" href="#/ask" style="margin-top:14px">開始占卜</a></div>`}</div>
+    </div>`, 'records');
+  },
+
+  /* ---------- 牌義圖鑑 ---------- */
+  cards(s) {
+    s = SUITS[s] ? s : 'm';
+    const ids = ALL_IDS.filter(id => id[0] === s);
+    App.mount(`<div class="wrap wide">
+      <a class="back" href="#/">${ic('left')}首頁</a>
+      <h1 class="h1">牌義圖鑑</h1><p class="sub">78 張牌，點牌看完整牌義與療癒提醒。本站不使用逆位。</p>
+      <div class="tabs blk">${Object.keys(SUITS).map(k => `<button type="button" class="pick ${k === s ? 'on' : ''}" data-s="${k}">${SUITS[k].l}</button>`).join('')}</div>
+      <div class="cg">${ids.map(id => `<a href="#/cards/${id}"><img src="${img(id)}" alt="" loading="lazy">${esc(card(id).n)}</a>`).join('')}</div>
+    </div>`, 'cards', r => { $$('[data-s]', r).forEach(b => b.addEventListener('click', () => { history.replaceState(null, '', '#/cards?s=' + b.dataset.s); Pages.cards(b.dataset.s); })); });
+  },
+  cardDetail(id) {
+    const c = card(id); if (!c) return App.go('#/cards');
+    const i = ALL_IDS.indexOf(id), prev = ALL_IDS[i - 1], next = ALL_IDS[i + 1];
+    App.mount(`<div class="wrap">
+      <a class="back" href="#/cards?s=${id[0]}">${ic('left')}${SUITS[id[0]].l}</a>
+      <div class="cd">${tc(id, true, 'flat')}<div><p class="eyebrow">${SUITS[id[0]].l}${SUITS[id[0]].el ? '・' + SUITS[id[0]].el + '元素' : ''}</p><h1>${esc(c.n)}</h1><p class="chip" style="margin-top:6px">${esc(c.kw)}</p><p style="margin-top:10px;font-size:15px">${esc(c.core)}</p><p class="heal">${ic('heart')}<span>療癒提醒：${esc(c.heal)}</span></p></div></div>
+      <section class="card blk"><dl class="kv">${TOPICS.map(t => `<dt>${t.l}</dt><dd>${esc(c[t.k])}。</dd>`).join('')}<dt>在「阻礙」的位置</dt><dd>卡住你的，可能是${esc(c.block)}。</dd><dt>在「建議」的位置</dt><dd>${esc(c.adv)}。</dd></dl></section>
+      <div class="btns blk" style="justify-content:space-between">${prev ? `<a class="tlink" href="#/cards/${prev}">${ic('left')}${esc(card(prev).n)}</a>` : '<span></span>'}${next ? `<a class="tlink" href="#/cards/${next}">${esc(card(next).n)}${ic('right')}</a>` : ''}</div>
+    </div>`, 'cards');
+  },
+
+  /* ---------- 全能量檢測：入口（輸入代號） ---------- */
+  fullEntry(pre) {
+    const u = Session.user(), h = App.home || {};
+    const bg = tarotShuffle(ALL_IDS).slice(0, 16).map(id => `<img src="${img(id)}" alt="">`).join('');
+    App.mount(`<div class="wrap">
+      <a class="back" href="#/">${ic('left')}首頁</a>
+      <div class="fe-intro"><div class="fe-bg" aria-hidden="true">${bg}</div><div class="fe-cover">
+        <p class="eyebrow">ADVANCED・進階</p><h1>看見此刻完整的你</h1>
+        <p>檢視你現在全方位的能量與狀態，<br>找出目前最需要面對與處理的課題。</p>
+        <div class="fe-tags"><span class="chip">全方位能量</span><span class="chip">此刻的狀態</span><span class="chip">核心課題</span><span class="chip blue">由 Mia 親自解讀</span></div>
+        ${u ? `${h.fullOpen ? `<a class="btn pri full" href="#/full/${esc(h.fullOpen)}" style="margin-bottom:12px">繼續抽牌${ic('right')}</a>` : ''}<label class="sr" for="code">輸入代號</label><div class="code-row"><input class="inp" id="code" placeholder="輸入代號" autocomplete="off" autocapitalize="characters" value="${esc(pre)}"><button class="btn pri" data-unlock>${ic('lock')}解鎖</button></div><p class="err c" data-err hidden></p>${IS_DEMO ? '<p class="hint c">展示用代號：FE-DEMO-2026（付費）、EV-DEMO-0001（活動彩蛋）</p>' : ''}` : loginBtn('用 LINE 登入後輸入代號')}
+      </div></div>
+      <p class="sp-h">還沒有代號？</p>
+      <div class="ways">
+        <a class="way" href="#/full/buy"><span class="ico">${ic('coin')}</span><span><b>購買解讀・<span class="num">${U.money(h.codePrice || 600)}</span></b><small>一組代號＋Mia 的文字解讀・30 天內有效</small></span>${ic('right')}</a>
+        <div class="way"><span class="ico">${ic('star')}</span><span><b>活動彩蛋</b><small>參加 Mia 的活動，有機會獲得・7 天內有效</small></span></div>
+        <div class="way"><span class="ico">${ic('heart')}</span><span><b>療癒服務後的禮物</b><small>服務後第 7 天透過 LINE 送出，48 小時內有效</small></span></div>
+      </div>
+      <p class="note blk">${ic('lock')}<span>一組代號只能抽一次，抽完結果會鎖定、無法重抽。準備好一段安靜的時間再開始。</span></p>
+    </div>`, '', r => {
+      const btn = $('[data-unlock]', r); if (!btn) return;
+      const inp = $('#code', r), err = $('[data-err]', r);
+      inp.addEventListener('keydown', e => { if (e.key === 'Enter') btn.click(); });
+      btn.addEventListener('click', async () => {
+        const code = inp.value.trim().toUpperCase(); if (!code) { inp.focus(); return; }
+        btn.disabled = true; err.hidden = true;
+        try {
+          const c = await api.call('tarotCheckCode', { code });
+          const k = CODE_KINDS[c.kind] || CODE_KINDS.paid;
+          const ok = await modal({ title: '準備好開始了嗎？', ok: '開始抽牌', cancel: '稍後再用', html: `<p>代號 <b class="num">${esc(c.code)}</b>（${esc(k.l)}）</p><ul class="ul" style="margin-top:10px"><li>共 12 格，一格一格翻開，每格 1 張大牌＋3 張小牌</li><li>開始後代號就會使用掉，抽完結果鎖定、無法重抽</li><li>${esc(k.due)}，完成後用 LINE 通知你</li></ul>` });
+          if (!ok) { btn.disabled = false; return; }
+          const x = await api.call('tarotStart', { spread: 'full', code: c.code });
+          await App.loadHome(); App.go('#/full/' + encodeURIComponent(x.reading.id));
+        } catch (e) { err.textContent = e.message; err.hidden = false; btn.disabled = false; }
+      });
+    });
+  },
+
+  /* ---------- 全能量檢測：購買 ---------- */
+  fullBuy() {
+    if (!Session.user()) return App.gate('', '先用 LINE 登入', '代號會綁定你的 LINE 帳號，也會傳到你的 LINE。');
+    const price = (App.home || {}).codePrice || 600;
+    const METHODS = { linepay: ['LINE Pay', '用 LINE Pay 付款'], card: ['信用卡（綠界）', 'Visa・Master・JCB'], atm: ['ATM 虛擬帳號（綠界）', '24 小時內轉帳'] };
+    let m = 'linepay';
+    const label = k => k === 'linepay' ? '前往 LINE Pay 付款' : k === 'atm' ? '取得 ATM 轉帳帳號' : '前往綠界信用卡付款';
+    App.mount(`<div class="wrap">
+      <a class="back" href="#/full">${ic('left')}全能量檢測</a>
+      <h1 class="h1">購買解讀</h1>
+      <section class="card blk buy-amt"><p class="eyebrow">全能量檢測解讀</p><b class="num">${U.money(price)}</b></section>
+      <section class="card blk"><ul class="ul"><li>一組一次性代號，抽一次完整牌陣</li><li>Mia 親自寫的文字分析解讀</li><li>解讀完成後用 LINE 通知你</li><li>抽牌後 1–3 個工作天內交付解讀</li><li>代號 30 天內有效</li></ul></section>
+      <section class="card blk"><h2 class="h2" style="margin-bottom:10px">付款方式・全額付清</h2><div class="ms" role="radiogroup">${Object.keys(METHODS).map(k => `<button type="button" role="radio" class="m ${k === m ? 'on' : ''}" data-m="${k}" aria-checked="${k === m}"><span class="rd"></span><span><b>${METHODS[k][0]}</b><small>${METHODS[k][1]}</small></span></button>`).join('')}</div>
+      <p class="note" style="margin-top:12px">${ic('lock')}<span>付款完成後立即產生代號，同時傳到你的 LINE。代號只限你的 LINE 帳號使用。</span></p></section>
+      <button class="btn pri full blk" data-pay>${label(m)}</button>
+    </div>`, '', r => {
+      $$('[data-m]', r).forEach(b => b.addEventListener('click', () => { m = b.dataset.m; $$('[data-m]', r).forEach(x => { const on = x === b; x.classList.toggle('on', on); x.setAttribute('aria-checked', on); }); $('[data-pay]', r).textContent = label(m); }));
+      $('[data-pay]', r).addEventListener('click', async e => {
+        const b = e.currentTarget; b.disabled = true;
+        try {
+          const x = await api.call('tarotBuyCode', { method: m }); const oid = x.order.orderId;
+          U.ss.set('mia.tarot.paying', oid);
+          if (x.pay.type === 'paid') return App.go('#/full/order/' + oid);
+          if (x.pay.type === 'redirect') { location.href = x.pay.url; return; }
+          if (x.pay.type === 'form') { const fm = document.createElement('form'); fm.method = 'POST'; fm.action = x.pay.action; Object.keys(x.pay.fields).forEach(k => { const i = document.createElement('input'); i.type = 'hidden'; i.name = k; i.value = x.pay.fields[k]; fm.appendChild(i); }); document.body.appendChild(fm); fm.submit(); return; }
+          if (x.pay.type === 'demo') {
+            const name = m === 'linepay' ? 'LINE Pay' : '綠界 ECPay';
+            const ok = await modal({ title: '模擬付款・' + name, cancel: false, html: `<p class="muted">展示模式不會真的扣款。正式上線後，這一步會跳轉到 ${name} 的付款頁。</p><p class="code-big num">${U.money(x.pay.amount)}</p><div class="btns" style="justify-content:center"><button class="btn ghost sm" data-fail>付款失敗／取消</button><button class="btn pri sm" data-ok>${m === 'atm' ? '取得帳號' : '付款成功'}</button></div>`, onOpen: (sc, close) => sc.querySelector('[data-fail]').addEventListener('click', () => close(false)) });
+            if (ok == null) { b.disabled = false; return; }
+            await api.call('tarotDemoPay', { orderId: oid, ok: !!ok }); App.go('#/full/order/' + oid);
+          }
+        } catch (er) { errToast(er); b.disabled = false; }
+      });
+    });
+  },
+  async fullOrder(oid) {
+    if (!Session.user()) return App.gate();
+    App.busy('', '確認付款結果…');
+    const tx = U.ss.get('mia.tarot.tx'); U.ss.del('mia.tarot.tx');
+    let o; try { o = (await api.call('tarotCheckOrder', Object.assign({ orderId: oid }, tx ? { transactionId: tx } : {}))).order; } catch (e) { errToast(e); return App.go('#/full'); }
+    let body;
+    if (o.status === 'PAID') {
+      body = `<div class="ok-ico">${ic('check')}</div><h1 class="h1 c">付款完成</h1><p class="sub c">你的全能量檢測代號</p><p class="code-big">${esc(o.code)}</p><p class="c" style="font-size:13.5px">已綁定你的 LINE 帳號・限用一次<br>使用期限：30 天（至 <span class="num">${esc(U.md(o.codeExpiresAt))}</span>）</p><p class="note box blk">${ic('spark')}<span>代號也已傳到你的 LINE。準備好安靜的時間再開始，<b>抽牌後就無法重抽</b>。</span></p><div class="btns col blk"><a class="btn pri full" href="#/full?code=${encodeURIComponent(o.code)}">現在開始（自動帶入代號）</a><a class="btn ghost full" href="#/">稍後再用</a></div>`;
+    } else if (o.status === 'WAIT_ATM' && o.atm) {
+      body = `<div class="ok-ico wait">${ic('clock')}</div><h1 class="h1 c">請完成 ATM 轉帳</h1><p class="sub c">入帳後會自動產生代號，並用 LINE 通知你。</p><dl class="kv card blk"><dt>銀行代碼</dt><dd class="num">${esc(o.atm.bank)}</dd><dt>轉帳帳號</dt><dd class="num">${esc(o.atm.account)}</dd><dt>金額</dt><dd class="num">${U.money(o.amount)}</dd><dt>繳費期限</dt><dd class="num">${esc(U.ts(o.atm.until))}</dd></dl><div class="btns col blk"><button class="btn sec full" data-copyacc>${ic('copy')}複製帳號</button>${IS_DEMO ? '<button class="btn pri full" data-demoatm>模擬：已完成轉帳</button>' : ''}<a class="btn ghost full" href="#/">回到首頁</a></div>`;
+    } else {
+      body = `<div class="ok-ico bad">${ic('warn')}</div><h1 class="h1 c">付款尚未完成</h1><p class="sub c">付款沒有完成或被取消，沒有產生任何費用。</p><div class="btns col blk"><a class="btn pri full" href="#/full/buy">重新購買</a><a class="btn ghost full" href="#/full">回到全能量檢測</a></div>`;
+    }
+    App.mount(`<div class="wrap top"><section class="card">${body}</section></div>`, '', r => {
+      const cp = $('[data-copyacc]', r); if (cp) cp.addEventListener('click', () => copyText(o.atm.account));
+      const da = $('[data-demoatm]', r); if (da) da.addEventListener('click', async () => { await api.call('tarotCheckOrder', { orderId: oid, demoAtmPaid: 1 }); Pages.fullOrder(oid); });
+    });
+  },
+
+  /* ---------- 全能量檢測：一格一格抽 ---------- */
+  async full(id) {
+    if (!Session.user()) return App.gate();
+    App.busy('');
+    let rd; try { rd = (await api.call('tarotGetReading', { readingId: id })).reading; } catch (e) { errToast(e); return App.go('#/records'); }
+    if (rd.spread !== 'full') return App.go('#/r/' + encodeURIComponent(rd.id));
+    const P1 = FULL.parts[0].cells.length;
+    let revealed = rd.revealed || 0, part = revealed >= P1 ? 1 : 0, busy = false;
+    const cellAt = i => rd.cards.slice(i * 4, i * 4 + 4);
+    const isRep = i => { const m = rd.cards[i * 4]; for (let j = 0; j < i; j++) if (rd.cards[j * 4] === m && j < revealed) return true; return false; };
+    const kind = CODE_KINDS[rd.codeKind] || CODE_KINDS.paid;
+    const render = () => {
+      if (revealed >= FULL_CELLS && rd.status !== '抽牌中') return summary();
+      const base = part ? P1 : 0, cells = FULL.parts[part].cells, inPart = Math.max(0, Math.min(cells.length, revealed - base));
+      App.mount(`<div class="wrap">
+        <a class="back" href="#/">${ic('left')}首頁</a>
+        <h1 class="h1">全能量檢測</h1><p class="ctx"><span class="chip blue">代號 ${esc(rd.code)}</span><span>${esc(kind.l)}</span></p>
+        <div class="parts">${FULL.parts.map((p, k) => `<button type="button" data-part="${k}" class="${k === part ? 'on' : ''}" ${k === 1 && revealed < P1 ? 'disabled' : ''}>${p.s}<small>${p.n}</small></button>`).join('')}</div>
+        <div class="prog"><span>${FULL.parts[part].n}</span><span class="bar"><i style="width:${inPart / cells.length * 100}%"></i></span><span class="num">${inPart}／${cells.length} 格</span></div>
+        <div class="cells">${cells.map((c, k) => { const i = base + k, open = i < revealed, ids = cellAt(i), nx = i === revealed; return `<div class="cell ${open ? 'open' : ''} ${nx ? 'next' : ''}" data-cell="${i}"><div class="lb ${c[0].length > 3 ? 'long' : ''}">${esc(c[0])}<small>${esc(c[1])}</small></div><div class="cs">${ids.map((cid, j) => `<div class="w">${j === 0 && open && isRep(i) ? '<span class="rep">重複</span>' : ''}${tc(cid, open, open ? 'flat' : '')}<p class="nm">${open ? esc(card(cid).n) : ''}</p></div>`).join('')}</div>${nx ? `<button class="btn pri sm go" data-flip>翻開${esc(c[0])}這一格</button>` : ''}</div>`; }).join('')}</div>
+        ${inPart < cells.length ? `<div class="c blk"><button class="btn ghost sm" data-rest>一次翻完這部分</button></div>` : part === 0 ? `<button class="btn pri full blk" data-p2>繼續第二部分：七大脈輪${ic('right')}</button>` : ''}
+        <p class="note box blk">${ic('heart')}<span>大牌每抽一張就放回，同一張大牌可能在不同位置重複出現；兩部分的小牌是獨立的兩副牌。這個牌陣不顯示自動解讀，抽完後會送給 Mia 親自解讀。</span></p>
+      </div>`, '', r => {
+        const fl = $('[data-flip]', r); if (fl) fl.addEventListener('click', () => flipCells(1, r));
+        const rest = $('[data-rest]', r); if (rest) rest.addEventListener('click', () => flipCells(cells.length - inPart, r));
+        const p2 = $('[data-p2]', r); if (p2) p2.addEventListener('click', () => { part = 1; render(); });
+        $$('[data-part]', r).forEach(b => b.addEventListener('click', () => { part = +b.dataset.part; render(); }));
+      });
+    };
+    const flipCells = async (n, r) => {
+      if (busy) return; busy = true;
+      const target = Math.min(FULL_CELLS, revealed + n);
+      for (let i = revealed; i < target; i++) {
+        const el = $(`[data-cell="${i}"]`, r); if (!el) continue;
+        el.classList.remove('next'); const b = $('[data-flip]', el); if (b) b.remove();
+        $$('.tc', el).forEach((t, j) => setTimeout(() => t.classList.add('on'), j * 160));
+        await new Promise(ok => setTimeout(ok, 800));
+      }
+      revealed = target;
+      try { rd = (await api.call('tarotReveal', { readingId: rd.id, revealed })).reading; } catch (e) { errToast(e); }
+      busy = false;
+      if (revealed >= FULL_CELLS) { await App.loadHome(); }
+      render();
+    };
+    const summary = () => {
+      const mia = rd.mia || {};
+      const doneTxt = rd.status === '已解讀';
+      App.mount(`<div class="wrap">
+        <a class="back" href="#/records">${ic('left')}占卜紀錄</a>
+        <h1 class="h1">全能量檢測</h1><p class="ctx"><span class="chip ${doneTxt ? 'ok' : ''}">${doneTxt ? '解讀完成' : '已送出'}</span><span>12 張大牌＋36 張小牌</span></p>
+        ${doneTxt ? `<section class="card overall blk mia-rd"><h2 class="h2">${ic('spark')}Mia 的解讀</h2>${mia.text ? `<p>${esc(mia.text)}</p>` : ''}${mia.part1 ? `<h3>第一部分・身心靈修業</h3><p>${esc(mia.part1)}</p>` : ''}${mia.part2 ? `<h3>第二部分・七大脈輪</h3><p>${esc(mia.part2)}</p>` : ''}${(mia.files || []).map(f => `<p><button class="tlink" data-file="${esc(f.fileId)}">${ic('book')}開啟 ${esc(f.name)}</button></p>`).join('')}</section>
+          ${mia.inReport && !mia.text && !mia.part1 ? `<p class="note blk">${ic('heart')}<span>Mia 的解牌寫在你的總結報告裡。<a class="tlink" href="#/report/${encodeURIComponent(mia.inReport)}">查看總結報告 ›</a></span></p>` : `<section class="card blk c">${mia.ackAt ? `<p class="chip ok">${ic('check')}已確認收到・<span class="num">${esc(U.ts(mia.ackAt))}</span></p>` : `<p class="sub">看完後讓 Mia 知道你收到了</p><button class="btn pri full blk" data-ack>${ic('check')}我已收到解讀</button>`}</section>`}
+          ${careBookCta(rd.id, '想針對解讀中的課題，和 Mia 一起處理嗎？', '帶著這次全能量檢測看見的課題與困擾，預約一次塔羅療癒，和 Mia 用引導冥想把它轉成你能走出的下一步。')}`
+          : `<section class="card blk"><ol class="steps-v"><li><span class="d">${ic('check')}</span><span><b>使用代號</b><small class="num">${esc(rd.code)}・${esc(U.ts(rd.createdAt))}</small></span></li><li><span class="d">${ic('check')}</span><span><b>牌陣已鎖定</b><small>結果已保存，無法重抽</small></span></li><li><span class="d w">3</span><span><b>Mia 解讀中</b><small>${rd.codeKind === 'post' ? '解讀會整理進你的總結報告' : `${esc(kind.due)}${rd.dueAt ? `（預計 ${esc(U.md(rd.dueAt))} 前）` : ''}・完成後用 LINE 通知你`}</small></span></li></ol></section>
+          <p class="note blk">${ic('heart')}<span>網站不會自動產生這個牌陣的解讀，等 Mia 親自寫好再看完整內容。你可以在「我的占卜紀錄」隨時回來看牌面。</span></p>`}
+        ${FULL.parts.map((p, k) => `<section class="card blk"><h2 class="h2" style="margin-bottom:10px">${p.s}・${p.n}</h2><div class="cells">${p.cells.map((c, j) => { const i = (k ? P1 : 0) + j; return `<div class="cell open"><div class="lb ${c[0].length > 3 ? 'long' : ''}">${esc(c[0])}<small>${esc(c[1])}</small></div><div class="cs">${cellAt(i).map((cid, x) => `<div class="w">${x === 0 && isRep(i) ? '<span class="rep">重複</span>' : ''}${tc(cid, true, 'flat')}<p class="nm">${esc(card(cid).n)}</p></div>`).join('')}</div></div>`; }).join('')}</div></section>`).join('')}
+        <a class="btn sec full blk" href="#/">回到首頁</a>
+      </div>`, 'records', r => {
+        const ak = $('[data-ack]', r); if (ak) ak.addEventListener('click', async () => { ak.disabled = true; try { rd = (await api.call('tarotAckReading', { readingId: rd.id })).reading; toast('謝謝你，Mia 收到了', 'ok'); summary(); } catch (e) { errToast(e); ak.disabled = false; } });
+        $$('[data-file]', r).forEach(b => b.addEventListener('click', async () => {
+          try { const x = await api.call('getFile', { fileId: b.dataset.file }); const bin = atob(String(x.data).replace(/^data:[^,]*,/, '')), arr = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i); window.open(URL.createObjectURL(new Blob([arr], { type: x.file.type })), '_blank', 'noopener'); } catch (e) { errToast(e); }
+        }));
+      });
+    };
+    render();
+  }
+};
+
+/* ---- 分享圖片（牌面＋牌名＋問題，存成圖片） ---- */
+async function shareImage(rd, cs) {
+  try {
+    const W = 1080, H = 1350, cv = document.createElement('canvas'); cv.width = W; cv.height = H; const g = cv.getContext('2d');
+    const gr = g.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, '#F5EEDF'); gr.addColorStop(.45, '#F1EFE9'); gr.addColorStop(1, '#DCE8F6'); g.fillStyle = gr; g.fillRect(0, 0, W, H);
+    const load = src => new Promise((ok, no) => { const im = new Image(); im.onload = () => ok(im); im.onerror = no; im.src = src; });
+    const ims = await Promise.all(rd.cards.map(id => load(img(id))));
+    const sp = SPREADS[rd.spread], n = ims.length;
+    g.textAlign = 'center'; g.fillStyle = '#5A4632'; g.font = '600 64px "Cormorant Garamond", serif'; g.fillText('Mia Tarot', W / 2, 120);
+    g.font = '500 38px "Noto Serif TC", serif'; g.fillText(sp.n, W / 2, 190);
+    g.fillStyle = '#7D7466'; g.font = '30px "Noto Sans TC", sans-serif';
+    const q = rd.question.length > 30 ? rd.question.slice(0, 29) + '…' : rd.question; g.fillText(q, W / 2, 245);
+    const cw = n === 1 ? 380 : n === 3 ? 280 : 180, ch = cw * 820 / 480, gap = n === 5 ? 18 : 36, total = n * cw + (n - 1) * gap, y = n === 1 ? 320 : 400;
+    ims.forEach((im, i) => {
+      const x = (W - total) / 2 + i * (cw + gap);
+      g.save(); g.shadowColor = 'rgba(60,40,20,.35)'; g.shadowBlur = 24; g.shadowOffsetY = 10; g.drawImage(im, x, y, cw, ch); g.restore();
+      g.fillStyle = '#7A5A36'; g.font = `500 ${n === 5 ? 24 : 30}px "Noto Sans TC", sans-serif`; g.fillText(sp.pos[i].l.replace(/ /g, ''), x + cw / 2, y + ch + 46);
+      g.fillStyle = '#33384F'; g.fillText(cs[i].n, x + cw / 2, y + ch + (n === 5 ? 80 : 90));
+    });
+    g.fillStyle = '#5D6B85'; g.font = '26px "Noto Sans TC", sans-serif'; g.fillText('本站占卜不使用逆位・僅供自我探索參考', W / 2, H - 70);
+    const blob = await new Promise(ok => cv.toBlob(ok, 'image/png'));
+    const file = new File([blob], 'mia-tarot.png', { type: 'image/png' });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) { try { await navigator.share({ files: [file], title: 'Mia Tarot' }); return; } catch (e) { if (e && e.name === 'AbortError') return; } }
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'mia-tarot-' + rd.id + '.png'; document.body.appendChild(a); a.click(); a.remove(); toast('圖片已儲存', 'ok');
+  } catch (e) { toast('無法產生圖片，請改用螢幕截圖', 'err'); }
+}
+
+/* ---- 啟動 ---- */
+(async function boot() {
+  const qs = new URLSearchParams(location.search);
+  if (!IS_DEMO) await LineAuth.handleReturn();
+  if (qs.get('paid') && qs.get('orderId')) {   // 從 LINE Pay／綠界回來
+    if (qs.get('transactionId')) U.ss.set('mia.tarot.tx', qs.get('transactionId'));
+    history.replaceState(null, '', location.pathname + '#/full/order/' + encodeURIComponent(qs.get('orderId')));
+  }
+  await App.loadHome();
+  window.addEventListener('hashchange', () => App.route());
+  App.route();
+})();
+
+</script>
+</body>
+</html>
