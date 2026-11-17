@@ -1179,7 +1179,7 @@ const Pages = {
       <p class="lbl"><label for="q">寫下你的問題</label></p>
       <div class="ta"><textarea id="q" rows="3" maxlength="200" placeholder="${esc(TOPIC[topic] ? TOPIC[topic].ex[0] : '例如：為什麼我的錢總是留不住？')}">${esc(f.question || '')}</textarea><span class="cnt num"><span data-n>0</span>／200</span></div>
       <div class="ex" data-exs>${topic ? '<span class="hint" style="margin:3px 4px 0 0">試試這樣問：</span>' + exHtml(topic) : ''}</div>
-      <p class="lbl">你目前的身分 <small>選填</small></p>
+      <p class="lbl">你目前的身分</p>
       <div class="chips" data-ids>${IDENTITIES.map(t => `<button type="button" class="pick ${t.k === identity ? 'on' : ''}" data-i="${t.k}" aria-pressed="${t.k === identity}">${t.l}</button>`).join('')}</div>
       <p class="hint">解讀會依你的身分調整說法，例如老闆問事業，和上班族問工作，讀法不同。</p>
       <p class="err" data-err hidden></p>
@@ -1194,13 +1194,14 @@ const Pages = {
         ta.placeholder = TOPIC[topic].ex[0]; $('[data-exs]', r).innerHTML = '<span class="hint" style="margin:3px 4px 0 0">試試這樣問：</span>' + exHtml(topic); bindEx();
       }));
       $$('[data-i]', r).forEach(b => b.addEventListener('click', () => {
-        identity = identity === b.dataset.i ? '' : b.dataset.i;
+        identity = b.dataset.i; err.hidden = true;
         $$('[data-i]', r).forEach(x => { const on = x.dataset.i === identity; x.classList.toggle('on', on); x.setAttribute('aria-pressed', on); });
       }));
       $('[data-next]', r).addEventListener('click', () => {
         const q = ta.value.trim();
         if (!topic) { err.textContent = '請先選擇一個主題'; err.hidden = false; return; }
         if (q.length < 2) { err.textContent = '寫下你的問題，牌才知道要回答什麼'; err.hidden = false; ta.focus(); return; }
+        if (!identity) { err.textContent = '請選擇你目前的身分，解讀會更貼近你的情況'; err.hidden = false; $('[data-ids]', r).scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
         Flow.set({ topic, question: q, identity }); App.go('#/spread');
       });
     });
