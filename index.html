@@ -6,13 +6,13 @@
 <title>Mia 陪伴・Mia Tarot 塔羅療癒</title>
 <meta name="description" content="Mia Tarot：每日一抽、塔羅牌陣與全能量檢測；療癒服務後的陪伴與總結報告。">
 <meta name="theme-color" content="#F5EEDF">
-<meta name="mia-version" content="5.0.0-測試版 2">
+<meta name="mia-version" content="5.3.0-測試版 1">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3CradialGradient id='g' cx='.35' cy='.3' r='.8'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='.45' stop-color='%23C4DAF3'/%3E%3Cstop offset='1' stop-color='%2356709F'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='16' cy='16' r='13' fill='url(%23g)'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;600&family=Cormorant+Garamond:wght@500;600&display=swap">
 <script>
-/* ===== Mia 陪伴 5.0.0-測試版 2：設定只要改這一段 ===== */
+/* ===== Mia 陪伴 5.3.0-測試版 1：設定只要改這一段 ===== */
 window.MIA_CONFIG = {
   GAS_URL: 'https://script.google.com/macros/s/AKfycbysIRy8D2qUnUsToIvLoIEew-NrcFW7TdZvHi9ZqsMSQUX-SOeNYZ0S8KTefu8HKJO2Ng/exec',   // 和網站 A 相同的 Apps Script 網址
   LINE_LOGIN_CHANNEL_ID: '2012624805',                           // 和網站 A 相同的 LINE Login Channel ID
@@ -442,10 +442,75 @@ button.tc:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-
 .fe-guide{text-align:center;background:rgba(201,163,90,.1);border-radius:14px;padding:14px 12px;margin-bottom:12px}
 .fe-guide p{margin:0;line-height:1.8}
 .fe-q{font-family:"Noto Serif TC",serif;font-size:18px;color:var(--brown);margin:4px 0 !important}
+/* ===== 5.3 首頁新排版：問候・每日一抽（主角）・開始占卜 ===== */
+.hm{display:flex;flex-direction:column;gap:22px;padding-top:22px;padding-bottom:10px}
+.hm-greet{text-align:center}
+.hm-greet small{font-size:12.5px;color:var(--soft)}
+.hm-greet h1{font-family:var(--serif,"Noto Serif TC",serif);font-weight:600;font-size:24px;color:var(--brown);margin:4px 0 2px}
+.hm-greet p{font-size:13.5px;color:var(--muted);margin:0}
+.hm-daily{display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;padding:24px 20px;border-radius:20px;background:#FFFDF8;border:1px solid #E8E0CF;line-height:2;color:var(--brown)}
+.hm-daily .eyebrow{letter-spacing:.16em;font-size:11.5px;margin:0;line-height:1.4}
+.hm-card{width:150px;max-width:46vw;margin:0;padding:0;border:0;background:none}
+button.hm-card{cursor:pointer}
+.hm-daily h2{font-family:var(--serif,"Noto Serif TC",serif);font-weight:600;font-size:20px;color:var(--brown);margin:0;line-height:1.5}
+.hm-daily p{margin:0;font-size:14.5px;color:var(--ink)}
+.hm-daily .hm-heal{display:block;width:100%;box-sizing:border-box;padding:12px 16px;border-radius:14px;background:#F6EEDC;color:var(--brown2);font-size:13.5px;line-height:1.9}
+.hm-daily .hm-done{font-size:12.5px;color:var(--soft);line-height:1.6}
+.hm-go{display:flex;flex-direction:column;gap:8px;text-align:center}
+.hm-go small{font-size:12.5px;color:var(--soft);line-height:1.6}
+.hm-care{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;background:#fff;border:1px solid #E8E0CF;text-decoration:none;color:var(--ink)}
+.hm-care > span:nth-child(2){flex:1;display:flex;flex-direction:column;line-height:1.5}
+.hm-care b{font-size:14.5px;color:var(--brown)}
+.hm-care small{font-size:12.5px;color:var(--muted)}
+.hm-care .cm-dot{width:30px;height:30px}
+.hm-care > svg,.hm-care > .i{width:18px;height:18px;flex:none;color:var(--soft)}
 
 </style>
 </head>
 <body>
+<style>
+#mia-loader{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:linear-gradient(180deg,#F7F2E8,#E9EEF6);visibility:hidden;opacity:1;transition:opacity .4s ease}
+#mia-loader.show{visibility:visible}
+#mia-loader.out{opacity:0;pointer-events:none}
+#mia-loader .t{font-family:"Cormorant Garamond",serif;font-size:20px;color:#1F3D78}
+#mia-loader .s{font-size:12px;color:#7D8AA0}
+#mia-loader .wand{transform-box:view-box;transform-origin:188px 30px;animation:mlWave 2.4s ease-in-out infinite}
+@keyframes mlWave{0%,14%{transform:translate(40px,-70px) rotate(-14deg);opacity:1}40%{transform:translate(0,0) rotate(0deg);opacity:1}60%{transform:translate(0,0) rotate(0deg);opacity:1}76%{transform:translate(14px,-24px) rotate(-5deg);opacity:0}100%{transform:translate(40px,-70px) rotate(-14deg);opacity:0}}
+#mia-loader .flame{transform-box:view-box;transform-origin:120px 179px;animation:mlLit 2.4s linear infinite}
+@keyframes mlLit{0%,40%{opacity:0;transform:scale(.2)}48%{opacity:1;transform:scale(1.15)}56%,94%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(.6)}}
+#mia-loader .flk{transform-box:view-box;transform-origin:120px 179px;animation:mlFlk .5s ease-in-out infinite alternate}
+@keyframes mlFlk{from{transform:scaleY(1) skewX(-3deg)}to{transform:scaleY(.86) skewX(4deg)}}
+#mia-loader .glow{animation:mlGlow 2.4s linear infinite}
+@keyframes mlGlow{0%,42%{opacity:0}52%,94%{opacity:.55}100%{opacity:0}}
+#mia-loader .spk{animation:mlSpk 2.4s linear infinite}
+@keyframes mlSpk{0%{opacity:0}5%{opacity:1}12%,100%{opacity:0}}
+@media (prefers-reduced-motion: reduce){#mia-loader .wand,#mia-loader .flame,#mia-loader .flk,#mia-loader .glow,#mia-loader .spk{animation:none}#mia-loader .flame,#mia-loader .glow{opacity:1}}
+</style>
+<div id="mia-loader" role="status" aria-live="polite">
+  <svg width="200" height="250" viewBox="0 0 240 300" role="img" aria-label="魔杖點亮蠟燭">
+          <circle class="glow" cx="120" cy="150" r="46" fill="#F6D27A"></circle>
+          <ellipse cx="120" cy="252" rx="62" ry="8" fill="#E2D6BF"></ellipse>
+          <path d="M98 190 L142 190 L146 250 L94 250 Z" fill="#FFFDF8" stroke="#3B3A36" stroke-width="2.5" stroke-linejoin="round"></path>
+          <path d="M100 204 Q120 210 140 204" fill="none" stroke="#E2D6BF" stroke-width="2"></path>
+          <path d="M120 190 L120 180" stroke="#3B3A36" stroke-width="2.5"></path>
+          <g class="flame"><g class="flk"><path d="M120 150 C132 164 131 176 120 179 C109 176 108 164 120 150 Z" fill="#F2A33A"></path><path d="M120 162 C126 169 125 175 120 177 C115 175 114 169 120 162 Z" fill="#FFE7A3"></path></g></g>
+          <g class="wand">
+            <path d="M188 30 L132 168" stroke="#7A5A36" stroke-width="6" stroke-linecap="round"></path>
+            <path d="M136 158 L132 168" stroke="#E2B44D" stroke-width="7" stroke-linecap="round"></path>
+            <g class="spk"><path d="M128 178 L126 188 M118 170 L110 168 M120 180 L113 186 M140 176 L146 182" stroke="#E2B44D" stroke-width="2.4" stroke-linecap="round"></path></g>
+          </g>
+        </svg>
+  <span class="t">Mia Tarot</span>
+  <span class="s">正在為你點亮今天的燭光⋯</span>
+</div>
+<script>
+(function () {
+  var el = document.getElementById('mia-loader'), done = false;
+  var t = setTimeout(function () { if (!done) el.classList.add('show'); }, 300);
+  window.miaLoaderDone = function () { if (done) return; done = true; clearTimeout(t); el.classList.add('out'); setTimeout(function () { if (el.parentNode) el.remove(); }, 450); };
+  setTimeout(window.miaLoaderDone, 15000);
+})();
+</script>
 <div id="app"><div class="busy" style="padding-top:30vh"><span class="spin"></span>Mia Tarot</div></div>
 <script>
 /* 牌義初稿（後台「塔羅 › 牌義內容」可逐張修改，修改會覆蓋這裡的文字） */
@@ -980,7 +1045,7 @@ function login(returnHash) {
   if (IS_DEMO) {
     return modal({
       title: '展示登入', cancel: '取消',
-      html: `<p class="muted">展示模式不會連線 LINE，選一個身分就能體驗完整流程。</p><div class="demo-pick"><button data-uid="Udemo-customer"><span class="av">映</span><span><b>陳映彤</b><small>做過療癒服務的客人（有我的陪伴）</small></span></button><button data-uid="Udemo-friend"><span class="av">小</span><span><b>林小晴</b><small>只加好友的一般好友（只用塔羅）</small></span></button>${Session.user() ? '<button data-out><span class="av">✕</span><span><b>登出</b><small>回到未登入的樣子</small></span></button>' : ''}</div>`,
+      html: `<p class="muted">展示模式不會連線 LINE，選一個身分就能體驗完整流程。</p><div class="demo-pick"><button data-uid="Udemo-customer"><span class="av">映</span><span><b>陳映彤</b><small>做過療癒服務的客人（有我的陪伴）</small></span></button><button data-uid="Udemo-friend"><span class="av">小</span><span><b>林小晴</b><small>只加好友的一般好友（只用塔羅）</small></span></button><button data-uid="Udemo-admin"><span class="av">M</span><span><b>Mia（你自己）</b><small>流程測試用：陪伴後台建立的測試紀錄會出現在這裡</small></span></button>${Session.user() ? '<button data-out><span class="av">✕</span><span><b>登出</b><small>回到未登入的樣子</small></span></button>' : ''}</div>`,
       onOpen(sc, close) {
         sc.querySelectorAll('[data-uid]').forEach(b => b.addEventListener('click', async () => { try { const r = await MOCK.call('demoLogin', { lineUserId: b.dataset.uid }); Session.set({ token: r.token, user: r.user, expiresAt: r.expiresAt }); close(true); await App.loadHome(); App.route(); } catch (e) { errToast(e); } }));
         const o = sc.querySelector('[data-out]'); if (o) o.addEventListener('click', async () => { Session.clear(); close(true); await App.loadHome(); App.route(); });
@@ -1017,10 +1082,10 @@ const App = {
     const u = Session.user();
     const a = (h, l, k, c) => `<a href="${h}" class="${on === k ? 'on' : ''} ${c || ''}">${l}</a>`;
     return `<header class="hd"><div class="wrap"><a class="logo" href="#/" aria-label="Mia Tarot 首頁"><span class="pearl"></span><span><b>Mia Tarot</b></span><small>塔羅療癒</small></a>${IS_DEMO ? '<span class="demo-tag">展示模式</span>' : ''}
-      <nav>${App.hasCare() ? a('#/companion', '我的陪伴', 'companion', 'cmp') : ''}${a('#/cards', '牌義圖鑑', 'cards', 'hide-s')}${a('#/records', '我的紀錄', 'records')}${u ? `<span class="av" title="${esc(uName(u))}"${IS_DEMO ? ' data-login role="button" tabindex="0" style="cursor:pointer"' : ''}>${uPic(u) ? `<img src="${esc(uPic(u))}" alt="">` : esc((uName(u) || '我').slice(0, 1))}</span>` : `<a href="#" data-login>登入</a>`}</nav></div></header>`;
+      <nav>${App.hasCare() ? a('#/companion', '我的陪伴', 'companion', 'cmp') : ''}${a('#/records', '我的紀錄', 'records')}${u ? `<span class="av" title="${esc(uName(u))}"${IS_DEMO ? ' data-login role="button" tabindex="0" style="cursor:pointer"' : ''}>${uPic(u) ? `<img src="${esc(uPic(u))}" alt="">` : esc((uName(u) || '我').slice(0, 1))}</span>` : `<a href="#" data-login>登入</a>`}</nav></div></header>`;
   },
   footer() {
-    return `<footer class="ft">本站占卜不使用逆位，所有牌都以正位解讀。<br>占卜內容僅供自我探索參考，不取代醫療、法律或財務等專業建議。<br>你的問題與占卜結果會保存在 Mia 的預約系統，只用於提供服務，1 個月後自動封存。<br><a href="${MAIN}">回到 Mia 客製化療癒服務</a>${lineOA() ? `・<a href="${lineOA()}" target="_blank" rel="noopener">加入 Mia 官方 LINE</a>` : ''}</footer>`;
+    return `<footer class="ft">本站占卜不使用逆位，所有牌都以正位解讀。<br>占卜內容僅供自我探索參考，不取代醫療、法律或財務等專業建議。<br>你的問題會保存在 Mia 的預約系統，只用於提供服務；一般占卜的結果保留 24 小時。<br><a href="${MAIN}">回到 Mia 客製化療癒服務</a>${lineOA() ? `・<a href="${lineOA()}" target="_blank" rel="noopener">加入 Mia 官方 LINE</a>` : ''}</footer>`;
   },
   mount(inner, on, bind) {
     const app = $('#app');
@@ -1072,17 +1137,22 @@ const Pages = {
   home() {
     const u = Session.user(), h = App.home || {}, d = h.daily;
     const c = d && card(d.card);
+    const T = U.today(), hr = +U.nowParts().time.slice(0, 2);
+    const hi = hr >= 5 && hr < 11 ? '早安' : hr >= 11 && hr < 18 ? '午安' : '晚安';
+    const greet = `<section class="hm-greet"><small>${+T.slice(5, 7)} 月 ${+T.slice(8, 10)} 日・星期${WD[U.dow(T)]}</small>${u ? `<h1>${hi}，${esc(uName(u) || '你')}</h1><p>今天想先聽聽牌怎麼說嗎？</p>` : '<h1>歡迎來到 Mia Tarot</h1><p>讓牌陪你，看見此刻的自己</p>'}</section>`;
+    const act = App.hasCare() ? (App.care.items || []).find(i => i.active) : null;
+    const careCard = act ? `<a class="hm-care" href="#/companion"><span class="cm-dot"></span><span><b>我的陪伴</b><small>${esc(act.planName || '')}・${act.daysLeft > 0 ? `陪伴期還有 ${act.daysLeft} 天` : '今天是陪伴期最後一天'}</small></span>${ic('right')}</a>` : '';
     const daily = !u
-      ? `<div class="daily"><div>${tc(null, false)}</div><div><p class="eyebrow">DAILY CARD・每日一抽</p><h2>今天，牌想對你說什麼？</h2><p class="muted" style="font-size:13.5px">每天一張，給今天的自己一個提醒。</p></div></div><div class="blk">${loginBtn()}</div>`
-      : c ? `<div class="daily"><div>${tc(d.card, true, 'flat')}</div><div><p class="eyebrow">DAILY CARD・每日一抽</p><h2>今天的牌：${esc(c.n)}</h2><p>${esc(c.core)}</p><p class="heal">療癒提醒：${esc(c.heal)}</p><p class="done">今天已抽過，明天再來看看新的訊息</p></div></div>`
-        : `<div class="daily"><button class="tc" data-daily aria-label="抽今天的牌"><div class="in"><img class="bk" src="${IMG}back.jpg" alt=""><img class="fr" src="${IMG}back.jpg" alt=""></div></button><div><p class="eyebrow">DAILY CARD・每日一抽</p><h2>今天，牌想對你說什麼？</h2><p class="muted" style="font-size:13.5px">深呼吸一次，點牌翻開今天的訊息。</p><button class="btn sec sm" data-daily style="margin-top:10px">${ic('spark')}抽今天的牌</button></div></div>`;
-    App.mount(`<div class="wrap">
-      <section class="hero"><h1>Mia Tarot</h1><p>讓牌陪你，看見此刻的自己</p></section>
-      <section class="card" id="daily">${daily}</section>
-      <a class="btn pri full blk" href="#/ask">${ic('spark')}開始占卜</a>
-      <a class="fe-cta" href="#/full"><span class="orb"></span><span><b>全能量檢測 <span class="chip new">NEW</span></b><small>看見此刻完整的你・由 Mia 親自解讀</small></span>${ic('right')}</a>
-      <div class="menu-grid"><a class="mi" href="#/cards">${ic('book')}<b>牌義圖鑑</b></a><a class="mi" href="#/records">${ic('list')}<b>我的占卜紀錄</b></a></div>
-      ${h.fullOpen ? `<a class="note box blk" href="#/full/${esc(h.fullOpen)}" style="text-decoration:none">${ic('clock')}<span>你的全能量檢測還沒抽完，<b class="tlink">繼續抽牌 ›</b></span></a>` : ''}
+      ? `<div class="hm-card">${tc(null, false)}</div><h2>今天，牌想對你說什麼？</h2><p>每天一張，給今天的自己一個提醒。</p>${loginBtn()}`
+      : c ? `<div class="hm-card">${tc(d.card, true, 'flat')}</div><h2>今天的牌：${esc(c.n)}</h2><p>${esc(c.core)}</p><p class="hm-heal">療癒提醒：${esc(c.heal)}</p><p class="hm-done">今天已抽過，明天再來看看新的訊息</p>`
+        : `<button class="tc hm-card" data-daily aria-label="抽今天的牌"><div class="in"><img class="bk" src="${IMG}back.jpg" alt=""><img class="fr" src="${IMG}back.jpg" alt=""></div></button><h2>今天，牌想對你說什麼？</h2><p>深呼吸一次，點牌翻開今天的訊息。</p><button class="btn sec sm" data-daily>${ic('spark')}抽今天的牌</button>`;
+    const left = u ? `今天還可以占卜 ${leftToday()} 次` : `每天可以占卜 ${dailyMax()} 次`;
+    App.mount(`<div class="wrap hm">
+      ${careCard}
+      ${greet}
+      <section class="hm-daily" id="daily"><p class="eyebrow">DAILY CARD・每日一抽</p>${daily}</section>
+      <div class="hm-go"><a class="btn pri full" href="#/ask">${ic('spark')}開始占卜</a><small>感情・工作・金錢・人際・自我成長｜${left}</small></div>
+      ${h.fullOpen ? `<a class="note box" href="#/full/${esc(h.fullOpen)}" style="text-decoration:none">${ic('clock')}<span>你的全能量檢測還沒抽完，<b class="tlink">繼續抽牌 ›</b></span></a>` : ''}
     </div>`, 'home', r => {
       $$('[data-daily]', r).forEach(b => b.addEventListener('click', async () => {
         $$('[data-daily]', r).forEach(x => x.disabled = true);
@@ -1241,7 +1311,7 @@ const Pages = {
   async result(id) {
     if (!Session.user()) return App.gate();
     App.busy('');
-    let rd; try { rd = (await api.call('tarotGetReading', { readingId: id })).reading; } catch (e) { errToast(e); return App.go('#/records'); }
+    let rd; try { rd = (await api.call('tarotGetReading', { readingId: id })).reading; } catch (e) { if (e.code === 'NOT_FOUND') return Pages.gone(e.message); errToast(e); return App.go('#/records'); }
     if (rd.spread === 'full') return App.go('#/full/' + encodeURIComponent(rd.id));
     const sp = SPREADS[rd.spread], cs = rd.cards.map(card), N = cs.length;
     const opened = new Set(rd.revealed ? cs.map((_, i) => i) : []);
@@ -1285,20 +1355,23 @@ const Pages = {
     });
   },
 
+  gone(msg) {
+    App.mount(`<div class="wrap top"><section class="card gate"><span class="pearl"></span><h1 class="h2">找不到這筆占卜</h1><p>${esc(msg || '這筆占卜已超過 24 小時，結果不再保留')}</p><div class="btns col"><a class="btn pri full" href="#/">回首頁</a><a class="btn sec full" href="#/ask">再占一次</a></div></section></div>`, 'records');
+  },
   /* ---------- 我的占卜紀錄 ---------- */
   async records() {
     if (!Session.user()) return App.gate('records', '登入後查看你的占卜紀錄');
     App.busy('records');
-    let list = []; try { list = (await api.call('tarotMyReadings', {})).readings; } catch (e) { errToast(e); }
+    let list = [], keep = 24; try { const x = await api.call('tarotMyReadings', {}); list = x.readings || []; keep = +x.keepHours || 24; } catch (e) { errToast(e); }
     const st = r => r.spread !== 'full' ? '' : r.status === '已解讀' ? '<span class="chip ok">解讀完成</span>' : r.status === '待解讀' ? '<span class="chip">Mia 解讀中</span>' : '<span class="chip blue">還沒抽完</span>';
     App.mount(`<div class="wrap">
       <a class="back" href="#/">${ic('left')}首頁</a>
-      <h1 class="h1">我的占卜紀錄</h1><p class="sub">紀錄保存 1 個月；全能量檢測在 Mia 交付解讀後再保存 1 個月。</p>
+      <h1 class="h1">我的占卜紀錄</h1><p class="sub">一般占卜紀錄保留 ${keep} 小時；全能量檢測與帶去預約的占卜會保留下來。</p>
       <div class="blk">${list.length ? list.map(r => {
         const full = r.spread === 'full';
         const th = (full ? [0, 4, 8] : r.cards.map((_, i) => i)).slice(0, 3).map(i => `<img src="${(!full || r.revealed * 4 > i) ? img(r.cards[i]) : IMG + 'back.jpg'}" alt="">`).join('');
         return `<a class="rec" href="#/${full ? 'full' : 'r'}/${encodeURIComponent(r.id)}"><span class="th">${th}</span><span style="min-width:0"><b>${full ? '全能量檢測' : esc(r.question)}</b><small>${full ? `代號 ${esc(r.code)}` : esc((TOPIC[r.topic] || {}).l || '') + '・' + esc(SPREADS[r.spread].n)}</small><small class="num">${esc(U.ts(r.createdAt))}</small></span><span class="r">${st(r)}${ic('right')}</span></a>`;
-      }).join('') : `<div class="empty card"><span class="pearl"></span><b>還沒有占卜紀錄</b><p style="font-size:13.5px;margin-top:4px">從一個你真正想知道的問題開始。</p><a class="btn pri sm" href="#/ask" style="margin-top:14px">開始占卜</a></div>`}</div>
+      }).join('') : `<div class="empty card"><span class="pearl"></span><b>24 小時內沒有占卜紀錄</b><p style="font-size:13.5px;margin-top:4px">一般占卜紀錄保留 ${keep} 小時。從一個你真正想知道的問題開始。</p><a class="btn pri sm" href="#/ask" style="margin-top:14px">開始占卜</a></div>`}</div>
     </div>`, 'records');
   },
 
@@ -1339,7 +1412,7 @@ const Pages = {
       <p class="sp-h">還沒有代號？</p>
       <div class="ways">
         <a class="way" href="#/full/buy"><span class="ico">${ic('coin')}</span><span><b>購買解讀・<span class="num">${U.money(h.codePrice || 600)}</span></b><small>一組代號＋Mia 的文字解讀・30 天內有效</small></span>${ic('right')}</a>
-        <div class="way"><span class="ico">${ic('star')}</span><span><b>活動彩蛋</b><small>參加 Mia 的活動，有機會獲得・7 天內有效</small></span></div>
+        <div class="way"><span class="ico">${ic('star')}</span><span><b>活動彩蛋</b><small>參與 Mia 的小遊戲、互動、小測驗或活動時，說不定就會遇見它</small></span></div>
         <div class="way"><span class="ico">${ic('heart')}</span><span><b>療癒服務後的禮物</b><small>服務後第 7 天透過 LINE 送出，48 小時內有效</small></span></div>
       </div>
       <p class="note blk">${ic('lock')}<span>一組代號只能抽一次，抽完結果會鎖定、無法重抽。準備好一段安靜的時間再開始。</span></p>
@@ -1466,7 +1539,7 @@ const Pages = {
   async full(id) {
     if (!Session.user()) return App.gate();
     App.busy('');
-    let rd; try { rd = (await api.call('tarotGetReading', { readingId: id })).reading; } catch (e) { errToast(e); return App.go('#/records'); }
+    let rd; try { rd = (await api.call('tarotGetReading', { readingId: id })).reading; } catch (e) { if (e.code === 'NOT_FOUND') return Pages.gone(e.message); errToast(e); return App.go('#/records'); }
     if (rd.spread !== 'full') return App.go('#/r/' + encodeURIComponent(rd.id));
     const P1 = FULL.parts[0].cells.length;
     let revealed = rd.revealed || 0, part = revealed >= P1 ? 1 : 0, busy = false;
@@ -1565,9 +1638,8 @@ async function shareImage(rd, cs) {
     if (qs.get('transactionId')) U.ss.set('mia.tarot.tx', qs.get('transactionId'));
     history.replaceState(null, '', location.pathname + '#/full/order/' + encodeURIComponent(qs.get('orderId')));
   }
-  await App.loadHome();
-  window.addEventListener('hashchange', () => App.route());
-  App.route();
+  try { await App.loadHome(); window.addEventListener('hashchange', () => App.route()); await App.route(); }
+  finally { if (window.miaLoaderDone) window.miaLoaderDone(); }
 })();
 
 </script>

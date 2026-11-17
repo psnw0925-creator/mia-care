@@ -6,9 +6,9 @@
 <title>Mia 陪伴後台</title>
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#BFD3EA">
-<meta name="mia-version" content="5.0.0-測試版 2">
+<meta name="mia-version" content="5.3.0-測試版 1">
 <script id="mia-config">
-/* ===== Mia 陪伴後台 5.0.0-測試版 2：設定只要改這一段 ===== */
+/* ===== Mia 陪伴後台 5.3.0-測試版 1：設定只要改這一段 ===== */
 window.MIA_CONFIG = {
   GAS_URL: 'https://script.google.com/macros/s/AKfycbysIRy8D2qUnUsToIvLoIEew-NrcFW7TdZvHi9ZqsMSQUX-SOeNYZ0S8KTefu8HKJO2Ng/exec',   // 和網站 A 相同的 Apps Script 網址
   LINE_LOGIN_CHANNEL_ID: '2012624805',                                      // 和網站 A 相同的 LINE Login Channel ID
@@ -3080,6 +3080,32 @@ body.admin .en-pl { display: flex; align-items: center; gap: 8px; cursor: pointe
 .care-lk{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:12px 14px;border-radius:12px;border:1px dashed #9FB4D6;text-decoration:none;color:#24406B;font-size:13px}
 .care-lk b{grid-column:1}.care-lk span{grid-column:1;color:#56709F}.care-lk svg{grid-column:2;grid-row:1/3;align-self:center;width:18px;height:18px}
 .dm-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}@media(max-width:900px){.dm-cols{grid-template-columns:1fr}}
+/* ===== 5.3 設定 › 流程測試（網站 B） ===== */
+.tst-h{display:flex;align-items:center;gap:12px;margin:2px 0 10px}
+.tst-h h2{flex:1;font-size:21px;margin:0}
+.tst-bk{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 14px;border-radius:14px;background:#fff;border:1px solid var(--line);font-size:13.5px;margin:10px 0}
+.tst-bk .r{margin-left:auto}
+.tst-tag{height:20px;padding:0 7px;font-size:11px;margin-left:6px;vertical-align:2px}
+.tst{overflow:hidden}
+.tst-hd,.tst-row{display:grid;grid-template-columns:40px minmax(170px,1fr) minmax(220px,1.4fr) 230px;gap:12px;align-items:center;padding:12px 16px}
+.tst-hd{font-size:11.5px;color:var(--ink-3);font-weight:700;border-bottom:1px solid var(--line);padding-top:10px;padding-bottom:10px}
+.tst-row{border-bottom:1px solid var(--line);font-size:13px;line-height:1.6}
+.tst-row:last-child{border-bottom:0}
+.tst-row .n{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#E3ECF8;color:#1F3D78;font-weight:800;font-size:13px}
+.tst-row .n .i{width:15px;height:15px}
+.tst-row .t{display:flex;flex-direction:column}
+.tst-row .t b{font-size:14px;color:var(--ink)}
+.tst-row .t small{color:var(--ink-3);font-size:12px}
+.tst-row .ex{color:var(--ink-2)}
+.tst-row .a{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end;align-items:center}
+.tst-row .a small{flex-basis:100%;text-align:right;font-size:11.5px}
+.tst-row .a select{height:32px;max-width:150px}
+.tst-row.done{background:#FAFBFD}.tst-row.done .n{background:#2F6B47;color:#fff}.tst-row.done .t b{color:var(--ink-2)}
+.tst-row.now{background:#F3F7FD;box-shadow:inset 3px 0 0 #1F3D78}.tst-row.now .n{background:#1F3D78;color:#fff}
+@media (max-width:900px){.tst-hd{display:none}.tst-row{grid-template-columns:34px 1fr;gap:6px 10px}.tst-row .ex,.tst-row .a{grid-column:2}.tst-row .a{justify-content:flex-start}.tst-row .a small{text-align:left}}
+/* 占卜紀錄：一般占卜只顯示 5 項 */
+.tb tr.tr-short td{color:var(--ink-2)}
+.tr-st{display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap}
 
 </style>
 </head>
@@ -6052,7 +6078,7 @@ Object.assign(Admin, {
       ${this.featBar('report')}
       <section class="card flush"><header class="ch"><h3>陪伴期與總結報告</h3><div class="seg sm">${[['all', '全部'], ['none', '未上傳'], ['sent', '已發送'], ['opened', '已開啟'], ['acked', '已確認']].map(([k, l]) => `<button class="${F === k ? 'on' : ''}" data-f="${k}">${l} <b class="num">${cnt(k)}</b></button>`).join('')}</div></header>
       <div class="tw"><table class="tb cp-tb"><thead><tr><th>客人</th><th>服務日</th><th>陪伴期</th><th>總結報告</th><th>最後動作</th><th><span class="sr">操作</span></th></tr></thead><tbody>
-      ${list.map(x => { const b = x.booking, rp = x.report, ended = x.day >= x.total, left = U.diffDays(U.today(), x.endDate), [lt, lc] = last(x); return `<tr class="tr-row" data-rp="${b.bookingId}"><td class="c-who"><b>${U.esc(b.name)}</b><small class="num">${U.esc(b.bookingId)}・${U.esc(b.planName)}</small></td><td class="num">${U.dateLabel(b.date)}</td>
+      ${list.map(x => { const b = x.booking, rp = x.report, ended = x.day >= x.total, left = U.diffDays(U.today(), x.endDate), [lt, lc] = last(x); return `<tr class="tr-row" data-rp="${b.bookingId}"><td class="c-who"><b>${U.esc(b.name)}${careTestTag(b)}</b><small class="num">${U.esc(b.bookingId)}・${U.esc(b.planName)}</small></td><td class="num">${U.dateLabel(b.date)}</td>
         <td class="c-prog"><span class="num">${ended ? '已結束' : `至 ${U.dot(x.endDate).slice(5)}・剩 ${left} 天`}</span></td>
         <td><span class="st ${RP_STATE[rp.state][1]}">${rp.state === 'acked' ? ic('check') : ''}${RP_STATE[rp.state][0]}</span></td><td class="${lc}"><small class="${lc}">${U.esc(lt)}</small></td>
         <td class="acts"><a class="btn ${rp.state === 'none' || rp.state === 'draft' ? 'pri' : 'ghost'} sm" href="#/admin/companions/${b.bookingId}">${rp.state === 'none' ? '上傳' : rp.state === 'draft' ? '繼續編輯' : '開啟'}</a></td></tr>`; }).join('') || `<tr class="none-r"><td colspan="6">${AUI.empty('目前沒有陪伴中的客人')}</td></tr>`}
@@ -6073,7 +6099,7 @@ Object.assign(Admin, {
       ${this.featBar('report')}
       <section class="card flush"><header class="ch"><h3>陪伴期名單</h3><span class="sub">服務完成後進入陪伴期，結束後交付服務總結報告</span></header>
       <div class="tw"><table class="tb cp-tb"><thead><tr><th>客人</th><th>方案</th><th>服務日</th><th>陪伴期</th><th>總結報告</th><th><span class="sr">操作</span></th></tr></thead><tbody>
-      ${items.map(x => { const b = x.booking, ended = x.day >= x.total; return `<tr><td class="c-who"><b>${U.esc(b.name)}</b><small class="num">${U.esc(b.bookingId)}</small></td><td>${AUI.tagPlan(b.planStyle, b.planName)}</td><td class="num">${U.dateLabel(b.date)}</td>
+      ${items.map(x => { const b = x.booking, ended = x.day >= x.total; return `<tr><td class="c-who"><b>${U.esc(b.name)}${careTestTag(b)}</b><small class="num">${U.esc(b.bookingId)}</small></td><td>${AUI.tagPlan(b.planStyle, b.planName)}</td><td class="num">${U.dateLabel(b.date)}</td>
         <td class="num">${ended ? '已結束' : `第 ${x.day} / ${x.total} 天・至 ${U.dot(x.endDate).slice(5)}`}</td><td>${x.reportSent ? '<span class="st s-full">已交付</span>' : '<span class="st s-check">待交付</span>'}</td>
         <td class="acts"><button class="btn ${x.reportSent ? 'ghost' : 'pri'} sm" data-rep="${b.bookingId}" data-v="${x.reportSent ? 0 : 1}">${x.reportSent ? '改為待交付' : '標記報告已交'}</button></td></tr>`; }).join('') || `<tr class="none-r"><td colspan="6">${AUI.empty('目前沒有陪伴中的客人')}</td></tr>`}
       </tbody></table></div></section>`);
@@ -6164,6 +6190,8 @@ function careDlCard(r) {
 NAV.length = 0;
 NAV.push(['今日陪伴', 'grid', ''], ['陪伴追蹤', 'heart', 'companions'], ['塔羅', 'moon', 'tarot'], ['客人', 'people', 'customers'], ['設定', 'gear', 'settings']);
 const CARE_CLIENT_TABS = [['customers', '客戶追蹤'], ['dormant', '久未回訪'], ['feedback', '反饋紀錄']];
+/* 測試紀錄（source 以 test 開頭）在名字旁加「測試」小標籤 */
+function careTestTag(b) { return b && /^test/.test(String(b.source || '')) ? ' <span class="st s-check tst-tag">測試</span>' : ''; }
 const CARE_SET_TABS = [['templates', '通知訊息'], ['features', '功能開關'], ['site', '價格與網址']];
 
 Object.assign(Admin, {
@@ -6247,14 +6275,14 @@ Object.assign(Admin, {
     const d = await this.careTodayData(), C = d.counts, T = U.today();
     this._badges = Object.assign(this._badges || {}, { today: C.total }); this._badgeAt = Date.now();
     const due = (cls, t) => `<span class="st ${cls}">${U.esc(t)}</span>`;
-    const who = (name, sub) => `<span class="ct-who"><b>${U.esc(name)}</b><small>${U.esc(sub)}</small></span>`;
+    const who = (name, sub, b) => `<span class="ct-who"><b>${U.esc(name)}${careTestTag(b)}</b><small>${U.esc(sub)}</small></span>`;
     const jBtn = uid => uid ? `<button class="btn ghost sm" data-jr="${U.esc(uid)}">客戶旅程</button>` : '';
     const sec = (title, sub, rows, empty) => `<section class="card"><header class="ch"><h3>${title}</h3><span class="sub">${sub}</span></header><div class="cb ct-rows">${rows.length ? rows.join('') : `<p class="mnote">${empty}</p>`}</div></section>`;
-    const rRows = d.reports.map(({ b, x, dd, full }) => `<div class="ct-row">${who(b.name, b.planName + '・' + U.dot(b.date).slice(5) + ' 服務')}<span class="ct-mid">${U.esc(full || ((x.report || {}).state === 'draft' ? '報告草稿已存' : '報告還沒開始'))}</span>${dd < 0 ? due('s-noshow', `已超過 ${-dd} 天`) : dd === 0 ? due('s-noshow', '今天要交') : due('s-check', '明天要交')}<span class="ct-acts"><a class="btn pri sm" href="#/admin/companions/${U.esc(b.bookingId)}">開啟報告</a></span></div>`);
+    const rRows = d.reports.map(({ b, x, dd, full }) => `<div class="ct-row">${who(b.name, b.planName + '・' + U.dot(b.date).slice(5) + ' 服務', b)}<span class="ct-mid">${U.esc(full || ((x.report || {}).state === 'draft' ? '報告草稿已存' : '報告還沒開始'))}</span>${dd < 0 ? due('s-noshow', `已超過 ${-dd} 天`) : dd === 0 ? due('s-noshow', '今天要交') : due('s-check', '明天要交')}<span class="ct-acts"><a class="btn pri sm" href="#/admin/companions/${U.esc(b.bookingId)}">開啟報告</a></span></div>`);
     const fRows = d.pend.items.map(r => `<div class="ct-row">${who(r.userName, (TAROT_CODE_KINDS[r.codeKind] || ['—'])[0] + '・' + r.code)}<span class="ct-mid">${U.tsLabel(r.doneAt || r.createdAt).slice(5)} 抽完 12 格</span>${r.codeKind === 'post' ? due('s-check', '寫進總結報告') : due(r.daysLeft != null && r.daysLeft <= 0 ? 's-noshow' : 's-dep', trDue(r))}<span class="ct-acts">${r.codeKind === 'post' && r.bookingId ? `<a class="btn pri sm" href="#/admin/companions/${U.esc(r.bookingId)}">寫解牌</a>` : `<a class="btn pri sm" href="#/admin/tarot/pending/${U.esc(r.id)}">寫解讀</a>`}</span></div>`)
       .concat(d.soon.map(c => `<div class="ct-row">${who(c.userName || '—', '服務後・' + c.code)}<span class="ct-mid">${U.tsLabel(c.createdAt).slice(5)} 送出・還沒開始抽</span>${due('s-check', U.tsLabel(c.expiresAt).slice(5) + ' 到期')}<span class="ct-acts">${jBtn(c.userId)}<button class="btn pri sm" data-reissue="${U.esc(c.code)}">重發新代碼</button></span></div>`));
-    const cRows = d.careTodo.map(c => `<div class="ct-row ${c.doneAt ? 'done' : ''}">${who(c.b.name, c.b.planName + '・' + U.dot(c.b.date).slice(5) + ' 服務')}<span class="ct-mid">${U.esc(c.label)}${c.k === '7d' ? '（全能量代碼 20:00 自動傳）' : ''}</span>${c.doneAt ? due('s-full', c.doneAt.slice(11, 16) + ' 已關心') : c.due < T ? due('s-noshow', U.diffDays(c.due, T) === 1 ? '昨天沒按' : U.dot(c.due).slice(5) + ' 沒按') : due('s-check', '今天')}<span class="ct-acts">${jBtn(c.b.lineUserId)}${c.doneAt ? '' : `<button class="btn pri sm" data-care="${U.esc(c.b.bookingId)}" data-k="${c.k}" data-l="${U.esc(c.label)}" data-u="${U.esc(c.b.lineUserId || '')}">已關心</button>`}</span></div>`);
-    const uRows = d.unack.map(x => { const b = x.booking, r = x.report; return `<div class="ct-row">${who(b.name, b.planName + '・' + U.dot(b.date).slice(5) + ' 服務')}<span class="ct-mid">${U.tsLabel(r.sentAt).slice(5)} 發送${r.openedAt ? '・已開啟' : '・還沒開啟'}${r.remindedAt ? '・' + U.tsLabel(r.remindedAt).slice(5) + ' 已自動提醒' : ''}</span>${due('s-check', U.diffDays(r.sentAt.slice(0, 10), T) + ' 天未確認')}<span class="ct-acts">${jBtn(b.lineUserId)}<a class="btn ghost sm" href="#/admin/companions/${U.esc(b.bookingId)}">看紀錄</a></span></div>`; });
+    const cRows = d.careTodo.map(c => `<div class="ct-row ${c.doneAt ? 'done' : ''}">${who(c.b.name, c.b.planName + '・' + U.dot(c.b.date).slice(5) + ' 服務', c.b)}<span class="ct-mid">${U.esc(c.label)}${c.k === '7d' ? '（全能量代碼 20:00 自動傳）' : ''}</span>${c.doneAt ? due('s-full', c.doneAt.slice(11, 16) + ' 已關心') : c.due < T ? due('s-noshow', U.diffDays(c.due, T) === 1 ? '昨天沒按' : U.dot(c.due).slice(5) + ' 沒按') : due('s-check', '今天')}<span class="ct-acts">${jBtn(c.b.lineUserId)}${c.doneAt ? '' : `<button class="btn pri sm" data-care="${U.esc(c.b.bookingId)}" data-k="${c.k}" data-l="${U.esc(c.label)}" data-u="${U.esc(c.b.lineUserId || '')}">已關心</button>`}</span></div>`);
+    const uRows = d.unack.map(x => { const b = x.booking, r = x.report; return `<div class="ct-row">${who(b.name, b.planName + '・' + U.dot(b.date).slice(5) + ' 服務', b)}<span class="ct-mid">${U.tsLabel(r.sentAt).slice(5)} 發送${r.openedAt ? '・已開啟' : '・還沒開啟'}${r.remindedAt ? '・' + U.tsLabel(r.remindedAt).slice(5) + ' 已自動提醒' : ''}</span>${due('s-check', U.diffDays(r.sentAt.slice(0, 10), T) + ' 天未確認')}<span class="ct-acts">${jBtn(b.lineUserId)}<a class="btn ghost sm" href="#/admin/companions/${U.esc(b.bookingId)}">看紀錄</a></span></div>`; });
     const html = this.shell({ title: '今日陪伴', sub: U.dateLabel(T) }, `
       <div class="kpis ev-kpis ct-kpis">
         <a class="kpi card ${C.reports ? 'warn' : ''}" href="#ct-rp"><small>今天要交的總結報告</small><b class="num">${C.reports}</b><span>服務後第 10 天・明天要交 ${C.tomorrow} 份</span></a>
@@ -6470,6 +6498,91 @@ Object.assign(Admin, {
       if (u && !/^https:\/\/[^\s]+$/.test(u)) return toast('網址要以 https:// 開頭', 'err');
       this.run(() => api.call('adminSaveSettings', { settings: { 'tarot.codePrice': +p, 'care.url': u ? u.replace(/#.*$/, '').replace(/\/?$/, '/') : '' } }), '已儲存');
     }));
+  }
+});
+
+/* ===== 陪伴後台 5.3：設定 › 流程測試（網站 B：服務完成之後）・占卜紀錄精簡格式 ===== */
+CARE_SET_TABS.push(['test', '流程測試']);
+const CARE_TEST_ST = [
+  ['create', '建立測試服務紀錄', '收到「陪伴期開始」；網站 B 出現「我的陪伴」；今日陪伴出現「24 小時關心」'],
+  ['day3', '快轉到第 3 天', '今日陪伴出現「72 小時關心」；我的陪伴進度到第 3 天'],
+  ['post', '快轉到第 7 天 20:00', '收到全能量代碼 → 用代碼抽牌（先深呼吸引導）→ 陪伴後台「待解讀」寫解讀'],
+  ['report', '總結報告', '收到「報告已完成」→ 打開、下載、我已收到、回饋'],
+  ['remind', '快轉 3 天・報告未確認', '收到「報告提醒」（已按我已收到就不送，這也是正確結果）'],
+  ['end', '快轉到陪伴期結束', '收到「陪伴期結束」；我的陪伴顯示已結束'],
+  ['expire', '快轉到下載期限後', '報告頁顯示「下載期限已過」']
+];
+const CARE_ID_L = { boss: '老闆／創業', staff: '上班族', free: '自由工作者', student: '學生', other: '其他' };
+Object.assign(Admin, {
+  async care_set_test(root) {
+    let x; try { x = await api.call('adminTestState', { site: 'b' }); }
+    catch (e) { return this.mount(root, this.shell({ title: '設定' }, `<section class="card"><div class="cb">${AUI.empty('流程測試還不能使用：' + U.esc(e.message || '') + '（請確認後端 Code.gs 已更新到 5.3）')}</div></section>`)); }
+    const b = x.booking, P = x.prereq || {}, S = {}; (x.steps || []).forEach(s => { S[s.key] = s; });
+    const hasRp = !!x.report;
+    const warn = [P.customer === false && '請先用手機在網站 A 用 LINE 登入一次', P.report === false && '總結報告還沒開放（第 3、4、6 站需要）', P.tarot === false && '塔羅功能還沒開放（第 2 站需要）', P.postTpl === false && '「服務後第 7 天・全能量代碼」通知是關閉的'].filter(Boolean);
+    const nowK = (CARE_TEST_ST.find(([k]) => !(S[k] || {}).done) || [''])[0];
+    const btn = (k, l, pri, dis) => `<button class="btn ${pri ? 'pri' : 'ghost'} sm" data-step="${k}" ${dis ? 'disabled' : ''}>${l}</button>`;
+    const act = k => {
+      const s = S[k] || {}, done = !!s.done, isNow = k === nowK;
+      if (k === 'create') return b ? '<span class="st s-full">完成</span>'
+        : `<select class="inp sm" data-plan aria-label="方案">${(x.plans || []).map(p => `<option value="${U.esc(p.planId)}">${U.esc(p.name)}</option>`).join('')}</select><button class="btn pri sm" data-create>建立測試服務紀錄</button>`;
+      if (k === 'report') return b ? `<a class="btn ${isNow ? 'pri' : 'ghost'} sm" href="#/admin/companions/${encodeURIComponent(b.bookingId)}">打開這一筆的報告</a>` : '';
+      const need = (k === 'remind' || k === 'expire') && !hasRp;
+      let h = btn(k, done ? '重跑這一站' : '快轉', isNow && !need, !b || need);
+      if (k === 'post' && done) h = `<a class="btn pri sm" href="#/admin/tarot/pending${x.post && x.post.readingId ? '/' + encodeURIComponent(x.post.readingId) : ''}">打開待解讀</a>` + h;
+      if (need && b) h += '<small class="muted">第 3 站發送後才能按</small>';
+      return h;
+    };
+    const rows = CARE_TEST_ST.map(([k, t, ex], i) => { const s = S[k] || {}, cls = s.done ? 'done' : k === nowK && (b || k === 'create') ? 'now' : ''; return `<div class="tst-row ${cls}"><span class="n num">${s.done ? ic('check') : i}</span><span class="t"><b>${t}</b>${s.info ? `<small>${U.esc(s.info)}</small>` : ''}</span><span class="ex">${ex}</span><span class="a">${act(k)}</span></div>`; }).join('');
+    const top = b ? `<div class="tst-bk"><span class="st s-check">測試</span><b>${U.esc(b.name)}</b><span>${U.esc(b.planName || '')}・服務日 <span class="num">${U.dot(b.date).slice(5)}</span>（已快轉 ${x.day || 0} 天）</span><span class="muted r">LINE 已送 <b class="num">${x.sent || 0}</b> 則</span></div>` : '';
+    const html = this.shell({ title: '設定' }, `
+      <div class="tst-h"><h2 class="serif">流程測試・服務完成之後</h2><button class="btn ghost sm" data-clear ${b ? '' : 'disabled'}>清除測試資料</button></div>
+      <p class="note info">${ic('spark')}<span>這裡測網站 B：服務完成之後。會建立一筆只給你自己的測試紀錄，每按一次快轉只移動這一筆的日期；真實客人與系統時間都不受影響。電腦按按鈕，手機用 LINE 當客人。LINE 訊息會真的送到你的 LINE（完整一輪約 6–8 則）。</span></p>
+      ${warn.map(w => `<p class="note warn">${ic('bell')}<span>${U.esc(w)}</span></p>`).join('')}
+      ${top}
+      <section class="card flush tst"><div class="tst-hd"><span></span><span>這一站</span><span>手機上應該看到</span><span></span></div>${rows}</section>
+      <p class="mnote">網站 A 的流程測試（預約 → 訂金 → 行前提醒 → 當日提醒 → 服務完成）在預約後台，和這裡的測試資料分開，互不影響。</p>`);
+    const go = async (data, busyEl) => {
+      if (busyEl) busyEl.disabled = true;
+      try { const r = await api.call('adminTestRun', Object.assign({ site: 'b' }, data)); toast(r.msg || '完成', 'ok'); this._badges = null; this.bust(); this.rerender(); }
+      catch (e) { errToast(e); if (busyEl) busyEl.disabled = false; }
+    };
+    this.mount(root, html, r => {
+      const c = r.querySelector('[data-create]'); if (c) c.addEventListener('click', () => go({ op: 'create', planId: (r.querySelector('[data-plan]') || {}).value || '' }, c));
+      r.querySelectorAll('[data-step]').forEach(bt => bt.addEventListener('click', () => go({ op: 'step', step: bt.dataset.step }, bt)));
+      const cl = r.querySelector('[data-clear]'); if (cl) cl.addEventListener('click', async () => {
+        if (!await confirmBox('清除測試資料', '<p>會刪除網站 B 的這筆測試紀錄，以及它的全能量代碼、占卜、總結報告與檔案。<b>無法復原</b>，確定嗎？</p><p class="mnote">真實客人的資料不受影響。</p>', '清除', true)) return;
+        go({ op: 'clear' }, cl);
+      });
+    });
+  },
+
+  /* ---------- 塔羅 › 占卜紀錄：一般占卜只顯示 5 項（主題、問題、身分、好友、時間） ---------- */
+  async tr_records(root) {
+    const F = this._trrF || (this._trrF = { q: AUI.q().q || '', spread: '', page: 1, pageSize: 50 });
+    if (AUI.q().q && AUI.q().q !== F.q) { F.q = AUI.q().q; F.page = 1; }
+    const x = await api.call('adminTarotRecords', F);
+    const short = r => r.kind === 'short';
+    const cards = r => r.spread === 'full' ? `<span class="muted">12 大＋36 小</span>` : `<span class="tr-th sm">${(r.cards || []).map(id => `<img src="cards/${U.esc(id)}.jpg" alt="${U.esc(TAROT_NAMES[id])}" title="${U.esc(TAROT_NAMES[id])}" loading="lazy" onerror="this.style.visibility='hidden'">`).join('')}</span>`;
+    const st = r => r.spread === 'full' ? `<span class="st ${(TR_READ_ST[r.status] || [])[1] || ''}">${(TR_READ_ST[r.status] || [r.status])[0]}</span>` : r.booked ? '<span class="st s-full">已預約療癒</span>' : '';
+    const keep = x.keepHours || 24;
+    const row = r => short(r)
+      ? `<tr class="tr-short"><td class="num">${U.tsLabel(r.createdAt).slice(5)}</td><td><b>${U.esc(r.userName || r.name || '—')}</b></td><td>${U.esc(TAROT_TOPICS[r.topic] || '—')}</td><td class="tr-q"><span>${U.esc(r.question || '')}</span></td><td>${U.esc(CARE_ID_L[r.identity] || '—')}</td><td></td></tr>`
+      : `<tr class="tr-row" data-rid="${U.esc(r.id)}" tabindex="0"><td class="num">${U.tsLabel(r.createdAt).slice(5)}<small>${U.esc(r.id)}</small></td><td><b>${U.esc(r.userName)}</b></td><td>${r.spread === 'full' ? '全能量檢測' : U.esc(TAROT_TOPICS[r.topic] || '')}</td><td class="tr-q">${r.spread === 'full' ? `<small>代碼 ${U.esc(r.code)}・${(TAROT_CODE_KINDS[r.codeKind] || ['—'])[0]}</small>` : `<span>${U.esc(r.question)}</span><small>${U.esc((TAROT_SPREADS[r.spread] || {}).n || '')}</small>`}</td><td>${r.spread === 'full' ? '' : U.esc(CARE_ID_L[r.identity] || '—')}</td><td><span class="tr-st">${cards(r)}${st(r)}</span></td></tr>`;
+    const html = this.shell({ title: '塔羅', sub: `共 ${x.total} 筆・一般占卜 ${keep} 小時後只保留主題、問題、身分、好友、時間；全能量與帶去預約的完整保留` }, `
+      <section class="card flush"><header class="ch tr-fil">
+        <div class="seg sm">${[['', '全部'], ['full', '全能量']].map(([k, l]) => `<button class="${F.spread === k ? 'on' : ''}" data-sp="${k}">${l}</button>`).join('')}</div>
+        <input class="inp" data-q placeholder="搜尋姓名、問題、代碼" value="${U.esc(F.q)}"></header>
+        <div class="tw"><table class="tb"><thead><tr><th>時間</th><th>哪一位好友</th><th>主題</th><th>問題</th><th>身分</th><th>牌・狀態</th></tr></thead><tbody>
+        ${x.items.length ? x.items.map(row).join('') : `<tr class="none-r"><td colspan="6">${AUI.empty('沒有符合的占卜紀錄')}</td></tr>`}
+        </tbody></table></div>${x.total > F.pageSize ? `<div class="pg-wrap">${pager({ page: F.page, pageSize: F.pageSize }, x.total, (p, ps) => { F.page = p; F.pageSize = ps; this.rerender(); })}</div>` : ''}</section>
+      <p class="mnote">一般占卜（沒有帶去預約）只列 5 項，不顯示牌與牌陣；全能量檢測、已帶去「塔羅療癒專屬方案」預約的可以點開看完整內容。</p>`);
+    this.mount(root, html, r => {
+      r.querySelectorAll('[data-sp]').forEach(b => b.addEventListener('click', () => { F.spread = b.dataset.sp; F.page = 1; this.rerender(); }));
+      const q = r.querySelector('[data-q]'); q.addEventListener('input', AUI.debounce(() => { F.q = q.value; F.page = 1; AUI.replace('#/admin/tarot/records'); this.rerender().then(() => this.refocus('[data-q]')); }, 350));
+      const open = id => { const it = x.items.find(z => z.id === id); if (!it || short(it)) return; if (it.spread === 'full') return App.go('#/admin/tarot/pending/' + id); this.trDrawer(it); };
+      r.querySelectorAll('[data-rid]').forEach(tr => { tr.addEventListener('click', () => open(tr.dataset.rid)); tr.addEventListener('keydown', e => { if (e.key === 'Enter') open(tr.dataset.rid); }); });
+    });
   }
 });
 
