@@ -474,16 +474,17 @@ button.hm-card{cursor:pointer}
 #mia-loader.out{opacity:0;pointer-events:none}
 #mia-loader .t{font-family:"Cormorant Garamond",serif;font-size:20px;color:#1F3D78}
 #mia-loader .s{font-size:12px;color:#7D8AA0}
-#mia-loader .wand{transform-box:view-box;transform-origin:188px 30px;animation:mlWave 2.4s ease-in-out infinite}
-@keyframes mlWave{0%,14%{transform:translate(40px,-70px) rotate(-14deg);opacity:1}40%{transform:translate(0,0) rotate(0deg);opacity:1}60%{transform:translate(0,0) rotate(0deg);opacity:1}76%{transform:translate(14px,-24px) rotate(-5deg);opacity:0}100%{transform:translate(40px,-70px) rotate(-14deg);opacity:0}}
-#mia-loader .flame{transform-box:view-box;transform-origin:120px 179px;animation:mlLit 2.4s linear infinite}
-@keyframes mlLit{0%,40%{opacity:0;transform:scale(.2)}48%{opacity:1;transform:scale(1.15)}56%,94%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(.6)}}
+#mia-loader svg{overflow:visible}
+#mia-loader .wand{transform-box:view-box;transform-origin:132px 168px;animation:mlWave 4.2s linear infinite}
+@keyframes mlWave{0%{transform:translate(82px,-82px) rotate(24deg);opacity:0}10.0%{transform:translate(82.0px,-82.0px) rotate(24.0deg);opacity:1}14.2%{transform:translate(82.0px,-78.9px) rotate(23.5deg);opacity:1}18.3%{transform:translate(81.6px,-70.6px) rotate(22.2deg);opacity:1}22.5%{transform:translate(80.0px,-58.9px) rotate(20.2deg);opacity:1}26.7%{transform:translate(76.5px,-45.8px) rotate(17.8deg);opacity:1}30.8%{transform:translate(70.4px,-32.9px) rotate(15.0deg);opacity:1}35.0%{transform:translate(61.5px,-21.5px) rotate(12.0deg);opacity:1}39.2%{transform:translate(50.1px,-12.5px) rotate(9.0deg);opacity:1}43.3%{transform:translate(37.0px,-6.3px) rotate(6.2deg);opacity:1}47.5%{transform:translate(23.6px,-2.5px) rotate(3.8deg);opacity:1}51.7%{transform:translate(11.7px,-0.7px) rotate(1.8deg);opacity:1}55.8%{transform:translate(3.2px,-0.1px) rotate(0.5deg);opacity:1}60.0%{transform:translate(0.0px,0.0px) rotate(0.0deg);opacity:1}70%{transform:translate(0,0) rotate(0deg);opacity:1}84%{transform:translate(20px,-16px) rotate(8deg);opacity:0}100%{transform:translate(82px,-82px) rotate(24deg);opacity:0}}
+#mia-loader .flame{transform-box:view-box;transform-origin:120px 179px;animation:mlLit 4.2s linear infinite}
+@keyframes mlLit{0%,58%{opacity:0;transform:scale(.2)}64%{opacity:1;transform:scale(1.15)}70%,95%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(.6)}}
 #mia-loader .flk{transform-box:view-box;transform-origin:120px 179px;animation:mlFlk .5s ease-in-out infinite alternate}
 @keyframes mlFlk{from{transform:scaleY(1) skewX(-3deg)}to{transform:scaleY(.86) skewX(4deg)}}
-#mia-loader .glow{animation:mlGlow 2.4s linear infinite}
-@keyframes mlGlow{0%,42%{opacity:0}52%,94%{opacity:.55}100%{opacity:0}}
-#mia-loader .spk{animation:mlSpk 2.4s linear infinite}
-@keyframes mlSpk{0%{opacity:0}5%{opacity:1}12%,100%{opacity:0}}
+#mia-loader .glow{animation:mlGlow 4.2s linear infinite}
+@keyframes mlGlow{0%,60%{opacity:0}70%,95%{opacity:.55}100%{opacity:0}}
+#mia-loader .spk{animation:mlSpk 4.2s linear infinite}
+@keyframes mlSpk{0%,4%{opacity:0}9%{opacity:1}16%{opacity:0}56%{opacity:0}60%{opacity:1}66%,100%{opacity:0}}
 @media (prefers-reduced-motion: reduce){#mia-loader .wand,#mia-loader .flame,#mia-loader .flk,#mia-loader .glow,#mia-loader .spk{animation:none}#mia-loader .flame,#mia-loader .glow{opacity:1}}
 </style>
 <div id="mia-loader" role="status" aria-live="polite">
@@ -1085,7 +1086,7 @@ const App = {
       <nav>${App.hasCare() ? a('#/companion', '我的陪伴', 'companion', 'cmp') : ''}${a('#/records', '我的紀錄', 'records')}${u ? `<span class="av" title="${esc(uName(u))}"${IS_DEMO ? ' data-login role="button" tabindex="0" style="cursor:pointer"' : ''}>${uPic(u) ? `<img src="${esc(uPic(u))}" alt="">` : esc((uName(u) || '我').slice(0, 1))}</span>` : `<a href="#" data-login>登入</a>`}</nav></div></header>`;
   },
   footer() {
-    return `<footer class="ft">本站占卜不使用逆位，所有牌都以正位解讀。<br>占卜內容僅供自我探索參考，不取代醫療、法律或財務等專業建議。<br>你的問題會保存在 Mia 的預約系統，只用於提供服務；一般占卜的結果保留 24 小時。<br><a href="${MAIN}">回到 Mia 客製化療癒服務</a>${lineOA() ? `・<a href="${lineOA()}" target="_blank" rel="noopener">加入 Mia 官方 LINE</a>` : ''}</footer>`;
+    return `<footer class="ft">本站占卜不使用逆位，所有牌都以正位解讀。<br>占卜內容僅供自我探索參考，不取代醫療、法律或財務等專業建議。<br>你的問題會保存在 Mia 的預約系統，只用於提供服務；一般占卜的結果會陪你 24 小時。<br><a href="${MAIN}">回到 Mia 客製化療癒服務</a>${lineOA() ? `・<a href="${lineOA()}" target="_blank" rel="noopener">加入 Mia 官方 LINE</a>` : ''}</footer>`;
   },
   mount(inner, on, bind) {
     const app = $('#app');
@@ -1356,7 +1357,7 @@ const Pages = {
   },
 
   gone(msg) {
-    App.mount(`<div class="wrap top"><section class="card gate"><span class="pearl"></span><h1 class="h2">找不到這筆占卜</h1><p>${esc(msg || '這筆占卜已超過 24 小時，結果不再保留')}</p><div class="btns col"><a class="btn pri full" href="#/">回首頁</a><a class="btn sec full" href="#/ask">再占一次</a></div></section></div>`, 'records');
+    App.mount(`<div class="wrap top"><section class="card gate"><span class="pearl"></span><h1 class="h2">${/24/.test(msg || '24') ? '這次的牌，已經輕輕收起來了' : '找不到這筆占卜'}</h1><p>${/24/.test(msg || '24') ? '一般占卜的結果會陪你 24 小時，時間到了，就讓它安靜地放下。<br>如果心裡還有想問的，隨時回來再抽一次，牌會給你此刻的訊息。' : esc(msg)}</p><div class="btns col"><a class="btn pri full" href="#/">回首頁</a><a class="btn sec full" href="#/ask">再占一次</a></div></section></div>`, 'records');
   },
   /* ---------- 我的占卜紀錄 ---------- */
   async records() {
@@ -1366,12 +1367,12 @@ const Pages = {
     const st = r => r.spread !== 'full' ? '' : r.status === '已解讀' ? '<span class="chip ok">解讀完成</span>' : r.status === '待解讀' ? '<span class="chip">Mia 解讀中</span>' : '<span class="chip blue">還沒抽完</span>';
     App.mount(`<div class="wrap">
       <a class="back" href="#/">${ic('left')}首頁</a>
-      <h1 class="h1">我的占卜紀錄</h1><p class="sub">一般占卜紀錄保留 ${keep} 小時；全能量檢測與帶去預約的占卜會保留下來。</p>
+      <h1 class="h1">我的占卜紀錄</h1><p class="sub">一般占卜會陪你 ${keep} 小時，之後就輕輕收起來；全能量檢測和帶去預約的占卜，會一直幫你留著。</p>
       <div class="blk">${list.length ? list.map(r => {
         const full = r.spread === 'full';
         const th = (full ? [0, 4, 8] : r.cards.map((_, i) => i)).slice(0, 3).map(i => `<img src="${(!full || r.revealed * 4 > i) ? img(r.cards[i]) : IMG + 'back.jpg'}" alt="">`).join('');
         return `<a class="rec" href="#/${full ? 'full' : 'r'}/${encodeURIComponent(r.id)}"><span class="th">${th}</span><span style="min-width:0"><b>${full ? '全能量檢測' : esc(r.question)}</b><small>${full ? `代號 ${esc(r.code)}` : esc((TOPIC[r.topic] || {}).l || '') + '・' + esc(SPREADS[r.spread].n)}</small><small class="num">${esc(U.ts(r.createdAt))}</small></span><span class="r">${st(r)}${ic('right')}</span></a>`;
-      }).join('') : `<div class="empty card"><span class="pearl"></span><b>24 小時內沒有占卜紀錄</b><p style="font-size:13.5px;margin-top:4px">一般占卜紀錄保留 ${keep} 小時。從一個你真正想知道的問題開始。</p><a class="btn pri sm" href="#/ask" style="margin-top:14px">開始占卜</a></div>`}</div>
+      }).join('') : `<div class="empty card"><span class="pearl"></span><b>這 ${keep} 小時裡，還沒有占卜</b><p style="font-size:13.5px;margin-top:4px">想聽聽牌怎麼說的時候，從一個你真正想知道的問題開始就好。</p><a class="btn pri sm" href="#/ask" style="margin-top:14px">開始占卜</a></div>`}</div>
     </div>`, 'records');
   },
 
