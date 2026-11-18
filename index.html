@@ -6,13 +6,13 @@
 <title>Mia 陪伴・Mia Tarot 塔羅療癒</title>
 <meta name="description" content="Mia Tarot：每日一抽、塔羅牌陣與全能量檢測；療癒服務後的陪伴與總結報告。">
 <meta name="theme-color" content="#F5EEDF">
-<meta name="mia-version" content="5.3.0-測試版 1">
+<meta name="mia-version" content="5.3.0-測試版 3">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3CradialGradient id='g' cx='.35' cy='.3' r='.8'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='.45' stop-color='%23C4DAF3'/%3E%3Cstop offset='1' stop-color='%2356709F'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='16' cy='16' r='13' fill='url(%23g)'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;600&family=Cormorant+Garamond:wght@500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap">
 <script>
-/* ===== Mia 陪伴 5.3.0-測試版 1：設定只要改這一段 ===== */
+/* ===== Mia 陪伴 5.3.0-測試版 3：設定只要改這一段 ===== */
 window.MIA_CONFIG = {
   GAS_URL: 'https://script.google.com/macros/s/AKfycbysIRy8D2qUnUsToIvLoIEew-NrcFW7TdZvHi9ZqsMSQUX-SOeNYZ0S8KTefu8HKJO2Ng/exec',   // 和網站 A 相同的 Apps Script 網址
   LINE_LOGIN_CHANNEL_ID: '2012624805',                           // 和網站 A 相同的 LINE Login Channel ID
@@ -464,6 +464,20 @@ button.hm-card{cursor:pointer}
 .hm-care small{font-size:12.5px;color:var(--muted)}
 .hm-care .cm-dot{width:30px;height:30px}
 .hm-care > svg,.hm-care > .i{width:18px;height:18px;flex:none;color:var(--soft)}
+/* ===== 11.18 結果頁：療癒金句（純文字）・跳轉 AI（文字連結）・占卜過程的牌不跳長按選單 ===== */
+.overall .rd-quote{margin:18px 0 0;text-align:center}
+.rd-quote .orn{display:flex;align-items:center;justify-content:center;gap:10px;color:var(--gold);font-size:10px}
+.rd-quote .orn i{display:block;flex:1;max-width:90px;height:1px;background:linear-gradient(90deg,transparent,#D9C9A8)}
+.rd-quote .orn i:last-child{background:linear-gradient(90deg,#D9C9A8,transparent)}
+.rd-quote blockquote{margin:12px 0 4px;font-family:var(--serif);font-weight:500;font-size:17px;line-height:1.9;letter-spacing:.06em;color:#4A3A28}
+.rd-quote small{display:block;font-size:11px;letter-spacing:.24em;color:#A69780}
+.overall .rd-quote + .gen{margin-top:16px;text-align:center}
+.ai-go{text-align:center;font-size:13px;color:var(--muted);line-height:2;margin:10px 0 0}
+.ai-go a{color:#1F3D78;font-weight:700;text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:4px;padding:2px 2px}
+.ai-go span{color:var(--soft);margin:0 4px}
+.deck,.deck img,.fan,.fan button,.fan img,.tc,.tc img,.slot{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;-webkit-user-drag:none}
+.ai-go small{font-size:12px;color:var(--soft)}
+.ai-go a{font-size:14.5px}
 
 </style>
 </head>
@@ -735,6 +749,15 @@ function tarotAiPrompt(r, cards) {
 function tarotAddWorkdays(d, n) { const x = new Date(d.getTime()); let k = 0; while (k < n) { x.setDate(x.getDate() + 1); const w = x.getDay(); if (w !== 0 && w !== 6) k++; } return x; }
 /* 每天占卜次數（全能量檢測與每日一抽不算在內；Mia 2026.11.16：所有牌陣合計 5 次，不再限制同主題同牌陣） */
 const TAROT_DAILY_MAX = 5;
+
+/* 療癒金句 100 句（Mia 提供，2026.11.18）：[主題, 內容] */
+const HEAL_QUOTES = [["自我接納", "你不必先變得完美，才值得被好好對待。"], ["自我接納", "今天的你，也可以用今天的速度前進。"], ["自我接納", "你正在學習的樣子，也值得被肯定。"], ["自我接納", "不必把每一個感受都解釋清楚，先承認它存在就好。"], ["自我接納", "你可以有還沒準備好的時候，這不會抹去你的能力。"], ["自我接納", "允許自己重新開始，是一種溫柔的勇敢。"], ["自我接納", "你不是只能在表現好的時候，才值得喜歡自己。"], ["自我接納", "每一次願意聽聽自己，都讓你更靠近自己。"], ["自我接納", "沒有做到全部，也不代表你什麼都沒做到。"], ["自我接納", "你可以不急著成為誰，先成為此刻的自己。"], ["自我接納", "慢一點也沒關係，重要的是你沒有放棄照顧自己。"], ["自我接納", "你有權利改變想法，也有權利保留原來的選擇。"], ["自我接納", "疲憊不是失敗的證明，它只是提醒你需要休息。"], ["自我接納", "你不需要用責怪自己，來證明你很努力。"], ["自我接納", "把今天過完，就已經是一份真實的努力。"], ["自我接納", "你可以一邊害怕，一邊替自己留一小步。"], ["自我接納", "沒有標準答案的日子，也能慢慢走出自己的方向。"], ["自我接納", "請把你給別人的體諒，也分一點給自己。"], ["自我接納", "你不必把所有事情都處理好，才配得上安穩。"], ["自我接納", "此刻的你，已經值得一個不帶條件的擁抱。"], ["情緒照顧", "情緒不是麻煩，它是在告訴你有些事很重要。"], ["情緒照顧", "你可以先感受，再決定要怎麼回應。"], ["情緒照顧", "心裡有點亂時，不必急著做出一生的決定。"], ["情緒照顧", "難過可以有位置，不必立刻被趕走。"], ["情緒照顧", "今天不太有精神，也不會讓你失去前進的可能。"], ["情緒照顧", "你可以對自己的不舒服保持好奇，而不是立刻責備。"], ["情緒照顧", "先讓呼吸慢下來，答案可以稍後再找。"], ["情緒照顧", "感到失望，表示你曾經真心期待。"], ["情緒照顧", "不必假裝沒事，才能讓身邊的人安心。"], ["情緒照顧", "有些感受需要陪伴，不需要被修理。"], ["情緒照顧", "今天的心情只是今天的一部分，不是你的全部。"], ["情緒照顧", "你可以讓眼淚停留一會兒，再慢慢擦乾。"], ["情緒照顧", "覺得卡住時，先找一件能讓身體舒服一點的小事。"], ["情緒照顧", "不用把每個低潮都變成成長作業。"], ["情緒照顧", "心累的時候，少做一件事也算照顧。"], ["情緒照顧", "你可以有情緒，也可以選擇不讓情緒替你做決定。"], ["情緒照顧", "一時說不清楚，不代表你的感受不重要。"], ["情緒照顧", "把心情說出來一點點，也是一種整理。"], ["情緒照顧", "你不需要在每個人面前都維持同一種樣子。"], ["情緒照顧", "在覺得自己不夠好時，先別急著相信那個念頭。"], ["界線與關係", "善良可以有界線，溫柔也可以說不。"], ["界線與關係", "拒絕一件事，不等於拒絕一個人。"], ["界線與關係", "你可以在乎別人，也不必忽略自己的需要。"], ["界線與關係", "清楚說出期待，能讓關係少一些猜測。"], ["界線與關係", "不是每一份沉默，都需要由你來填滿。"], ["界線與關係", "你有權利先想一想，再回答別人的請求。"], ["界線與關係", "真正的靠近，不需要你一直縮小自己。"], ["界線與關係", "當你說出不舒服，並不是在製造問題，而是在讓問題被看見。"], ["界線與關係", "別人的失望，不必自動變成你的責任。"], ["界線與關係", "你可以停止一段讓自己一直受傷的對話。"], ["界線與關係", "關係裡的理解，可以從一次坦白的表達開始。"], ["界線與關係", "你不必靠過度付出，換取被留下的資格。"], ["界線與關係", "說明自己的界線，是讓相處更清楚的一種方式。"], ["界線與關係", "你可以珍惜一個人，也同時保護自己的心。"], ["界線與關係", "不是你一個人努力，關係才有機會變好。"], ["界線與關係", "願意溝通很珍貴，願意聆聽也同樣重要。"], ["界線與關係", "你可以把注意力放回願意回應你的人身上。"], ["界線與關係", "不必因為怕尷尬，就答應超出能力的事情。"], ["界線與關係", "有些關係需要多一點距離，才能看清彼此。"], ["界線與關係", "你的需要不是負擔，它是認識你的入口。"], ["行動與成長", "第一步不必很大，只要小到你願意開始。"], ["行動與成長", "你可以先做五分鐘，讓開始變得沒有那麼難。"], ["行動與成長", "不用等到完全有信心，才開始嘗試。"], ["行動與成長", "每一次微小的選擇，都在練習相信自己。"], ["行動與成長", "你走過的路，正在悄悄成為你的底氣。"], ["行動與成長", "一次沒成功，只告訴你這個方法還能調整。"], ["行動與成長", "不確定時，可以先收集一點資訊，再往前一步。"], ["行動與成長", "你不需要看見整條路，先看見下一步就好。"], ["行動與成長", "試著做一次，會比在心裡責怪自己更有幫助。"], ["行動與成長", "現在開始，依然算數。"], ["行動與成長", "新的習慣，常從一個不勉強的小動作開始。"], ["行動與成長", "做得不熟練，只是正在熟悉的路上。"], ["行動與成長", "你可以調整目標，讓它更適合真實的生活。"], ["行動與成長", "不必一次證明自己，只要累積下一次的經驗。"], ["行動與成長", "方向可以邊走邊確認，不必先把一切想透。"], ["行動與成長", "一次暫停不會取消你已經走過的距離。"], ["行動與成長", "你正在建立的，不只是成果，也是和自己的信任。"], ["行動與成長", "今天的選擇，可以比昨天更貼近你的需要。"], ["行動與成長", "成長不一定轟轟烈烈，有時是少責怪自己一句。"], ["行動與成長", "你可以把大目標拆小，再把小目標做得踏實。"], ["休息與希望", "休息不是離開人生，而是重新回到自己的身邊。"], ["休息與希望", "你可以先放下手邊的事，讓身體追上你的步伐。"], ["休息與希望", "平靜不必很盛大，也可能是一口舒服的呼吸。"], ["休息與希望", "有些答案會在你不再逼問自己的時候浮現。"], ["休息與希望", "平凡的一天，也可以有值得珍惜的小亮光。"], ["休息與希望", "你正在走過的，不會是你永遠停留的地方。"], ["休息與希望", "明天不必現在就安排好，先照顧眼前的自己。"], ["休息與希望", "就算今天很普通，你仍然可以為自己留一點喜歡。"], ["休息與希望", "生命有自己的季節，暫時安靜也在其中。"], ["休息與希望", "讓自己喘口氣，並不會讓希望離你更遠。"], ["休息與希望", "小小的愉快，也值得被認真收藏。"], ["休息與希望", "有時候，最好的進展是允許自己停一下。"], ["休息與希望", "天色會變，心情也會慢慢有新的空間。"], ["休息與希望", "你可以期待好事，也不必逼自己立刻樂觀。"], ["休息與希望", "給自己一點時間，讓新的可能慢慢靠近。"], ["休息與希望", "今天已經很努力了，接下來可以讓自己歇一歇。"], ["休息與希望", "你不必跑贏任何人，才算走在自己的路上。"], ["休息與希望", "小小的光，也能陪你看清下一步。"], ["休息與希望", "你仍然可以在生活裡，遇見讓心柔軟的事。"], ["休息與希望", "請記得，你也可以成為自己安心停靠的地方。"]];
+/* 同一筆占卜固定同一句：用占卜編號算出一個位置 */
+function healQuote(id) { let h = 0; String(id || '').split('').forEach(c => { h = (h * 31 + c.charCodeAt(0)) >>> 0; }); return HEAL_QUOTES[h % HEAL_QUOTES.length][1]; }
+function healQuoteTopic(id) { const t = healQuote(id); return (HEAL_QUOTES.find(x => x[1] === t) || [''])[0]; }
+/* 長句在最接近中間的逗號後換行（回傳每一行） */
+function healQuoteLines(t, max) { if (t.length <= (max || 15)) return [t]; let best = -1; [...t].forEach((c, i) => { if ('，、；：'.includes(c) && i < t.length - 2 && (best < 0 || Math.abs(i - t.length / 2) < Math.abs(best - t.length / 2))) best = i; }); return best < 0 ? [t] : [t.slice(0, best + 1), t.slice(best + 1)]; }
+
 
 /* ===== 共用小工具（正式版與展示版都需要） ===== */
 const TZ = 'Asia/Taipei', WD = '日一二三四五六';
@@ -1015,6 +1038,9 @@ function copyText(t, msg) {
   try { navigator.clipboard.writeText(t).then(done, fb); } catch (e) { fb(); }
 }
 const tc = (id, open, cls) => `<div class="tc ${open ? 'on' : ''} ${cls || ''}"><div class="in"><img class="bk" src="${IMG}back.jpg" alt="" draggable="false"><img class="fr" src="${id ? img(id) : IMG + 'back.jpg'}" alt="${id && open ? esc(card(id).n) : '牌背'}" loading="lazy" draggable="false"></div></div>`;
+/* 金句斷行：在逗號後換行，讀起來比較有節奏 */
+const quoteLines = q => String(q).split(/(?<=，)/).filter(Boolean);
+const AI_SITES = [{ k: 'claude', l: 'Claude', u: 'https://claude.ai/new' }, { k: 'chatgpt', l: 'ChatGPT', u: 'https://chatgpt.com/' }, { k: 'gemini', l: 'Gemini', u: 'https://gemini.google.com/app' }];
 const lineOA = () => CFG.LINE_OA_ID ? 'https://line.me/R/ti/p/' + encodeURIComponent(CFG.LINE_OA_ID) : '';
 /* 預約療癒：主平台的塔羅專屬入口（後台「入口與來源」的 tarot），r = 這次的占卜編號 */
 const bookUrl = id => MAIN + '?src=tarot#/go/tarot' + (id ? '?r=' + encodeURIComponent(id) : '');
@@ -1257,6 +1283,7 @@ const Pages = {
       <div class="draw-acts" data-acts><button class="btn pri" data-spread>洗好了，展開牌</button></div>
     </div>`, '', r => {
       const stage = $('[data-stage]', r), deck = $('[data-deck]', r), hint = $('[data-hint]', r), acts = $('[data-acts]', r);
+      stage.addEventListener('contextmenu', e => e.preventDefault());   /* 長按洗牌時不跳出存圖片／分享選單 */
       let timer = null, mixed = 0;
       const mix = () => { $$('img', deck).forEach(im => { im.style.transform = `translate(${(Math.random() - .5) * 140}px,${(Math.random() - .5) * 70}px) rotate(${(Math.random() - .5) * 50}deg)`; }); mixed++; };
       const gather = () => { $$('img', deck).forEach((im, i) => { im.style.transform = `translate(${i * .6}px,${-i * .6}px)`; }); };
@@ -1319,10 +1346,9 @@ const Pages = {
     const opened = new Set(rd.revealed ? cs.map((_, i) => i) : []);
     const plan = (App.home || {}).plan;
     const done = () => opened.size >= N;
-    const detail = () => `<section class="card overall blk"><h2 class="h2">${ic('spark')}整體訊息</h2><p>${esc(tarotOverall(cs, rd.spread, rd))}</p><p class="gen">依這次 ${N} 張牌的組合產生</p></section>
-      <section class="card blk"><h2 class="h2" style="margin-bottom:6px">完整解讀</h2>${sp.pos.map((p, i) => `<div class="rd-item">${tc(rd.cards[i], true, 'flat')}<div><h3>${esc(tarotPosLabel(p, rd))}・${esc(cs[i].n)}</h3><p class="kw">${esc(cs[i].kw)}</p><p>${esc(tarotLine(cs[i], p, rd))}</p></div></div>`).join('')}</section>
-      <section class="card blk heal-sum"><h2 class="h2">${ic('heart')}療癒小總結</h2><p>${esc(tarotHealSummary(cs, rd.spread))}</p></section>
+    const detail = () => `<section class="card overall blk"><h2 class="h2">${ic('spark')}整體訊息</h2><p>${esc(tarotOverall(cs, rd.spread, rd))}</p><div class="rd-quote"><span class="orn" aria-hidden="true"><i></i>✦<i></i></span><blockquote>${quoteLines(healQuote(rd.id)).map(esc).join('<br>')}</blockquote><small>${esc(healQuoteTopic(rd.id))}</small></div><p class="gen">依這次 ${N} 張牌的組合產生</p></section>
       <div class="btns blk"><button class="btn sec" data-ai style="flex:1">${ic('copy')}複製給 AI 深入解讀</button><button class="btn sec" data-share style="flex:1">${ic('share')}分享圖片</button></div>
+      <p class="ai-go"><small>用 AI 深入解讀・複製後直接打開，貼上就能開始</small><br>${AI_SITES.map(x => `<a href="${x.u}" target="_blank" rel="noopener" data-aigo="${x.k}">${x.l}</a>`).join('<span>・</span>')}</p>
       <p class="disc">本站占卜不使用逆位・占卜內容僅供自我探索參考，不取代醫療、法律或財務等專業建議。</p>
       <section class="card cta blk"><h2>想更深入看見卡住你的原因嗎？</h2><p>帶著這次的占卜，和 Mia 用一次引導冥想，把牌面的訊息轉成你能走出的下一步。</p>
         ${plan ? `<div class="plan"><b>${esc(plan.name)}</b><small>${esc(plan.sub || '')}</small><div class="price">${plan.orig ? `<s class="num">${U.money(plan.orig)}</s>` : ''}<strong class="num">${U.money(plan.price)}</strong></div><small>預約時先付訂金 <span class="num">${U.money(plan.deposit)}</span>・占卜結果會自動帶入</small></div>` : '<div style="height:12px"></div>'}
@@ -1340,6 +1366,7 @@ const Pages = {
     </div>`, 'records', r => {
       const bindDetail = () => {
         const ai = $('[data-ai]', r); if (ai) ai.addEventListener('click', () => copyText(tarotAiPrompt(rd, cs), '已複製，貼到你常用的 AI 就能深入解讀'));
+        $$('[data-aigo]', r).forEach(x => x.addEventListener('click', () => copyText(tarotAiPrompt(rd, cs), `已複製，到 ${x.textContent} 長按輸入框貼上就能開始`)));
         const sh = $('[data-share]', r); if (sh) sh.addEventListener('click', () => shareImage(rd, cs));
       };
       const flip = i => {
@@ -1352,6 +1379,7 @@ const Pages = {
         }
       };
       $$('[data-i]', r).forEach(b => b.addEventListener('click', () => flip(+b.dataset.i)));
+      $$('.res', r).forEach(x => x.addEventListener('contextmenu', e => e.preventDefault()));
       const all = $('[data-all]', r); if (all) all.addEventListener('click', () => cs.forEach((_, i) => setTimeout(() => flip(i), i * 220)));
       bindDetail();
     });
@@ -1612,19 +1640,32 @@ async function shareImage(rd, cs) {
     const gr = g.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, '#F5EEDF'); gr.addColorStop(.45, '#F1EFE9'); gr.addColorStop(1, '#DCE8F6'); g.fillStyle = gr; g.fillRect(0, 0, W, H);
     const load = src => new Promise((ok, no) => { const im = new Image(); im.onload = () => ok(im); im.onerror = no; im.src = src; });
     const ims = await Promise.all(rd.cards.map(id => load(img(id))));
+    try { await Promise.all(['500 38px "Noto Serif TC"', 'italic 500 30px "Cormorant Garamond"', '600 64px "Cormorant Garamond"'].map(f => document.fonts.load(f, healQuote(rd.id) + 'Mia Tarot words'))); } catch (e) { }
     const sp = SPREADS[rd.spread], n = ims.length;
     g.textAlign = 'center'; g.fillStyle = '#5A4632'; g.font = '600 64px "Cormorant Garamond", serif'; g.fillText('Mia Tarot', W / 2, 120);
     g.font = '500 38px "Noto Serif TC", serif'; g.fillText(sp.n, W / 2, 190);
     g.fillStyle = '#7D7466'; g.font = '30px "Noto Sans TC", sans-serif';
     const q = rd.question.length > 30 ? rd.question.slice(0, 29) + '…' : rd.question; g.fillText(q, W / 2, 245);
-    const cw = n === 1 ? 380 : n === 3 ? 280 : 180, ch = cw * 820 / 480, gap = n === 5 ? 18 : 36, total = n * cw + (n - 1) * gap, y = n === 1 ? 320 : 400;
+    g.fillStyle = '#A69780'; g.font = '24px "Noto Sans TC", sans-serif'; g.fillText(String(rd.createdAt || '').slice(0, 10).replace(/-/g, '.'), W / 2, 290);
+    const cw = n === 1 ? 300 : n === 3 ? 260 : 180, ch = cw * 820 / 480, gap = n === 5 ? 18 : 36, total = n * cw + (n - 1) * gap, y = n === 1 ? 330 : 345;
     ims.forEach((im, i) => {
       const x = (W - total) / 2 + i * (cw + gap);
       g.save(); g.shadowColor = 'rgba(60,40,20,.35)'; g.shadowBlur = 24; g.shadowOffsetY = 10; g.drawImage(im, x, y, cw, ch); g.restore();
       g.fillStyle = '#7A5A36'; g.font = `500 ${n === 5 ? 24 : 30}px "Noto Sans TC", sans-serif`; g.fillText(sp.pos[i].l.replace(/ /g, ''), x + cw / 2, y + ch + 46);
       g.fillStyle = '#33384F'; g.fillText(cs[i].n, x + cw / 2, y + ch + (n === 5 ? 80 : 90));
     });
-    g.fillStyle = '#5D6B85'; g.font = '26px "Noto Sans TC", sans-serif'; g.fillText('本站占卜不使用逆位・僅供自我探索參考', W / 2, H - 70);
+    /* 療癒金句（設計稿 23）：和網頁一致，金色細線＋星芒・明體金句・主題小字 */
+    const sp2 = (px) => { try { g.letterSpacing = px; } catch (e) { } };
+    g.font = '500 38px "Noto Serif TC", serif'; sp2('4px');
+    const qLines = []; quoteLines(healQuote(rd.id)).forEach(part => { let ln = ''; for (const ch of part) { if (g.measureText(ln + ch).width > 760 && ln) { qLines.push(ln); ln = ''; } ln += ch; } if (ln) qLines.push(ln); });
+    const LH = 64, topicY = H - 128, lastY = topicY - 58, firstY = lastY - (qLines.length - 1) * LH, ornY = firstY - 74;
+    const line = (x1, x2, fromGold) => { const lg = g.createLinearGradient(x1, 0, x2, 0); lg.addColorStop(0, fromGold ? 'rgba(201,163,90,.9)' : 'rgba(201,163,90,0)'); lg.addColorStop(1, fromGold ? 'rgba(201,163,90,0)' : 'rgba(201,163,90,.9)'); g.fillStyle = lg; g.fillRect(x1, ornY - 1, x2 - x1, 2); };
+    line(W / 2 - 170, W / 2 - 26, false); line(W / 2 + 26, W / 2 + 170, true);
+    sp2('0px'); g.fillStyle = '#C9A35A'; g.font = '24px "Noto Sans TC", sans-serif'; g.textBaseline = 'middle'; g.fillText('✦', W / 2, ornY); g.textBaseline = 'alphabetic';
+    sp2('4px'); g.fillStyle = '#4A3A28'; g.font = '500 38px "Noto Serif TC", serif';
+    qLines.forEach((l, i) => g.fillText(l, W / 2 + 2, firstY + i * LH));
+    sp2('6px'); g.fillStyle = '#A69780'; g.font = '22px "Noto Sans TC", sans-serif'; g.fillText(healQuoteTopic(rd.id), W / 2 + 3, topicY);
+    sp2('0px'); g.fillStyle = '#5D6B85'; g.font = '24px "Noto Sans TC", sans-serif'; g.fillText('本站占卜不使用逆位・僅供自我探索參考', W / 2, H - 52);
     const blob = await new Promise(ok => cv.toBlob(ok, 'image/png'));
     const file = new File([blob], 'mia-tarot.png', { type: 'image/png' });
     if (navigator.canShare && navigator.canShare({ files: [file] })) { try { await navigator.share({ files: [file], title: 'Mia Tarot' }); return; } catch (e) { if (e && e.name === 'AbortError') return; } }
