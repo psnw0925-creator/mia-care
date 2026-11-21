@@ -6,13 +6,13 @@
 <title>Mia 陪伴・Mia Tarot 塔羅療癒</title>
 <meta name="description" content="Mia Tarot：每日一抽、塔羅牌陣與全能量檢測；療癒服務後的陪伴與總結報告。">
 <meta name="theme-color" content="#F5EEDF">
-<meta name="mia-version" content="5.3.0-測試版 3">
+<meta name="mia-version" content="5.3.0-測試版 4">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3CradialGradient id='g' cx='.35' cy='.3' r='.8'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='.45' stop-color='%23C4DAF3'/%3E%3Cstop offset='1' stop-color='%2356709F'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='16' cy='16' r='13' fill='url(%23g)'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap">
 <script>
-/* ===== Mia 陪伴 5.3.0-測試版 3：設定只要改這一段 ===== */
+/* ===== Mia 陪伴 5.3.0-測試版 4：設定只要改這一段 ===== */
 window.MIA_CONFIG = {
   GAS_URL: 'https://script.google.com/macros/s/AKfycbysIRy8D2qUnUsToIvLoIEew-NrcFW7TdZvHi9ZqsMSQUX-SOeNYZ0S8KTefu8HKJO2Ng/exec',   // 和網站 A 相同的 Apps Script 網址
   LINE_LOGIN_CHANNEL_ID: '2012624805',                           // 和網站 A 相同的 LINE Login Channel ID
@@ -108,7 +108,7 @@ h1,h2,h3{font-family:var(--serif);color:var(--brown);font-weight:600;line-height
 
 /* tarot card */
 .tc{position:relative;aspect-ratio:480/820;perspective:900px;width:100%}
-.tc .in{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.3,.7,.2,1)}
+.tc .in{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .48s cubic-bezier(.3,.7,.2,1)}
 .tc.on .in{transform:rotateY(180deg)}
 .tc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:7%/4.2%;backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:0 1px 2px rgba(60,40,20,.15),0 8px 18px -10px rgba(60,40,20,.5);background:#efe6d3}
 .tc .fr{transform:rotateY(180deg)}
@@ -1041,6 +1041,8 @@ const tc = (id, open, cls) => `<div class="tc ${open ? 'on' : ''} ${cls || ''}">
 /* 金句斷行：在逗號後換行，讀起來比較有節奏 */
 const quoteLines = q => String(q).split(/(?<=，)/).filter(Boolean);
 const AI_SITES = [{ k: 'claude', l: 'Claude', u: 'https://claude.ai/new' }, { k: 'chatgpt', l: 'ChatGPT', u: 'https://chatgpt.com/' }, { k: 'gemini', l: 'Gemini', u: 'https://gemini.google.com/app' }];
+/* 先把牌圖下載到瀏覽器，翻牌時牌面立刻出現 */
+const _pre = {}; function preloadCards(ids) { (ids || []).forEach(id => { if (!id || _pre[id]) return; const im = new Image(); im.decoding = 'async'; im.src = img(id); _pre[id] = im; }); }
 const lineOA = () => CFG.LINE_OA_ID ? 'https://line.me/R/ti/p/' + encodeURIComponent(CFG.LINE_OA_ID) : '';
 /* 預約療癒：主平台的塔羅專屬入口（後台「入口與來源」的 tarot），r = 這次的占卜編號 */
 const bookUrl = id => MAIN + '?src=tarot#/go/tarot' + (id ? '?r=' + encodeURIComponent(id) : '');
@@ -1187,7 +1189,7 @@ const Pages = {
           const dl = await api.call('tarotDaily', {}); App.home.daily = dl;
           const t = $('button.tc[data-daily]', r); $('.fr', t).src = img(dl.card);
           await new Promise(ok => { const im = $('.fr', t); if (im.complete) ok(); else { im.onload = ok; im.onerror = ok; } });
-          t.classList.add('on'); setTimeout(() => Pages.home(), 900);
+          t.classList.add('on'); setTimeout(() => Pages.home(), 650);
         } catch (e) { errToast(e); $$('[data-daily]', r).forEach(x => x.disabled = false); if (e.code === 'AUTH_REQUIRED') Pages.home(); }
       }));
     });
@@ -1324,8 +1326,11 @@ const Pages = {
         acts.innerHTML = '<div class="busy" style="padding:10px 0"><span class="spin"></span>正在為你整理牌面…</div>';
         try {
           const x = await api.call('tarotStart', { spread: f.spread, topic: f.topic, question: f.question, identity: f.identity, optA: f.optA, optB: f.optB });
-          await App.loadHome();
-          setTimeout(() => App.go('#/r/' + encodeURIComponent(x.reading.id)), 400);
+          /* 加速：抽到的牌圖先下載；結果直接帶到結果頁（不用再問一次後端）；首頁資料在背景更新 */
+          App.lastReading = x.reading; preloadCards(x.reading.cards);
+          if (App.home) App.home.used = (App.home.used || []).concat([{ id: x.reading.id, spread: x.reading.spread, topic: x.reading.topic }]);
+          App.loadHome().catch(() => { });
+          App.go('#/r/' + encodeURIComponent(x.reading.id));
         } catch (e) {
           errToast(e); sending = false;
           if (e.code === 'DAILY_LIMIT') { await App.loadHome(); return App.go('#/spread'); }
@@ -1339,8 +1344,9 @@ const Pages = {
   /* ---------- 結果：翻牌・整體訊息・完整解讀・預約療癒 ---------- */
   async result(id) {
     if (!Session.user()) return App.gate();
-    App.busy('');
-    let rd; try { rd = (await api.call('tarotGetReading', { readingId: id })).reading; } catch (e) { if (e.code === 'NOT_FOUND') return Pages.gone(e.message); errToast(e); return App.go('#/records'); }
+    let rd = App.lastReading && App.lastReading.id === id ? App.lastReading : null;
+    if (!rd) { App.busy(''); try { rd = (await api.call('tarotGetReading', { readingId: id })).reading; } catch (e) { if (e.code === 'NOT_FOUND') return Pages.gone(e.message); errToast(e); return App.go('#/records'); } }
+    preloadCards(rd.cards || []);
     if (rd.spread === 'full') return App.go('#/full/' + encodeURIComponent(rd.id));
     const sp = SPREADS[rd.spread], cs = rd.cards.map(card), N = cs.length;
     const opened = new Set(rd.revealed ? cs.map((_, i) => i) : []);
@@ -1374,13 +1380,13 @@ const Pages = {
         const b = $(`[data-i="${i}"]`, r); b.classList.add('on'); b.closest('.pos').classList.add('open'); b.setAttribute('aria-label', cs[i].n);
         if (done()) {
           $('[data-tip]', r).textContent = ''; const aw = $('[data-allw]', r); if (aw) aw.remove();
-          api.call('tarotReveal', { readingId: rd.id, revealed: 1 }).catch(() => { });
-          setTimeout(() => { $('[data-detail]', r).innerHTML = detail(); bindDetail(); $('[data-detail]', r).scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 800);
+          api.call('tarotReveal', { readingId: rd.id, revealed: 1 }).catch(() => { }); if (App.lastReading && App.lastReading.id === rd.id) App.lastReading.revealed = 1;
+          setTimeout(() => { $('[data-detail]', r).innerHTML = detail(); bindDetail(); $('[data-detail]', r).scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 450);
         }
       };
       $$('[data-i]', r).forEach(b => b.addEventListener('click', () => flip(+b.dataset.i)));
       $$('.res', r).forEach(x => x.addEventListener('contextmenu', e => e.preventDefault()));
-      const all = $('[data-all]', r); if (all) all.addEventListener('click', () => cs.forEach((_, i) => setTimeout(() => flip(i), i * 220)));
+      const all = $('[data-all]', r); if (all) all.addEventListener('click', () => cs.forEach((_, i) => setTimeout(() => flip(i), i * 140)));
       bindDetail();
     });
   },
@@ -1571,8 +1577,9 @@ const Pages = {
     App.busy('');
     let rd; try { rd = (await api.call('tarotGetReading', { readingId: id })).reading; } catch (e) { if (e.code === 'NOT_FOUND') return Pages.gone(e.message); errToast(e); return App.go('#/records'); }
     if (rd.spread !== 'full') return App.go('#/r/' + encodeURIComponent(rd.id));
+    preloadCards(rd.cards || []);
     const P1 = FULL.parts[0].cells.length;
-    let revealed = rd.revealed || 0, part = revealed >= P1 ? 1 : 0, busy = false;
+    let revealed = rd.revealed || 0, part = revealed >= P1 ? 1 : 0, busy = false, saveQ = Promise.resolve();
     const cellAt = i => rd.cards.slice(i * 4, i * 4 + 4);
     const isRep = i => { const m = rd.cards[i * 4]; for (let j = 0; j < i; j++) if (rd.cards[j * 4] === m && j < revealed) return true; return false; };
     const kind = CODE_KINDS[rd.codeKind] || CODE_KINDS.paid;
@@ -1600,13 +1607,14 @@ const Pages = {
       for (let i = revealed; i < target; i++) {
         const el = $(`[data-cell="${i}"]`, r); if (!el) continue;
         el.classList.remove('next'); const b = $('[data-flip]', el); if (b) b.remove();
-        $$('.tc', el).forEach((t, j) => setTimeout(() => t.classList.add('on'), j * 160));
-        await new Promise(ok => setTimeout(ok, 800));
+        $$('.tc', el).forEach((t, j) => setTimeout(() => t.classList.add('on'), j * 110));
+        await new Promise(ok => setTimeout(ok, 560));
       }
       revealed = target;
-      try { rd = (await api.call('tarotReveal', { readingId: rd.id, revealed })).reading; } catch (e) { errToast(e); }
+      /* 加速：翻完立刻往下，進度在背景存到後端（依序存，不會亂） */
+      const save = saveQ = saveQ.then(() => api.call('tarotReveal', { readingId: rd.id, revealed: target })).then(x => { if (x && x.reading) rd = Object.assign(x.reading, { revealed: Math.max(x.reading.revealed || 0, revealed) }); }).catch(e => errToast(e));
       busy = false;
-      if (revealed >= FULL_CELLS) { await App.loadHome(); }
+      if (revealed >= FULL_CELLS) { await save; App.loadHome().catch(() => { }); }
       render();
     };
     const summary = () => {
