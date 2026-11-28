@@ -1402,7 +1402,7 @@ const Pages = {
         if (done()) {
           $('[data-tip]', r).textContent = ''; const aw = $('[data-allw]', r); if (aw) aw.remove();
           api.call('tarotReveal', { readingId: rd.id, revealed: 1 }).catch(() => { }); if (App.lastReading && App.lastReading.id === rd.id) App.lastReading.revealed = 1;
-          setTimeout(() => { $('[data-detail]', r).innerHTML = detail(); bindDetail(); $('[data-detail]', r).scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 450);
+          setTimeout(() => { $('[data-detail]', r).innerHTML = detail(); bindDetail(); }, 450);
         }
       };
       $$('[data-i]', r).forEach(b => b.addEventListener('click', () => flip(+b.dataset.i)));
