@@ -494,6 +494,9 @@ button.hm-card{cursor:pointer}
 .rd-solo:after{display:none}
 .ai-box{background:#fff;border:1px solid var(--line2,#E8E0CF);border-radius:18px;padding:16px 16px 10px;box-shadow:0 6px 18px -12px rgba(31,61,120,.35)}
 .ai-box .ai-go{margin-top:8px}
+/* 11.28 AI 區塊在上、金句小卡在下 */
+.ai-box + .c{margin-top:6px}
+.c + .rd-solo{margin-top:16px}
 
 </style>
 </head>
@@ -1369,10 +1372,10 @@ const Pages = {
     const opened = new Set(rd.revealed ? cs.map((_, i) => i) : []);
     const plan = (App.home || {}).plan;
     const done = () => opened.size >= N;
-    const detail = () => `<section class="card overall rd-solo blk"><p class="eyebrow">牌想對你說</p><div class="rd-quote"><span class="orn" aria-hidden="true"><i></i>✦<i></i></span><blockquote>${quoteLines(healQuote(rd.id)).map(esc).join('<br>')}</blockquote><small>${esc(healQuoteTopic(rd.id))}</small></div></section>
-      <div class="ai-box blk"><button class="btn pri full" data-ai>${ic('copy')}複製給 AI 深入解讀</button>
+    const detail = () => `<div class="ai-box blk"><button class="btn pri full" data-ai>${ic('copy')}複製給 AI 深入解讀</button>
       <p class="ai-go"><small>複製後直接打開，貼上就能開始</small><br>${AI_SITES.map(x => `<a href="${x.u}" target="_blank" rel="noopener" data-aigo="${x.k}">${x.l}</a>`).join('<span>・</span>')}</p></div>
       <div class="c"><button class="btn ghost sm" data-share>${ic('share')}分享圖片</button></div>
+      <section class="card overall rd-solo blk"><p class="eyebrow">牌想對你說</p><div class="rd-quote"><span class="orn" aria-hidden="true"><i></i>✦<i></i></span><blockquote>${quoteLines(healQuote(rd.id)).map(esc).join('<br>')}</blockquote><small>${esc(healQuoteTopic(rd.id))}</small></div></section>
       <p class="disc">本站占卜不使用逆位・占卜內容僅供自我探索參考，不取代醫療、法律或財務等專業建議。</p>
       <section class="card cta blk"><h2>想更深入看見卡住你的原因嗎？</h2><p>帶著這次的占卜，和 Mia 用一次引導冥想，把牌面的訊息轉成你能走出的下一步。</p>
         ${plan ? `<div class="plan"><b>${esc(plan.name)}</b><small>${esc(plan.sub || '')}</small><div class="price">${plan.orig ? `<s class="num">${U.money(plan.orig)}</s>` : ''}<strong class="num">${U.money(plan.price)}</strong></div><small>預約時先付訂金 <span class="num">${U.money(plan.deposit)}</span>・占卜結果會自動帶入</small></div>` : '<div style="height:12px"></div>'}
