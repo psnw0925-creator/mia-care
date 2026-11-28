@@ -6,13 +6,13 @@
 <title>Mia 陪伴・Mia Tarot 塔羅療癒</title>
 <meta name="description" content="Mia Tarot：每日一抽、塔羅牌陣與全能量檢測；療癒服務後的陪伴與總結報告。">
 <meta name="theme-color" content="#F5EEDF">
-<meta name="mia-version" content="5.3.0-測試版 4">
+<meta name="mia-version" content="5.3.0-測試版 5">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3CradialGradient id='g' cx='.35' cy='.3' r='.8'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='.45' stop-color='%23C4DAF3'/%3E%3Cstop offset='1' stop-color='%2356709F'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='16' cy='16' r='13' fill='url(%23g)'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap">
 <script>
-/* ===== Mia 陪伴 5.3.0-測試版 4：設定只要改這一段 ===== */
+/* ===== Mia 陪伴 5.3.0-測試版 5：設定只要改這一段 ===== */
 window.MIA_CONFIG = {
   GAS_URL: 'https://script.google.com/macros/s/AKfycbysIRy8D2qUnUsToIvLoIEew-NrcFW7TdZvHi9ZqsMSQUX-SOeNYZ0S8KTefu8HKJO2Ng/exec',   // 和網站 A 相同的 Apps Script 網址
   LINE_LOGIN_CHANNEL_ID: '2012624805',                           // 和網站 A 相同的 LINE Login Channel ID
@@ -478,6 +478,22 @@ button.hm-card{cursor:pointer}
 .deck,.deck img,.fan,.fan button,.fan img,.tc,.tc img,.slot{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;-webkit-user-drag:none}
 .ai-go small{font-size:12px;color:var(--soft)}
 .ai-go a{font-size:14.5px}
+/* 11.26 結果頁：不顯示整體訊息，只留一句療癒金句（置中，作為翻牌後的主角） */
+.rd-solo{text-align:center;padding:26px 20px 24px}
+.rd-solo .eyebrow{margin:0;letter-spacing:.22em}
+.rd-solo .rd-quote{margin-top:14px}
+.rd-solo .rd-quote .orn{display:none}
+.rd-solo .rd-quote blockquote{margin:0 0 10px;font-size:19px;line-height:1.95}
+.rd-solo:after{content:"✦";display:block;margin-top:14px;color:var(--gold);font-size:11px;opacity:.8}
+/* 11.26 金句縮小、焦點放在「複製給 AI 深入解讀」 */
+.rd-solo{padding:16px 18px 14px}
+.rd-solo .eyebrow{font-size:10.5px}
+.rd-solo .rd-quote{margin-top:8px}
+.rd-solo .rd-quote blockquote{font-size:15.5px;line-height:1.85;margin:0 0 4px}
+.rd-solo .rd-quote small{font-size:10.5px}
+.rd-solo:after{display:none}
+.ai-box{background:#fff;border:1px solid var(--line2,#E8E0CF);border-radius:18px;padding:16px 16px 10px;box-shadow:0 6px 18px -12px rgba(31,61,120,.35)}
+.ai-box .ai-go{margin-top:8px}
 
 </style>
 </head>
@@ -1040,6 +1056,8 @@ function copyText(t, msg) {
 const tc = (id, open, cls) => `<div class="tc ${open ? 'on' : ''} ${cls || ''}"><div class="in"><img class="bk" src="${IMG}back.jpg" alt="" draggable="false"><img class="fr" src="${id ? img(id) : IMG + 'back.jpg'}" alt="${id && open ? esc(card(id).n) : '牌背'}" loading="lazy" draggable="false"></div></div>`;
 /* 金句斷行：在逗號後換行，讀起來比較有節奏 */
 const quoteLines = q => String(q).split(/(?<=，)/).filter(Boolean);
+/* 沒寫問題時，用主題帶一句（紀錄、AI 指令、分享圖片都會用到） */
+const defaultQuestion = t => t === 'other' || !TOPIC[t] ? '想聽聽牌此刻想對我說什麼' : `關於${TOPIC[t].l}，想聽聽牌怎麼說`;
 const AI_SITES = [{ k: 'claude', l: 'Claude', u: 'https://claude.ai/new' }, { k: 'chatgpt', l: 'ChatGPT', u: 'https://chatgpt.com/' }, { k: 'gemini', l: 'Gemini', u: 'https://gemini.google.com/app' }];
 /* 先把牌圖下載到瀏覽器，翻牌時牌面立刻出現 */
 const _pre = {}; function preloadCards(ids) { (ids || []).forEach(id => { if (!id || _pre[id]) return; const im = new Image(); im.decoding = 'async'; im.src = img(id); _pre[id] = im; }); }
@@ -1204,12 +1222,12 @@ const Pages = {
       <a class="back" href="#/">${ic('left')}首頁</a>
       <h1 class="h1">此刻，你想問什麼？</h1><p class="sub">靜下心，在心裡默念你的問題三次。</p>${leftToday() ? leftHint() : limitCard()}
       <p class="lbl">主題</p><div class="chips" data-topics>${TOPICS.map(t => `<button type="button" class="pick ${t.k === topic ? 'on' : ''}" data-t="${t.k}" aria-pressed="${t.k === topic}">${t.l}</button>`).join('')}</div>
-      <p class="lbl"><label for="q">寫下你的問題</label></p>
-      <div class="ta"><textarea id="q" rows="3" maxlength="200" placeholder="${esc(TOPIC[topic] ? TOPIC[topic].ex[0] : '例如：為什麼我的錢總是留不住？')}">${esc(f.question || '')}</textarea><span class="cnt num"><span data-n>0</span>／200</span></div>
-      <div class="ex" data-exs>${topic ? '<span class="hint" style="margin:3px 4px 0 0">試試這樣問：</span>' + exHtml(topic) : ''}</div>
       <p class="lbl">你目前的身分</p>
       <div class="chips" data-ids>${IDENTITIES.map(t => `<button type="button" class="pick ${t.k === identity ? 'on' : ''}" data-i="${t.k}" aria-pressed="${t.k === identity}">${t.l}</button>`).join('')}</div>
       <p class="hint">解讀會依你的身分調整說法，例如老闆問事業，和上班族問工作，讀法不同。</p>
+      <p class="lbl"><label for="q">寫下你的問題</label> <small>選填</small></p>
+      <div class="ta"><textarea id="q" rows="3" maxlength="200" placeholder="${esc(TOPIC[topic] ? TOPIC[topic].ex[0] : '例如：為什麼我的錢總是留不住？')}">${esc(f.question && f.question !== defaultQuestion(f.topic) ? f.question : '')}</textarea><span class="cnt num"><span data-n>0</span>／200</span></div>
+      <div class="ex" data-exs>${topic ? '<span class="hint" style="margin:3px 4px 0 0">試試這樣問：</span>' + exHtml(topic) : ''}</div>
       <p class="err" data-err hidden></p>
       <button class="btn pri full blk" data-next ${leftToday() ? '' : 'disabled'}>下一步：選擇牌陣</button>
     </div>`, '', r => {
@@ -1228,9 +1246,8 @@ const Pages = {
       $('[data-next]', r).addEventListener('click', () => {
         const q = ta.value.trim();
         if (!topic) { err.textContent = '請先選擇一個主題'; err.hidden = false; return; }
-        if (q.length < 2) { err.textContent = '寫下你的問題，牌才知道要回答什麼'; err.hidden = false; ta.focus(); return; }
         if (!identity) { err.textContent = '請選擇你目前的身分，解讀會更貼近你的情況'; err.hidden = false; $('[data-ids]', r).scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
-        Flow.set({ topic, question: q, identity }); App.go('#/spread');
+        Flow.set({ topic, question: q || defaultQuestion(topic), identity }); App.go('#/spread');
       });
     });
   },
@@ -1352,9 +1369,10 @@ const Pages = {
     const opened = new Set(rd.revealed ? cs.map((_, i) => i) : []);
     const plan = (App.home || {}).plan;
     const done = () => opened.size >= N;
-    const detail = () => `<section class="card overall blk"><h2 class="h2">${ic('spark')}整體訊息</h2><p>${esc(tarotOverall(cs, rd.spread, rd))}</p><div class="rd-quote"><span class="orn" aria-hidden="true"><i></i>✦<i></i></span><blockquote>${quoteLines(healQuote(rd.id)).map(esc).join('<br>')}</blockquote><small>${esc(healQuoteTopic(rd.id))}</small></div><p class="gen">依這次 ${N} 張牌的組合產生</p></section>
-      <div class="btns blk"><button class="btn sec" data-ai style="flex:1">${ic('copy')}複製給 AI 深入解讀</button><button class="btn sec" data-share style="flex:1">${ic('share')}分享圖片</button></div>
-      <p class="ai-go"><small>用 AI 深入解讀・複製後直接打開，貼上就能開始</small><br>${AI_SITES.map(x => `<a href="${x.u}" target="_blank" rel="noopener" data-aigo="${x.k}">${x.l}</a>`).join('<span>・</span>')}</p>
+    const detail = () => `<section class="card overall rd-solo blk"><p class="eyebrow">牌想對你說</p><div class="rd-quote"><span class="orn" aria-hidden="true"><i></i>✦<i></i></span><blockquote>${quoteLines(healQuote(rd.id)).map(esc).join('<br>')}</blockquote><small>${esc(healQuoteTopic(rd.id))}</small></div></section>
+      <div class="ai-box blk"><button class="btn pri full" data-ai>${ic('copy')}複製給 AI 深入解讀</button>
+      <p class="ai-go"><small>複製後直接打開，貼上就能開始</small><br>${AI_SITES.map(x => `<a href="${x.u}" target="_blank" rel="noopener" data-aigo="${x.k}">${x.l}</a>`).join('<span>・</span>')}</p></div>
+      <div class="c"><button class="btn ghost sm" data-share>${ic('share')}分享圖片</button></div>
       <p class="disc">本站占卜不使用逆位・占卜內容僅供自我探索參考，不取代醫療、法律或財務等專業建議。</p>
       <section class="card cta blk"><h2>想更深入看見卡住你的原因嗎？</h2><p>帶著這次的占卜，和 Mia 用一次引導冥想，把牌面的訊息轉成你能走出的下一步。</p>
         ${plan ? `<div class="plan"><b>${esc(plan.name)}</b><small>${esc(plan.sub || '')}</small><div class="price">${plan.orig ? `<s class="num">${U.money(plan.orig)}</s>` : ''}<strong class="num">${U.money(plan.price)}</strong></div><small>預約時先付訂金 <span class="num">${U.money(plan.deposit)}</span>・占卜結果會自動帶入</small></div>` : '<div style="height:12px"></div>'}
